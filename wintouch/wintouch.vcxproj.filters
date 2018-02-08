@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Source Files\general">
+      <UniqueIdentifier>{3ccb8817-2518-4e0c-9962-7049eb618d0a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\general">
+      <UniqueIdentifier>{d2cb4ebc-3a4b-40cd-9c77-95a32536f4b6}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files\general</Filter>
+    </ClCompile>
+    <ClCompile Include="MainWindow.cpp">
+      <Filter>Source Files\general</Filter>
+    </ClCompile>
+    <ClCompile Include="UiInit.cpp">
+      <Filter>Source Files\general</Filter>
+    </ClCompile>
+    <ClCompile Include="Log.cpp">
+      <Filter>Source Files\general</Filter>
+    </ClCompile>
+    <ClCompile Include="FbMessages.cpp">
+      <Filter>Source Files\general</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="MainWindow.h">
+      <Filter>Header Files\general</Filter>
+    </ClInclude>
+    <ClInclude Include="UiInit.h">
+      <Filter>Header Files\general</Filter>
+    </ClInclude>
+    <ClInclude Include="Log.h">
+      <Filter>Header Files\general</Filter>
+    </ClInclude>
+    <ClInclude Include="FbMessages.h">
+      <Filter>Header Files\general</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
