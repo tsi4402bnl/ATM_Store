@@ -1,0 +1,15 @@
+#Sulution Files
+wintouch.sdf
+*.opensdf
+*.suo
+
+.vs/
+
+#Compiles
+Release/
+Debug/
+*Release/
+*Debug/
+
+packages/
+
