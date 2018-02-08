@@ -1,22 +1,29 @@
-# SCS
+# ATM_Store
 
 Download / install  
 git: https://git-scm.com/downloads
 
-Open Git bash
+Create Your Github account
+
+Navigate to https://github.com/tsi4402bnl/ATM_Store
+
+Fork the project
+
+Clone The project: Open Git bash
 Navigate to Folder of Your choice and run command:
 ```
-git clone https://github.com/MikusKaiva/SCS.git
+git clone https://github.com/YourUserName/ATM_Store.git
 ```
-*It will download the project
+* It will download the project
+* replace YourUserName with Your user name 
 
 in git bash navigate to newly created folder:
 ```
-cd SCS
+cd ATM_Store
 ```
 *Git bash will show something like:
 ```
-"*******@************ MINGW64 ~/*******************************************/SCS (master)"
+"*******@************ MINGW64 ~/*******************************************/ATM_Store (master)"
 ```
 
 Create a new branch
