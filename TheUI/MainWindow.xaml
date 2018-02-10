@@ -131,6 +131,11 @@
                         </DataGrid>
                     </Grid>
                 </TabItem>
+                <TabItem Header="TabItem3">
+                    <Grid Background="#FCFAFC" >
+                        
+                    </Grid>
+                </TabItem>
             </TabControl>
         </DockPanel>
     </DockPanel>
