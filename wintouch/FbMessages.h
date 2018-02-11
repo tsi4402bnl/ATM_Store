@@ -42,9 +42,19 @@ protected:
 	virtual int Parse();
 
 private:
-	static const std::string NAME() { return "Name"; }
-	static const std::string PRICE() { return "Price"; }
+	static const std::string NAME;
+	static const std::string CATEGORY;
+	static const std::string DESCRIPTION;
+	static const std::string PRICE;
+	static const std::string QTY_PER_BOX;
+	static const std::string UNITS;
+	static const std::string SUPPLIER_ID;
 
 	std::string name;
-	double price;
+	int			category;
+	std::string description;
+	double		price;
+	int			qtyPerBox;
+	std::string	units;
+	std::string	supplierId;
 };
