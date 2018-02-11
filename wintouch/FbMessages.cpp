@@ -65,7 +65,7 @@ void FbMessage::UnsupportedOperationMessage() const
 FbItemMessage::FbItemMessage(const TheUI::FbEventData& msg)
 	: FbMessage(TableName(), msg)
 	, name()
-	, price(-1)
+	, price(-1.0)
 { }
 
 
@@ -102,7 +102,7 @@ int FbItemMessage::Parse()
 	if (OperationType() == TheUI::Fb_Operations::fb_add || OperationType() == TheUI::Fb_Operations::fb_edit)
 	{
 		if (!isParsed && ParseId(NAME ()) == 0) { name  =      Data()         ; }
-		if (!isParsed && ParseId(PRICE()) == 0) { price = atoi(Data().c_str()); }
+		if (!isParsed && ParseId(PRICE()) == 0) { price = atof(Data().c_str()); }
 	}
 	else if (OperationType() == TheUI::Fb_Operations::fb_delete)
 	{

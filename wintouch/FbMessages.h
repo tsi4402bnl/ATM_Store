@@ -46,5 +46,5 @@ private:
 	static const std::string PRICE() { return "Price"; }
 
 	std::string name;
-	int price;
+	double price;
 };

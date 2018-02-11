@@ -80,7 +80,7 @@ namespace TheUI
                 int i = dgItems.SelectedIndex;
                 string id    = itemProperties[i].Id.Value;
                 string name  = itemProperties[i].Name.Value;
-                int    price = itemProperties[i].Price.Value;
+                double    price = itemProperties[i].Price.Value;
                 //ModifyInFb("items", id, new ItemPropEntryFb(name, price));
                 Log(id + ", " + name + ", " + price.ToString());
             }
@@ -162,7 +162,7 @@ namespace TheUI
     /****************************************************** UI property setters ********************************************************/
 
         // will be called automatically from C++
-        public void AddItemProperties(string id, string name, int price)
+        public void AddItemProperties(string id, string name, double price)
         {
             Dispatcher.Invoke(delegate
             {
@@ -268,6 +268,17 @@ namespace TheUI
         }
     }
 
+    public class ObservableDouble : PropertyChangedBase
+    {
+        double val;
+
+        public double Value
+        {
+            get { return val; }
+            set { val = value; OnPropertyChanged("Value"); }
+        }
+    }
+
     public class LogEntry : PropertyChangedBase
     {
         public string DateTime { get; set; }
@@ -279,33 +290,33 @@ namespace TheUI
     {
         public ItemPropEntry()
         {
-            Init(id: "", name: "", price: -1);
+            Init(id: "", name: "", price: -1.0);
         }
-        public ItemPropEntry(string id, string name, int price)
+        public ItemPropEntry(string id, string name, double price)
         {
             Init(id: id, name: name, price: price);
         }
-        public ItemPropEntry(string name, int price)
+        public ItemPropEntry(string name, double price)
         {
             Init(id: "", name: name, price: price); ;
         }
         public ObservableString Id    { get; set; }
         public ObservableString Name  { get; set; }
-        public ObservableInt    Price { get; set; }
+        public ObservableDouble    Price { get; set; }
 
-        private void Init(string id, string name, int price)
+        private void Init(string id, string name, double price)
         {
             Id    = new ObservableString() { Value = id    };
             Name  = new ObservableString() { Value = name  };
-            Price = new ObservableInt()    { Value = price };
+            Price = new ObservableDouble() { Value = price };
         }
     }
 
     public class ItemPropEntryFb // for Fb class is not allowed to contain subClasses, keep it clean
     {
-        public ItemPropEntryFb(string name, int price) { Name = name; Price = price; }
+        public ItemPropEntryFb(string name, double price) { Name = name; Price = price; }
         public string Name { get; set; }
-        public int Price { get; set; }
+        public double Price { get; set; }
     }
 
     public enum Fb_Operations

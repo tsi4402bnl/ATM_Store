@@ -121,7 +121,7 @@
                                             <TextBlock Text="Name: " FontWeight="Bold" Grid.Row="1" />
                                             <TextBlock Text="{Binding Name.Value}" Grid.Column="1" Grid.Row="1" />
                                             <TextBlock Text="Price: " FontWeight="Bold" Grid.Row="2" />
-                                            <TextBox Text="{Binding Price.Value, StringFormat=d}" Grid.Column="1" Grid.Row="2" Width="50" HorizontalAlignment="Left"/>
+                                            <TextBlock Text="{Binding Price.Value, StringFormat=' {0:C}'}" Grid.Column="1" Grid.Row="2" Width="50" HorizontalAlignment="Left"/>
                                             <Button Grid.Column="2" Grid.Row="2" Width="50" HorizontalAlignment="Left" Click="Button_Click">Save</Button>
 
                                         </Grid>
