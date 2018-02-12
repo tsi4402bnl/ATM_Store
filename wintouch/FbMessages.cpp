@@ -65,10 +65,10 @@ void FbMessage::UnsupportedOperationMessage() const
 FbItemMessage::FbItemMessage(const TheUI::FbEventData& msg)
 	: FbMessage(TableName(), msg)
 	, name()
-	, category(0)
+	, category(-1)
 	, description()
 	, price(-1.0)
-	, qtyPerBox(1)
+	, qtyPerBox(-1)
 	, units()
 	, supplierId()
 { }
@@ -88,7 +88,7 @@ int FbItemMessage::Respond()
 		System::String^ descrCli = msclr::interop::marshal_as<System::String^>(description);
 		System::String^ unitsCli = msclr::interop::marshal_as<System::String^>(units);
 		System::String^ supplierIdCli = msclr::interop::marshal_as<System::String^>(supplierId);
-		TheUI::ItemPropEntryFb item(nameCli, category, descrCli, price, 1, unitsCli, supplierIdCli);
+		TheUI::ItemPropEntryFb item(nameCli, category, descrCli, price, qtyPerBox, unitsCli, supplierIdCli);
 		ManagedCode::ManagedGlobals::w->AddItemProperties(idCli, %item);
 		ret = 0;
 	}
