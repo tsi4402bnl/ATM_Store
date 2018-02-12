@@ -1,13 +1,20 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Threading;
 
 namespace TheUI
 {
-
-    public partial class MainWindow : Page
+    public class LogDataBase
     {
-        private void Clear_Log(object sender, RoutedEventArgs e)
+        public LogDataBase(Dispatcher d)
+        {
+            dispatcher = d;
+            LogEntries = new ObservableCollection<LogEntry>();
+        }
+
+        public void Clear_Log()
         {
             LogEntries.Clear();
         }
@@ -21,11 +28,16 @@ namespace TheUI
             if (time.Second <= 9) timeString += "0";
             timeString += time.Second.ToString() + "  ";
 
-            Dispatcher.Invoke(delegate
+            dispatcher.Invoke(delegate
             {
                 LogEntries.Add(new LogEntry() { Index = logIndex++, DateTime = timeString, Message = msg });
             });
         }
+
+        public ObservableCollection<LogEntry> LogEntries { get; set; } // holds all log data
+
+        private int logIndex;
+        private Dispatcher dispatcher;
     }
 
     public class LogEntry : PropertyChangedBase

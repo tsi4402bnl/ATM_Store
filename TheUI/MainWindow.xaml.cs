@@ -17,12 +17,10 @@ namespace TheUI
     /// 
     public partial class MainWindow : Page
     {
-        private int logIndex;
         private static FireBase fbClient;
 
         ItemDatabase itemDatabase;
-
-        public static ObservableCollection<LogEntry> LogEntries { get; set; } // holds all log data
+        LogDataBase logDatabase;
 
         public MainWindow(int w, int h)
         {
@@ -42,7 +40,8 @@ namespace TheUI
         {
             itemDatabase = new ItemDatabase(Dispatcher);
             dgItems.ItemsSource = itemDatabase.Data;
-            DataContext = LogEntries = new ObservableCollection<LogEntry>();
+            logDatabase = new LogDataBase(Dispatcher);
+            DataContext = logDatabase.LogEntries;
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
@@ -61,6 +60,9 @@ namespace TheUI
             if (fbClient == null) return new FbEventData();
             return fbClient.FetchNextFbMessage(); // Called from C++, will parse next fb message
         }
+
+        private void Clear_Log(object sender, RoutedEventArgs e) { logDatabase.Clear_Log(); }
+        public void Log(string msg) { logDatabase.Log(msg); }
 
         /************************************************************ Item Tab Events *********************************************************/
         private void BtnNewItem_Click(object sender, RoutedEventArgs e)
