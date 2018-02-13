@@ -1,0 +1,43 @@
+﻿<Window x:Class="TheUI.wintouch"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TheUI"
+        mc:Ignorable="d"
+        Title="wintouch" Height="250" Width="300">
+    <Grid  Name="gItem" Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <TextBox Text="{Binding Name.Value, Mode=TwoWay}" Grid.Row="0" Grid.ColumnSpan="2" FontSize="20"/>
+        <TextBlock Text="Category: " FontWeight="Bold" Grid.Row="1" />
+        <TextBox Text="{Binding Category.Value, Mode=TwoWay}" Grid.Row="1" Grid.Column="1"/>
+        <TextBlock Text="Description: " FontWeight="Bold" Grid.Row="2" />
+        <TextBox Text="{Binding Description.Value, Mode=TwoWay}" Grid.Row="2" Grid.Column="1"/>
+        <TextBlock Text="Price: " FontWeight="Bold" Grid.Row="3" />
+        <TextBox Text="{Binding Price.Value, StringFormat=' {0:C}', Mode=TwoWay}" Grid.Row="3" Grid.Column="1"/>
+        <TextBlock Text="Qty/box: " FontWeight="Bold" Grid.Row="4" />
+        <TextBox Text="{Binding QtyPerBox.Value, Mode=TwoWay}" Grid.Row="4" Grid.Column="1"/>
+        <TextBlock Text="Units: " FontWeight="Bold" Grid.Row="5" />
+        <TextBox Text="{Binding Units.Value, Mode=TwoWay}" Grid.Row="5" Grid.Column="1"/>
+        <TextBlock Text="Supplier: " FontWeight="Bold" Grid.Row="6" />
+        <TextBox Text="{Binding SupplierId.Value, Mode=TwoWay}" Grid.Row="6" Grid.Column="1"/>
+        <WrapPanel Grid.ColumnSpan="2" Grid.Row="7" HorizontalAlignment="Center">
+            <Button Width="50" Margin="10" Click="BtnSave_Click">Save</Button>
+            <Button Width="50" Margin="10" Click="BtnClose_Click">Cancel</Button>
+        </WrapPanel>
+    </Grid>
+</Window>

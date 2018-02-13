@@ -80,22 +80,25 @@
                         VerticalContentAlignment="Top"
                         HorizontalAlignment="Stretch"
                         >
-                <TabItem Header="TabItem1">
-                    <Grid Background="#FCFAFC" >
-                        <StackPanel HorizontalAlignment="Left">
-                            <Button Name="btnTestTabItem1" 
-                                    Click="btnTestTabItem1_Click"
-                                    Width="337"
-                                    Height="30"
-                                    Content="{Binding Path=btnTestTabItem1Text.Value, RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
-                                    >
-                            </Button>
-                        </StackPanel>
-                    </Grid>
-                </TabItem>
                 <TabItem Header="TabItem2">
-                    <Grid Margin="10">
-                        <ListBox Name="dgItems">
+                    <DockPanel Margin="10">
+                        <WrapPanel DockPanel.Dock="Top">
+                            <Button Width="50" Click="BtnNewItem_Click">New</Button>
+                            <Button Width="50" Click="BtnEditItem_Click" Name="BtnEdit">Edit
+                                <Button.Style>
+                                    <Style>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding ="{Binding ElementName=dgItems, Path=SelectedIndex}" Value="-1">
+                                                <Setter Property="Button.IsEnabled" Value="false"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Button.Style>
+                            </Button>
+                            <Button Width="50" Click="BtnDeleteItem_Click" 
+                                    IsEnabled="{Binding IsEnabled, ElementName=BtnEdit}">Delete</Button>
+                        </WrapPanel>
+                        <ListBox Name="dgItems" PreviewMouseDoubleClick="BtnEditItem_Click">
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
                                     <DockPanel Background="GhostWhite">
@@ -122,20 +125,18 @@
                                             <TextBlock Text="{Binding Description.Value}" Grid.Row="2" Grid.Column="1"/>
                                             <TextBlock Text="Price: " FontWeight="Bold" Grid.Row="3" />
                                             <TextBlock Text="{Binding Price.Value, StringFormat=' {0:C}'}" Grid.Row="3" Grid.Column="1"/>
-                                            <TextBlock Text="Qty per box: " FontWeight="Bold" Grid.Row="4" />
+                                            <TextBlock Text="Qty/box: " FontWeight="Bold" Grid.Row="4" />
                                             <TextBlock Text="{Binding QtyPerBox.Value}" Grid.Row="4" Grid.Column="1"/>
                                             <TextBlock Text="Units: " FontWeight="Bold" Grid.Row="5" />
                                             <TextBlock Text="{Binding Units.Value}" Grid.Row="5" Grid.Column="1"/>
                                             <TextBlock Text="Supplier: " FontWeight="Bold" Grid.Row="6" />
                                             <TextBlock Text="{Binding SupplierId.Value}" Grid.Row="6" Grid.Column="1"/>
-                                            
-
                                         </Grid>
                                     </DockPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
                         </ListBox>
-                    </Grid>
+                    </DockPanel>
                 </TabItem>
                 <TabItem Header="TabItem3">
                     <Grid Background="#FCFAFC" >

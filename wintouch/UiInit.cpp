@@ -26,8 +26,8 @@ unsigned __stdcall UiInit::UiInitThread(void * param)
 	using namespace System::Windows::Controls;
 	using namespace System::Windows::Controls::Primitives;
 
-	Button^ btnStopMacro = ManagedCode::ManagedGlobals::w->GetTestTabBtn();
-	btnStopMacro->Click += gcnew System::Windows::RoutedEventHandler(&OnTestTabBtnClick);
+	//Button^ btnStopMacro = ManagedCode::ManagedGlobals::w->GetTestTabBtn();
+	//btnStopMacro->Click += gcnew System::Windows::RoutedEventHandler(&OnTestTabBtnClick);
 
 	return 0;
 };
