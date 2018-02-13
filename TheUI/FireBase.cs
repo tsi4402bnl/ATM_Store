@@ -3,8 +3,6 @@ using FireSharp.Config;
 using FireSharp.EventStreaming;
 using FireSharp.Interfaces;
 using System.Collections.Generic;
-using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Threading;
 
 namespace TheUI

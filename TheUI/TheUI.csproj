@@ -86,6 +86,8 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CategoryDatabase.cs" />
+    <Compile Include="Database.cs" />
     <Compile Include="FireBase.cs" />
     <Compile Include="ItemDatabase.cs" />
     <Compile Include="Log.cs" />

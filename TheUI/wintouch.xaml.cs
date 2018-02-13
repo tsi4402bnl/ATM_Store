@@ -1,16 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+﻿using System.Windows;
 
 namespace TheUI
 {
@@ -19,17 +7,29 @@ namespace TheUI
     /// </summary>
     public partial class wintouch : Window
     {
-        public wintouch(ItemPropEntry i, Delegate saveFunction)
+        public wintouch(ItemPropEntry i, MainWindow mainWindow)
         {
-            item = new ItemPropEntry(i.Id.Value, i.GetItemPropEntryFb());
+            item = new ItemPropEntry(i);
             InitializeComponent();
             gItem.DataContext = item;
-            _saveFunction = saveFunction;
+            fbClient = mainWindow.fbClient;
+
+            // position this window in the middle of main window
+            Point positionFromScreen = mainWindow.PointToScreen(new Point(0, 0));
+            PresentationSource source = PresentationSource.FromVisual(mainWindow);
+            Point targetPoints = source.CompositionTarget.TransformFromDevice.Transform(positionFromScreen);
+            Top = targetPoints.Y + (mainWindow.ActualHeight - Height) / 2;
+            Left = targetPoints.X + (mainWindow.ActualWidth - Width) / 2;
+            ShowInTaskbar = false;
         }
 
         private void BtnSave_Click(object sender, RoutedEventArgs e)
         {
-            _saveFunction.DynamicInvoke(item);
+            string tableName = "items";
+            if (item.Id.Value.Length > 0)
+                fbClient.ModifyInFb(tableName, item.Id.Value, item.GetPropEntryFb());
+            else
+                fbClient.InsertInFb(tableName, item.GetPropEntryFb());
             Close();
         }
 
@@ -39,6 +39,6 @@ namespace TheUI
         }
 
         private ItemPropEntry item { get; set; }
-        private Delegate _saveFunction;
+        private FireBase fbClient;
     }
 }

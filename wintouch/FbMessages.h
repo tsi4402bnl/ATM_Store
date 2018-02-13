@@ -51,7 +51,7 @@ private:
 	static const std::string SUPPLIER_ID;
 
 	std::string name;
-	int			category;
+	std::string	category;
 	std::string description;
 	double		price;
 	int			qtyPerBox;
