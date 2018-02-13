@@ -3,7 +3,7 @@
 namespace TheUI
 {
 
-    public class CategoryPropEntry : PropEntry
+    public class CategoryPropEntry : PropEntry<CategoryPropEntryFb>
     {
         public CategoryPropEntry() : base("")
         {
@@ -20,7 +20,7 @@ namespace TheUI
 
         public ObservableString Name { get; set; }
 
-        protected void Init(CategoryPropEntryFb entry)
+        protected override void Init(CategoryPropEntryFb entry)
         {
             Name = new ObservableString() { Value = entry.Name };
         }
