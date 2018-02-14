@@ -51,10 +51,8 @@ namespace TheUI
         /********************************************************* Item Tab Events ********************************************************/
         private void BtnNewItem_Click(object sender, RoutedEventArgs e)
         {
-            categoryDatabase.AddProperties("2", new CategoryPropEntryFb("dnskja"));
-        }
-        //CreateItemPopupWindow(new ItemPropEntry());
-    
+            CreateItemPopupWindow(new ItemPropEntry());
+        }    
         private void BtnEditItem_Click(object sender, RoutedEventArgs e)
         {
             if (dgItems.SelectedItem != null) CreateItemPopupWindow((ItemPropEntry)dgItems.SelectedItem);
