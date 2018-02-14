@@ -65,7 +65,7 @@ void FbMessage::UnsupportedOperationMessage() const
 FbItemMessage::FbItemMessage(const TheUI::FbEventData& msg)
 	: FbMessage(TableName(), msg)
 	, name()
-	, category(-1)
+	, category()
 	, description()
 	, price(-1.0)
 	, qtyPerBox(-1)
@@ -85,10 +85,11 @@ int FbItemMessage::Respond()
 	{
 		System::String^ idCli = msclr::interop::marshal_as<System::String^>(id);
 		System::String^ nameCli = msclr::interop::marshal_as<System::String^>(name);
+		System::String^ catCli = msclr::interop::marshal_as<System::String^>(category);
 		System::String^ descrCli = msclr::interop::marshal_as<System::String^>(description);
 		System::String^ unitsCli = msclr::interop::marshal_as<System::String^>(units);
 		System::String^ supplierIdCli = msclr::interop::marshal_as<System::String^>(supplierId);
-		TheUI::ItemPropEntryFb item(nameCli, category, descrCli, price, qtyPerBox, unitsCli, supplierIdCli);
+		TheUI::ItemPropEntryFb item(nameCli, catCli, descrCli, price, qtyPerBox, unitsCli, supplierIdCli);
 		ManagedCode::ManagedGlobals::w->AddItemProperties(idCli, %item);
 		ret = 0;
 	}
@@ -110,7 +111,7 @@ int FbItemMessage::Parse()
 	if (OperationType() == TheUI::Fb_Operations::fb_add || OperationType() == TheUI::Fb_Operations::fb_edit)
 	{
 		if (!isParsed && ParseId(NAME)		  == 0) { name		  =      Data()         ; }
-		if (!isParsed && ParseId(CATEGORY)	  == 0) { category	  = atoi(Data().c_str()); }
+		if (!isParsed && ParseId(CATEGORY)	  == 0) { category	  =      Data()         ; }
 		if (!isParsed && ParseId(DESCRIPTION) == 0) { description =		 Data()			; }
 		if (!isParsed && ParseId(PRICE)		  == 0) { price		  = atof(Data().c_str()); }
 		if (!isParsed && ParseId(QTY_PER_BOX) == 0) { qtyPerBox	  = atoi(Data().c_str()); }
