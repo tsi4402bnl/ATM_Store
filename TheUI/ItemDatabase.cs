@@ -25,7 +25,7 @@ namespace TheUI
         }
 
         public ObservableString  Name        { get; set; }
-        public CategoryPropEntry Category    { get; set; }
+        public CategoryPropEntry Category    { get { return _category; } set { _category = value; OnPropertyChanged("Category"); } }
         public ObservableString  Description { get; set; }
         public ObservableDouble  Price       { get; set; }
         public ObservableInt     QtyPerBox   { get; set; }
@@ -46,6 +46,8 @@ namespace TheUI
             Units       = new ObservableString() { Value = entry.Units       };
             SupplierId  = new ObservableString() { Value = entry.SupplierId  };
         }
+
+        private CategoryPropEntry _category;
     }
 
     public class ItemPropEntryFb // for Fb class is not allowed to contain subClasses, keep it clean
@@ -86,7 +88,9 @@ namespace TheUI
                         {
                             if (entry.Name.Length != 0) Data[i].Name.Value = entry.Name;
                             if (entry.CategoryId.Length != 0)
+                            {
                                 Data[i].Category = categoryDb.GetEntryById(entry.CategoryId); // TODO: lookup for actual category name
+                            }
                             if (entry.Description.Length != 0)
                                 Data[i].Description.Value = entry.Description;
                             if (entry.Price >= 0) Data[i].Price.Value = entry.Price;

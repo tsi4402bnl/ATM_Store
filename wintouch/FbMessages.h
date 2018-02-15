@@ -15,7 +15,7 @@ protected:
 	int ParseId(const std::string& propName);
 	int ParseId();
 
-	void ParseFailedMessage() const;
+	void ParseFailedMessage(bool isEmptyDataAllowed = true) const;
 	void UnsupportedOperationMessage() const;
 
 	virtual int Parse() = 0;
@@ -28,33 +28,4 @@ private:
 	const std::string PATH;
 	const std::string DATA;
 	const std::string TABLE_NAME;
-};
-
-class FbItemMessage : public FbMessage
-{
-public:
-	FbItemMessage(const TheUI::FbEventData& msg);
-	static const std::string TableName() { return "items"; }
-	int Respond();
-
-
-protected:
-	virtual int Parse();
-
-private:
-	static const std::string NAME;
-	static const std::string CATEGORY;
-	static const std::string DESCRIPTION;
-	static const std::string PRICE;
-	static const std::string QTY_PER_BOX;
-	static const std::string UNITS;
-	static const std::string SUPPLIER_ID;
-
-	std::string name;
-	std::string	category;
-	std::string description;
-	double		price;
-	int			qtyPerBox;
-	std::string	units;
-	std::string	supplierId;
 };

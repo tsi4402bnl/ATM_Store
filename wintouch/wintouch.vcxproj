@@ -22,7 +22,7 @@
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{8D74EA31-8940-4958-BDD8-CB3427099A98}</ProjectGuid>
     <RootNamespace>wintouch</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -123,6 +123,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="FbCategoryMessage.cpp" />
+    <ClCompile Include="FbItemMessage.cpp" />
     <ClCompile Include="FbMessages.cpp" />
     <ClCompile Include="Log.cpp" />
     <ClCompile Include="main.cpp">
@@ -140,6 +142,8 @@
     <ClCompile Include="UiInit.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="FbCategoryMessage.h" />
+    <ClInclude Include="FbItemMessage.h" />
     <ClInclude Include="FbMessages.h" />
     <ClInclude Include="Log.h" />
     <ClInclude Include="MainWindow.h" />

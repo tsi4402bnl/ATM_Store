@@ -5,7 +5,8 @@
 
 #include "MainWindow.h"
 #include "Log.h"
-#include "FbMessages.h"
+#include "FbItemMessage.h"
+#include "FbCategoryMessage.h"
 
 void UiInit::Init()
 {
@@ -45,9 +46,13 @@ unsigned __stdcall UiInit::FetchFbMessagesThread(void * param)
 			std::string path = msclr::interop::marshal_as<std::string>(fbMessage.path);
 			if (path.empty()) continue;
 
-			if (path.substr(1, FbItemMessage::TableName().size()) == FbItemMessage::TableName())
+			if (path.substr(1, FbItemMessage::TableName().size() + 1) == FbItemMessage::TableName() + "/")
 			{
 				FbItemMessage(fbMessage).Respond();
+			}
+			else if (path.substr(1, FbCategoryMessage::TableName().size() + 1) == FbCategoryMessage::TableName() + "/")
+			{
+				FbCategoryMessage(fbMessage).Respond();
 			}
 
 			// other table messages here
