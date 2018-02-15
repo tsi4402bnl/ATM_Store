@@ -21,7 +21,6 @@ namespace ManagedCode
 		ManagedGlobals::w = gcnew TheUI::MainWindow(width, height);
 
 		InitApp();
-		RunTests();
 
 		source->RootVisual = ManagedGlobals::w;
 		source->SizeToContent = SizeToContent::WidthAndHeight;
@@ -34,10 +33,4 @@ namespace ManagedCode
 		return 0;
 	}
 
-	int RunTests()
-	{
-		//TestUiInit();
-		//TestCliWrap();
-		return 0;
-	}
 }

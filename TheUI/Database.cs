@@ -4,10 +4,16 @@ using System.Windows.Threading;
 
 namespace TheUI
 {
-    public abstract class PropEntry<EntryFbType> : PropertyChangedBase
+    public abstract class PropEntry<EntryFbType> : PropertyChangedBase, System.IEquatable<PropEntry<EntryFbType>>
     {
         public PropEntry(string id) { Id = new ObservableString() { Value = id }; }
         public ObservableString Id { get; set; }
+
+        public bool Equals(TheUI.PropEntry<EntryFbType> other)
+        {
+            return Id.Value == other.Id.Value;
+        }
+
         protected abstract void Init(EntryFbType entry);
     }
 

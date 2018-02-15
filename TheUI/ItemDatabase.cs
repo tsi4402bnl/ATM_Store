@@ -25,7 +25,7 @@ namespace TheUI
         }
 
         public ObservableString  Name        { get; set; }
-        public CategoryPropEntry Category    { get; set; }
+        public CategoryPropEntry Category    { get { return _category; } set { _category = value; OnPropertyChanged("Category"); } }
         public ObservableString  Description { get; set; }
         public ObservableDouble  Price       { get; set; }
         public ObservableInt     QtyPerBox   { get; set; }
@@ -46,6 +46,8 @@ namespace TheUI
             Units       = new ObservableString() { Value = entry.Units       };
             SupplierId  = new ObservableString() { Value = entry.SupplierId  };
         }
+
+        private CategoryPropEntry _category;
     }
 
     public class ItemPropEntryFb // for Fb class is not allowed to contain subClasses, keep it clean
@@ -57,10 +59,13 @@ namespace TheUI
         public string Name        { get; set; }
         public string CategoryId  { get; set; }
         public string Description { get; set; }
-        public double Price       { get; set; }
-        public int    QtyPerBox   { get; set; }
+        public double Price       { get { return price; } set { if (value >= 0) price = value;  } }
+        public int    QtyPerBox   { get { return qtyPerBox;  } set { if (value >= 0) qtyPerBox = value; } }
         public string Units       { get; set; }
         public string SupplierId  { get; set; }
+
+        private double price;
+        private int qtyPerBox;
     }
 
     public class ItemDatabase : Database<ItemPropEntry, ItemPropEntryFb>
@@ -74,28 +79,28 @@ namespace TheUI
         {
             dispatcher.Invoke(delegate
             {
-                if (uniqueIds.Add(id))
+            if (uniqueIds.Add(id))
+            {
+                Data.Add(new ItemPropEntry() { Id = new ObservableString() { Value = id } });
+            }
+
+            for (int i = 0; i < Data.Count; i++)
+            {
+                if (Data[i].Id.Value == id)
                 {
-                    Data.Add(new ItemPropEntry(id, entry) { Category = categoryDb.GetEntryById(entry.CategoryId) });
-                }
-                else
-                {
-                    for (int i = 0; i < Data.Count; i++)
+                    if (entry.Name.Length != 0) Data[i].Name.Value = entry.Name.Substring(1);
+                    if (entry.CategoryId.Length != 0)
                     {
-                        if (Data[i].Id.Value == id)
-                        {
-                            if (entry.Name.Length != 0) Data[i].Name.Value = entry.Name;
-                            if (entry.CategoryId.Length != 0)
-                                Data[i].Category = categoryDb.GetEntryById(entry.CategoryId); // TODO: lookup for actual category name
-                            if (entry.Description.Length != 0)
-                                Data[i].Description.Value = entry.Description;
-                            if (entry.Price >= 0) Data[i].Price.Value = entry.Price;
-                            if (entry.QtyPerBox >= 0) Data[i].QtyPerBox.Value = entry.QtyPerBox;
-                            if (entry.Units.Length != 0) Data[i].Units.Value = entry.Units;
-                            if (entry.SupplierId.Length != 0) Data[i].SupplierId.Value = entry.SupplierId; // TODO: lookup for actual supplier name
-                        }
+                        Data[i].Category = categoryDb.GetEntryById(entry.CategoryId.Substring(1)); // TODO: lookup for actual category name
                     }
+                    if (entry.Description.Length != 0)
+                        Data[i].Description.Value = entry.Description.Substring(1);
+                    if (entry.Price >= 0) Data[i].Price.Value = entry.Price;
+                    if (entry.QtyPerBox >= 0) Data[i].QtyPerBox.Value = entry.QtyPerBox;
+                    if (entry.Units.Length != 0) Data[i].Units.Value = entry.Units.Substring(1);
+                    if (entry.SupplierId.Length != 0) Data[i].SupplierId.Value = entry.SupplierId.Substring(1); // TODO: lookup for actual supplier name
                 }
+            }
             });
         }
 

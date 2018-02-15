@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TheUI"
         mc:Ignorable="d"
-        Title="wintouch" Height="250" Width="300">
+        Title="wintouch" Height="250" Width="300" Loaded="Window_Loaded">
     <Grid  Name="gItem" Margin="10">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
@@ -24,7 +24,8 @@
 
         <TextBox Text="{Binding Name.Value, Mode=TwoWay}" Grid.Row="0" Grid.ColumnSpan="2" FontSize="20"/>
         <TextBlock Text="Category: " FontWeight="Bold" Grid.Row="1" />
-        <TextBox Text="{Binding Category.Value, Mode=TwoWay}" Grid.Row="1" Grid.Column="1"/>
+        <ComboBox Name="cmbxCategory" Grid.Row="1" Grid.Column="1" DisplayMemberPath="Name.Value"
+                  SelectedValuePath="Id.Value" SelectedValue="{Binding Path=CategoryPropEntry}" />
         <TextBlock Text="Description: " FontWeight="Bold" Grid.Row="2" />
         <TextBox Text="{Binding Description.Value, Mode=TwoWay}" Grid.Row="2" Grid.Column="1"/>
         <TextBlock Text="Price: " FontWeight="Bold" Grid.Row="3" />

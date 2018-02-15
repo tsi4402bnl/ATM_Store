@@ -45,16 +45,14 @@ namespace TheUI
             {
                 if (uniqueIds.Add(id))
                 {
-                    Data.Add(new CategoryPropEntry(id, entry));
+                    Data.Add(new CategoryPropEntry() { Id = new ObservableString() { Value = id } });
                 }
-                else
+
+                for (int i = 0; i < Data.Count; i++)
                 {
-                    for (int i = 0; i < Data.Count; i++)
+                    if (Data[i].Id.Value == id)
                     {
-                        if (Data[i].Id.Value == id)
-                        {
-                            if (entry.Name.Length != 0) Data[i].Name.Value = entry.Name;
-                        }
+                        if (entry.Name.Length != 0) Data[i].Name.Value = entry.Name.Substring(1);
                     }
                 }
             });

@@ -63,7 +63,7 @@ namespace TheUI
         }
         private void CreateItemPopupWindow(ItemPropEntry item)
         {
-            new wintouch(item, this).ShowDialog();
+            new wintouch(item, this, categoryDatabase).ShowDialog();
         }
 
 
@@ -73,11 +73,12 @@ namespace TheUI
         public FbEventData FetchNextFbMessage() { return fbClient == null ? new FbEventData() : fbClient.FetchNextFbMessage(); }
 
         // Add
-        public void AddItemProperties(string id, ItemPropEntryFb item) {
-            itemDatabase.AddProperties(id, item); }
+        public void AddProperties(string id,     ItemPropEntryFb item) {     itemDatabase.AddProperties(id, item); }
+        public void AddProperties(string id, CategoryPropEntryFb item) { categoryDatabase.AddProperties(id, item); }
 
         // Remove
-        public void RemoveItemProperties(string id) { itemDatabase.RemoveProperties(id); }
+        public void     RemoveItemProperties(string id) {     itemDatabase.RemoveProperties(id); }
+        public void RemoveCategoryProperties(string id) { categoryDatabase.RemoveProperties(id); }
     }
 
 
