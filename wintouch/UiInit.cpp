@@ -14,24 +14,9 @@ void UiInit::Init()
 	HANDLE hThread; // thread handle
 
 	hThread = (HANDLE)_beginthreadex(NULL, 0,
-		UiInitThread, (void *)NULL,
-		0, &tid);
-
-	hThread = (HANDLE)_beginthreadex(NULL, 0,
 		FetchFbMessagesThread, (void *)NULL,
 		0, &tid);
 }
-
-unsigned __stdcall UiInit::UiInitThread(void * param)
-{
-	using namespace System::Windows::Controls;
-	using namespace System::Windows::Controls::Primitives;
-
-	//Button^ btnStopMacro = ManagedCode::ManagedGlobals::w->GetTestTabBtn();
-	//btnStopMacro->Click += gcnew System::Windows::RoutedEventHandler(&OnTestTabBtnClick);
-
-	return 0;
-};
 
 unsigned __stdcall UiInit::FetchFbMessagesThread(void * param)
 {
@@ -63,8 +48,3 @@ unsigned __stdcall UiInit::FetchFbMessagesThread(void * param)
 	
 	return 0;
 };
-
-void UiInit::OnTestTabBtnClick(System::Object ^sender, System::Windows::RoutedEventArgs ^e)
-{
-	LOG("Clicked form C++");
-}

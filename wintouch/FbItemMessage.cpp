@@ -53,8 +53,8 @@ int FbItemMessage::Parse()
 		if (!isParsed && ParseId(NAME)		  == 0) { name		  =      Data()         ; }
 		if (!isParsed && ParseId(CATEGORY_ID) == 0) { categoryId  =      Data()         ; }
 		if (!isParsed && ParseId(DESCRIPTION) == 0) { description =		 Data()			; }
-		if (!isParsed && ParseId(PRICE)		  == 0) { price		  = atof(Data().c_str()); }
-		if (!isParsed && ParseId(QTY_PER_BOX) == 0) { qtyPerBox	  = atoi(Data().c_str()); }
+		if (!isParsed && ParseId(PRICE)		  == 0) { price		  = atof(Data().substr(1).c_str()); }
+		if (!isParsed && ParseId(QTY_PER_BOX) == 0) { qtyPerBox	  = atoi(Data().substr(1).c_str()); }
 		if (!isParsed && ParseId(UNITS)		  == 0) { units		  =      Data()         ; }
 		if (!isParsed && ParseId(SUPPLIER_ID) == 0) { supplierId  =      Data()         ; }
 	}

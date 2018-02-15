@@ -9,6 +9,5 @@ namespace ManagedCode
 	};
 	HWND GetHwnd(HWND parent, int x, int y, int width, int height);
 	int InitApp();
-	int RunTests();
 
 }
