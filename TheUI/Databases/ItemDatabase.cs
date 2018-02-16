@@ -1,4 +1,5 @@
-﻿using System.Windows.Threading;
+﻿using System;
+using System.Windows.Threading;
 
 namespace TheUI
 {
@@ -113,6 +114,15 @@ namespace TheUI
                 }
             }
             });
+        }
+
+        internal bool Contain(SupplierPropEntry selectedItem)
+        {
+            foreach (var item in Data)
+            {
+                if (item.Supplier.Equals(selectedItem)) return true;
+            }
+            return false;
         }
 
         private CategoryDatabase categoryDb;

@@ -2,12 +2,9 @@
 
 namespace TheUI
 {
-    /// <summary>
-    /// Interaction logic for wintouch.xaml
-    /// </summary>
-    public partial class wintouch : Window
+    public partial class ItemWindow : Window
     {
-        public wintouch(ItemPropEntry i, MainWindow mainWindow, CategoryDatabase categoryDatabase, SupplierDatabase supplierDatabase)
+        public ItemWindow(ItemPropEntry i, MainWindow mainWindow, CategoryDatabase categoryDatabase, SupplierDatabase supplierDatabase)
         {
             item = new ItemPropEntry(i);
             InitializeComponent();

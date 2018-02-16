@@ -1,4 +1,5 @@
-﻿using System.Windows.Threading;
+﻿using System;
+using System.Windows.Threading;
 
 namespace TheUI
 {
@@ -12,6 +13,10 @@ namespace TheUI
         public SupplierPropEntry(string id, SupplierPropEntryFb entry) : base(id)
         {
             Init(entry);
+        }
+        public SupplierPropEntry(SupplierPropEntry entry) : base(entry.Id.Value)
+        {
+            Init(entry.GetPropEntryFb());
         }
         public SupplierPropEntryFb GetPropEntryFb()
         {
@@ -37,7 +42,10 @@ namespace TheUI
 
     public class SupplierDatabase : Database<SupplierPropEntry, SupplierPropEntryFb>
     {
-        public SupplierDatabase(Dispatcher d) : base(d) { }
+        public SupplierDatabase(Dispatcher d) : base(d)
+        {
+            DataView.Filter = new Predicate<object>(FilterData);
+        }
 
         public override void AddProperties(string id, SupplierPropEntryFb entry)
         {
@@ -53,10 +61,17 @@ namespace TheUI
                     if (Data[i].Id.Value == id)
                     {
                         if (entry.Name.Length  != 0) Data[i].Name.Value = entry.Name.Substring(1);
-                        if (entry.Email.Length != 0) Data[i].Name.Value = entry.Email.Substring(1);
+                        if (entry.Email.Length != 0) Data[i].Email.Value = entry.Email.Substring(1);
                     }
                 }
             });
+        }
+
+        public bool FilterData(object item)
+        {
+            if (item != null && ((SupplierPropEntry)item).Id.Value.Length > 0)
+                return true;
+            return false;
         }
     }
 

@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Windows.Data;
 using System.Windows.Threading;
 
 namespace TheUI
@@ -24,6 +26,7 @@ namespace TheUI
             dispatcher = d; ;
             Data = new ObservableCollection<EntryType>();
             uniqueIds = new HashSet<string>();
+            DataView = CollectionViewSource.GetDefaultView(Data);
         }
 
         public abstract void AddProperties(string id, EntryFbType entry);
@@ -68,6 +71,7 @@ namespace TheUI
         }
 
         public ObservableCollection<EntryType> Data { get; set; }
+        public ICollectionView DataView { get; set; }
 
         protected HashSet<string> uniqueIds; // fb item table entry ids, 
         protected Dispatcher dispatcher;

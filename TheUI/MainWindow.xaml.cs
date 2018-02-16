@@ -40,7 +40,8 @@ namespace TheUI
             supplierDatabase = new SupplierDatabase(Dispatcher);
 
             itemDatabase = new ItemDatabase(Dispatcher, categoryDatabase, supplierDatabase);
-            dgItems.ItemsSource = itemDatabase.Data;
+            lbItems.ItemsSource = itemDatabase.Data;
+            lbSuppliers.ItemsSource = supplierDatabase.DataView;
 
         }
         private void Page_Loaded(object sender, RoutedEventArgs e) { fbClient = new FireBase(Dispatcher); }
@@ -57,15 +58,44 @@ namespace TheUI
         }    
         private void BtnEditItem_Click(object sender, RoutedEventArgs e)
         {
-            if (dgItems.SelectedItem != null) CreateItemPopupWindow((ItemPropEntry)dgItems.SelectedItem);
+            if (lbItems.SelectedItem != null) CreateItemPopupWindow((ItemPropEntry)lbItems.SelectedItem);
         }
         private void BtnDeleteItem_Click(object sender, RoutedEventArgs e)
         {
-            if (dgItems.SelectedItem != null) fbClient.DeleteFromFb("items", ((ItemPropEntry)dgItems.SelectedItem).Id.Value);
+            if (lbItems.SelectedItem != null) fbClient.DeleteFromFb("items", ((ItemPropEntry)lbItems.SelectedItem).Id.Value);
         }
         private void CreateItemPopupWindow(ItemPropEntry item)
         {
-            new wintouch(item, this, categoryDatabase, supplierDatabase).ShowDialog();
+            new ItemWindow(item, this, categoryDatabase, supplierDatabase).ShowDialog();
+        }
+
+
+        /******************************************************* Supplier Tab Events ******************************************************/
+        private void BtnNewSupplier_Click(object sender, RoutedEventArgs e)
+        {
+            CreateSupplierPopupWindow(new SupplierPropEntry());
+        }
+        private void BtnEditSupplier_Click(object sender, RoutedEventArgs e)
+        {
+            if (lbSuppliers.SelectedItem != null) CreateSupplierPopupWindow((SupplierPropEntry)lbSuppliers.SelectedItem);
+        }
+        private void BtnDeleteSupplier_Click(object sender, RoutedEventArgs e)
+        {
+            if (lbSuppliers.SelectedItem != null)
+            {
+                if (!itemDatabase.Contain((SupplierPropEntry)lbSuppliers.SelectedItem))
+                {
+                    fbClient.DeleteFromFb("suppliers", ((SupplierPropEntry)lbSuppliers.SelectedItem).Id.Value);
+                }
+                else
+                {
+                    MessageBox.Show("Supplier in use!");
+                }
+            }
+        }
+        private void CreateSupplierPopupWindow(SupplierPropEntry supplier)
+        {
+            new SupplierWindow(supplier, this).ShowDialog();
         }
 
 
