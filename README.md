@@ -7,15 +7,14 @@ Create Your Github account
 
 Navigate to https://github.com/tsi4402bnl/ATM_Store
 
-Fork the project
+Get Yourself added as a Contributor
 
 Clone The project: Open Git bash
 Navigate to Folder of Your choice and run command:
 ```
-git clone https://github.com/YourUserName/ATM_Store.git
+git clone https://github.com/tsi4402bnl/ATM_Store.git
 ```
 * It will download the project
-* replace YourUserName with Your user name 
 
 in git bash navigate to newly created folder:
 ```
