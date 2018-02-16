@@ -9,7 +9,7 @@ namespace TheUI
         public PropEntry(string id) { Id = new ObservableString() { Value = id }; }
         public ObservableString Id { get; set; }
 
-        public bool Equals(TheUI.PropEntry<EntryFbType> other)
+        public bool Equals(PropEntry<EntryFbType> other)
         {
             return Id.Value == other.Id.Value;
         }

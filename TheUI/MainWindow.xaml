@@ -130,7 +130,7 @@
                                             <TextBlock Text="Units: " FontWeight="Bold" Grid.Row="5" />
                                             <TextBlock Text="{Binding Units.Value}" Grid.Row="5" Grid.Column="1"/>
                                             <TextBlock Text="Supplier: " FontWeight="Bold" Grid.Row="6" />
-                                            <TextBlock Text="{Binding SupplierId.Value}" Grid.Row="6" Grid.Column="1"/>
+                                            <TextBlock Text="{Binding Supplier.Name.Value}" Grid.Row="6" Grid.Column="1"/>
                                         </Grid>
                                     </DockPanel>
                                 </DataTemplate>

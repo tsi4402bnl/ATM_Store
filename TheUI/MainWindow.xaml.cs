@@ -19,6 +19,7 @@ namespace TheUI
         private LogDataBase logDatabase;
         private ItemDatabase itemDatabase;
         private CategoryDatabase categoryDatabase;
+        private SupplierDatabase supplierDatabase;
 
         public MainWindow(int w, int h)
         {
@@ -36,8 +37,9 @@ namespace TheUI
             DataContext = logDatabase.LogEntries;
 
             categoryDatabase = new CategoryDatabase(Dispatcher);
+            supplierDatabase = new SupplierDatabase(Dispatcher);
 
-            itemDatabase = new ItemDatabase(Dispatcher, categoryDatabase);
+            itemDatabase = new ItemDatabase(Dispatcher, categoryDatabase, supplierDatabase);
             dgItems.ItemsSource = itemDatabase.Data;
 
         }
@@ -63,7 +65,7 @@ namespace TheUI
         }
         private void CreateItemPopupWindow(ItemPropEntry item)
         {
-            new wintouch(item, this, categoryDatabase).ShowDialog();
+            new wintouch(item, this, categoryDatabase, supplierDatabase).ShowDialog();
         }
 
 
@@ -75,10 +77,12 @@ namespace TheUI
         // Add
         public void AddProperties(string id,     ItemPropEntryFb item) {     itemDatabase.AddProperties(id, item); }
         public void AddProperties(string id, CategoryPropEntryFb item) { categoryDatabase.AddProperties(id, item); }
+        public void AddProperties(string id, SupplierPropEntryFb item) { supplierDatabase.AddProperties(id, item); }
 
         // Remove
         public void     RemoveItemProperties(string id) {     itemDatabase.RemoveProperties(id); }
         public void RemoveCategoryProperties(string id) { categoryDatabase.RemoveProperties(id); }
+        public void RemoveSupplierProperties(string id) { supplierDatabase.RemoveProperties(id); }
     }
 
 

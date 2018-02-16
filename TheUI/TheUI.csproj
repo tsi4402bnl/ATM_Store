@@ -87,12 +87,13 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CategoryDatabase.cs" />
-    <Compile Include="Database.cs" />
+    <Compile Include="Databases\CategoryDatabase.cs" />
+    <Compile Include="Databases\Database.cs" />
     <Compile Include="FireBase.cs" />
-    <Compile Include="ItemDatabase.cs" />
+    <Compile Include="Databases\ItemDatabase.cs" />
     <Compile Include="Log.cs" />
     <Compile Include="PropertyChangedBase.cs" />
+    <Compile Include="Databases\SupplierDatabase.cs" />
     <Compile Include="wintouch.xaml.cs">
       <DependentUpon>wintouch.xaml</DependentUpon>
     </Compile>
