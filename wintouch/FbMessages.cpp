@@ -9,7 +9,7 @@ FbMessage::FbMessage(const std::string& tableName, const TheUI::FbEventData& msg
 	, id()
 	, OPERATION(msg.operation)
 	, PATH(msclr::interop::marshal_as<std::string>(msg.path))
-	, DATA(msclr::interop::marshal_as<std::string>(msg.data))
+	, DATA("/" + msclr::interop::marshal_as<std::string>(msg.data))
 	, TABLE_NAME(tableName)
 { }
 
