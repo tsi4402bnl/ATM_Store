@@ -7,6 +7,7 @@
 #include "Log.h"
 #include "FbItemMessage.h"
 #include "FbCategoryMessage.h"
+#include "FbSupplierMessage.h"
 
 void UiInit::Init()
 {
@@ -38,6 +39,10 @@ unsigned __stdcall UiInit::FetchFbMessagesThread(void * param)
 			else if (path.substr(1, FbCategoryMessage::TableName().size() + 1) == FbCategoryMessage::TableName() + "/")
 			{
 				FbCategoryMessage(fbMessage).Respond();
+			}
+			else if (path.substr(1, FbSupplierMessage::TableName().size() + 1) == FbSupplierMessage::TableName() + "/")
+			{
+				FbSupplierMessage(fbMessage).Respond();
 			}
 
 			// other table messages here

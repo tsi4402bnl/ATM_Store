@@ -2,12 +2,9 @@
 
 namespace TheUI
 {
-    /// <summary>
-    /// Interaction logic for wintouch.xaml
-    /// </summary>
-    public partial class wintouch : Window
+    public partial class ItemWindow : Window
     {
-        public wintouch(ItemPropEntry i, MainWindow mainWindow, CategoryDatabase categoryDatabase)
+        public ItemWindow(ItemPropEntry i, MainWindow mainWindow, CategoryDatabase categoryDatabase, SupplierDatabase supplierDatabase)
         {
             item = new ItemPropEntry(i);
             InitializeComponent();
@@ -15,6 +12,7 @@ namespace TheUI
             fbClient = mainWindow.fbClient;
 
             cmbxCategory.ItemsSource = categoryDatabase.Data;
+            cmbxSupplier.ItemsSource = supplierDatabase.Data;
 
             // position this window in the middle of main window
             Point positionFromScreen = mainWindow.PointToScreen(new Point(0, 0));
@@ -30,6 +28,9 @@ namespace TheUI
             string tableName = "items";
             if (cmbxCategory.SelectedValue != null)
                 item.Category.Id.Value = cmbxCategory.SelectedValue.ToString();
+            if (cmbxSupplier.SelectedValue != null)
+                item.Supplier.Id.Value = cmbxSupplier.SelectedValue.ToString();
+
             if (item.Id.Value.Length > 0)
                 fbClient.ModifyInFb(tableName, item.Id.Value, item.GetPropEntryFb());
             else
@@ -49,7 +50,8 @@ namespace TheUI
         {
             if (item != null && item.Id.Value.Length > 0)
             {
-                cmbxCategory.SelectedValue = item.Category.Id.Value; ;
+                cmbxCategory.SelectedValue = item.Category.Id.Value;
+                cmbxSupplier.SelectedValue = item.Supplier.Id.Value;
             }
         }
     }

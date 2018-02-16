@@ -1,12 +1,14 @@
-﻿using System.Windows.Threading;
+﻿using System;
+using System.Windows.Threading;
 
 namespace TheUI
 {
     public class ItemPropEntry : PropEntry<ItemPropEntryFb>
     {
-        public ItemPropEntry() : base("")
+        public ItemPropEntry() : this("") { }
+        public ItemPropEntry(string id) : base(id)
         {
-            Init(entry: new ItemPropEntryFb(name: "", categoryId: "", description: "", price: 1.0, 
+            Init(new ItemPropEntryFb(name: "", categoryId: "", description: "", price: 1.0,
                 qtyPerBox: 1, units: "pcs", supplierId: ""));
         }
         public ItemPropEntry(string id, ItemPropEntryFb entry) : base(id)
@@ -16,38 +18,47 @@ namespace TheUI
         public ItemPropEntry(ItemPropEntry entry) : base(entry.Id.Value)
         {
             Init(entry.GetPropEntryFb());
-            Category.Name.Value = entry.Category.Name.Value;
+            Category.Name.Value  = entry.Category.Name.Value;
+            Supplier.Name.Value  = entry.Supplier.Name.Value;
+            Supplier.Email.Value = entry.Supplier.Email.Value;
         }
         public ItemPropEntryFb GetPropEntryFb()
         {
             return new ItemPropEntryFb(Name.Value, Category.Id.Value, Description.Value, 
-                Price.Value, QtyPerBox.Value, Units.Value, SupplierId.Value);
+                Price.Value, QtyPerBox.Value, Units.Value, Supplier.Id.Value);
         }
 
         public ObservableString  Name        { get; set; }
         public CategoryPropEntry Category    { get { return _category; } set { _category = value; OnPropertyChanged("Category"); } }
         public ObservableString  Description { get; set; }
-        public ObservableDouble  Price       { get; set; }
-        public ObservableInt     QtyPerBox   { get; set; }
+        public ObservableDouble  Price
+        {
+            get { if (_price.Value < 0.01) _price.Value = 0.01; return _price; }
+            set { _price = value; if (_price.Value < 0.01) _price.Value = 0.01; }
+        }
+        public ObservableInt     QtyPerBox
+        {
+            get { if (_qtyPerBox.Value < 1) _qtyPerBox.Value = 1; return _qtyPerBox; }
+            set { _qtyPerBox = value; if (_qtyPerBox.Value < 1) _qtyPerBox.Value = 1; }
+        }
         public ObservableString  Units       { get; set; }
-        public ObservableString  SupplierId  { get; set; }
+        public SupplierPropEntry Supplier    { get { return _supplier; } set { _supplier = value; OnPropertyChanged("Supplier"); } }
 
         protected override void Init(ItemPropEntryFb entry)
         {
-            Name        = new ObservableString() { Value = entry.Name        };
-            Category    = new CategoryPropEntry()
-            {
-                Id   = new ObservableString() { Value = entry.CategoryId },
-                Name = new ObservableString()
-            };
-            Description = new ObservableString() { Value = entry.Description };
-            Price       = new ObservableDouble() { Value = entry.Price       };
-            QtyPerBox   = new ObservableInt()    { Value = entry.QtyPerBox   };
-            Units       = new ObservableString() { Value = entry.Units       };
-            SupplierId  = new ObservableString() { Value = entry.SupplierId  };
+            Name        = new ObservableString(entry.Name);
+            Category    = new CategoryPropEntry(entry.CategoryId);
+            Description = new ObservableString(entry.Description);
+            Price       = new ObservableDouble(entry.Price);
+            QtyPerBox   = new ObservableInt(entry.QtyPerBox);
+            Units       = new ObservableString(entry.Units);
+            Supplier    = new SupplierPropEntry(entry.SupplierId);
         }
 
+        private ObservableDouble _price;
+        private ObservableInt _qtyPerBox;
         private CategoryPropEntry _category;
+        private SupplierPropEntry _supplier;
     }
 
     public class ItemPropEntryFb // for Fb class is not allowed to contain subClasses, keep it clean
@@ -59,20 +70,18 @@ namespace TheUI
         public string Name        { get; set; }
         public string CategoryId  { get; set; }
         public string Description { get; set; }
-        public double Price       { get { return price; } set { if (value >= 0) price = value;  } }
-        public int    QtyPerBox   { get { return qtyPerBox;  } set { if (value >= 0) qtyPerBox = value; } }
+        public double Price       { get; set; }
+        public int    QtyPerBox   { get; set; }
         public string Units       { get; set; }
         public string SupplierId  { get; set; }
-
-        private double price;
-        private int qtyPerBox;
     }
 
     public class ItemDatabase : Database<ItemPropEntry, ItemPropEntryFb>
     {
-        public ItemDatabase(Dispatcher d, CategoryDatabase categoryDb) : base(d)
+        public ItemDatabase(Dispatcher d, CategoryDatabase categoryDb, SupplierDatabase supplierDb) : base(d)
         {
             this.categoryDb = categoryDb;
+            this.supplierDb = supplierDb;
         }
 
         public override void AddProperties(string id, ItemPropEntryFb entry)
@@ -81,7 +90,7 @@ namespace TheUI
             {
             if (uniqueIds.Add(id))
             {
-                Data.Add(new ItemPropEntry() { Id = new ObservableString() { Value = id } });
+                Data.Add(new ItemPropEntry(id));
             }
 
             for (int i = 0; i < Data.Count; i++)
@@ -91,19 +100,32 @@ namespace TheUI
                     if (entry.Name.Length != 0) Data[i].Name.Value = entry.Name.Substring(1);
                     if (entry.CategoryId.Length != 0)
                     {
-                        Data[i].Category = categoryDb.GetEntryById(entry.CategoryId.Substring(1)); // TODO: lookup for actual category name
+                        Data[i].Category = categoryDb.GetEntryById(entry.CategoryId.Substring(1));
                     }
                     if (entry.Description.Length != 0)
                         Data[i].Description.Value = entry.Description.Substring(1);
                     if (entry.Price >= 0) Data[i].Price.Value = entry.Price;
                     if (entry.QtyPerBox >= 0) Data[i].QtyPerBox.Value = entry.QtyPerBox;
                     if (entry.Units.Length != 0) Data[i].Units.Value = entry.Units.Substring(1);
-                    if (entry.SupplierId.Length != 0) Data[i].SupplierId.Value = entry.SupplierId.Substring(1); // TODO: lookup for actual supplier name
+                    if (entry.SupplierId.Length != 0)
+                    {
+                        Data[i].Supplier = supplierDb.GetEntryById(entry.SupplierId.Substring(1));
+                    }
                 }
             }
             });
         }
 
+        internal bool Contain(SupplierPropEntry selectedItem)
+        {
+            foreach (var item in Data)
+            {
+                if (item.Supplier.Equals(selectedItem)) return true;
+            }
+            return false;
+        }
+
         private CategoryDatabase categoryDb;
+        private SupplierDatabase supplierDb;
     }
 }

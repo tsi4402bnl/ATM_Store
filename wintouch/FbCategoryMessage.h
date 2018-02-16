@@ -1,6 +1,6 @@
 #pragma once
 
-#include "FbMessages.h"
+#include "FbMessage.h"
 
 class FbCategoryMessage : public FbMessage
 {

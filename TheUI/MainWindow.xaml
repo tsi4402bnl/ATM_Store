@@ -80,15 +80,15 @@
                         VerticalContentAlignment="Top"
                         HorizontalAlignment="Stretch"
                         >
-                <TabItem Header="TabItem2">
+                <TabItem Header="Items">
                     <DockPanel Margin="10">
                         <WrapPanel DockPanel.Dock="Top">
                             <Button Width="50" Click="BtnNewItem_Click">New</Button>
-                            <Button Width="50" Click="BtnEditItem_Click" Name="BtnEdit">Edit
+                            <Button Width="50" Click="BtnEditItem_Click" Name="BtnEditItem">Edit
                                 <Button.Style>
                                     <Style>
                                         <Style.Triggers>
-                                            <DataTrigger Binding ="{Binding ElementName=dgItems, Path=SelectedIndex}" Value="-1">
+                                            <DataTrigger Binding ="{Binding ElementName=lbItems, Path=SelectedIndex}" Value="-1">
                                                 <Setter Property="Button.IsEnabled" Value="false"/>
                                             </DataTrigger>
                                         </Style.Triggers>
@@ -96,9 +96,9 @@
                                 </Button.Style>
                             </Button>
                             <Button Width="50" Click="BtnDeleteItem_Click" 
-                                    IsEnabled="{Binding IsEnabled, ElementName=BtnEdit}">Delete</Button>
+                                    IsEnabled="{Binding IsEnabled, ElementName=BtnEditItem}">Delete</Button>
                         </WrapPanel>
-                        <ListBox Name="dgItems" PreviewMouseDoubleClick="BtnEditItem_Click">
+                        <ListBox Name="lbItems" PreviewMouseDoubleClick="BtnEditItem_Click">
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
                                     <DockPanel Background="GhostWhite">
@@ -130,7 +130,48 @@
                                             <TextBlock Text="Units: " FontWeight="Bold" Grid.Row="5" />
                                             <TextBlock Text="{Binding Units.Value}" Grid.Row="5" Grid.Column="1"/>
                                             <TextBlock Text="Supplier: " FontWeight="Bold" Grid.Row="6" />
-                                            <TextBlock Text="{Binding SupplierId.Value}" Grid.Row="6" Grid.Column="1"/>
+                                            <TextBlock Text="{Binding Supplier.Name.Value}" Grid.Row="6" Grid.Column="1"/>
+                                        </Grid>
+                                    </DockPanel>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </DockPanel>
+                </TabItem>
+                <TabItem Header="Suppliers">
+                    <DockPanel Margin="10">
+                        <WrapPanel DockPanel.Dock="Top">
+                            <Button Width="50" Click="BtnNewSupplier_Click">New</Button>
+                            <Button Width="50" Click="BtnEditSupplier_Click" Name="BtnEditSupplier">Edit
+                                <Button.Style>
+                                    <Style>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding ="{Binding ElementName=lbSuppliers, Path=SelectedIndex}" Value="-1">
+                                                <Setter Property="Button.IsEnabled" Value="false"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Button.Style>
+                            </Button>
+                            <Button Width="50" Click="BtnDeleteSupplier_Click" 
+                                    IsEnabled="{Binding IsEnabled, ElementName=BtnEditSupplier}">Delete</Button>
+                        </WrapPanel>
+                        <ListBox Name="lbSuppliers" PreviewMouseDoubleClick="BtnEditSupplier_Click">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <DockPanel Background="GhostWhite">
+                                        <Grid Margin="0,10">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                            </Grid.RowDefinitions>
+                                            <TextBlock Text="{Binding Name.Value}" Grid.Row="0" Grid.ColumnSpan="2" FontSize="20"/>
+                                            <TextBlock Text="e-mail: " FontWeight="Bold" Grid.Row="1" />
+                                            <TextBlock Text="{Binding Email.Value}" Grid.Row="1" Grid.Column="1"/>
                                         </Grid>
                                     </DockPanel>
                                 </DataTemplate>

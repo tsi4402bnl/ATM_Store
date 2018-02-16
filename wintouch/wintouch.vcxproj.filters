@@ -39,13 +39,16 @@
     <ClCompile Include="Log.cpp">
       <Filter>Source Files\general</Filter>
     </ClCompile>
-    <ClCompile Include="FbMessages.cpp">
-      <Filter>Source Files\FbMessages</Filter>
-    </ClCompile>
     <ClCompile Include="FbItemMessage.cpp">
       <Filter>Source Files\FbMessages</Filter>
     </ClCompile>
     <ClCompile Include="FbCategoryMessage.cpp">
+      <Filter>Source Files\FbMessages</Filter>
+    </ClCompile>
+    <ClCompile Include="FbSupplierMessage.cpp">
+      <Filter>Source Files\FbMessages</Filter>
+    </ClCompile>
+    <ClCompile Include="FbMessage.cpp">
       <Filter>Source Files\FbMessages</Filter>
     </ClCompile>
   </ItemGroup>
@@ -59,13 +62,16 @@
     <ClInclude Include="Log.h">
       <Filter>Header Files\general</Filter>
     </ClInclude>
-    <ClInclude Include="FbMessages.h">
-      <Filter>Header Files\FbMessages</Filter>
-    </ClInclude>
     <ClInclude Include="FbItemMessage.h">
       <Filter>Header Files\FbMessages</Filter>
     </ClInclude>
     <ClInclude Include="FbCategoryMessage.h">
+      <Filter>Header Files\FbMessages</Filter>
+    </ClInclude>
+    <ClInclude Include="FbSupplierMessage.h">
+      <Filter>Header Files\FbMessages</Filter>
+    </ClInclude>
+    <ClInclude Include="FbMessage.h">
       <Filter>Header Files\FbMessages</Filter>
     </ClInclude>
   </ItemGroup>

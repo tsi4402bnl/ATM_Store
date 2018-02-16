@@ -5,9 +5,10 @@ namespace TheUI
 
     public class CategoryPropEntry : PropEntry<CategoryPropEntryFb>
     {
-        public CategoryPropEntry() : base("")
+        public CategoryPropEntry() : this("") { }
+        public CategoryPropEntry(string id) : base(id)
         {
-            Init(entry: new CategoryPropEntryFb(name: "other"));
+            Init(new CategoryPropEntryFb(name: "other"));
         }
         public CategoryPropEntry(string id, CategoryPropEntryFb entry) : base(id)
         {
@@ -22,16 +23,13 @@ namespace TheUI
 
         protected override void Init(CategoryPropEntryFb entry)
         {
-            Name = new ObservableString() { Value = entry.Name };
+            Name = new ObservableString(entry.Name);
         }
     }
 
     public class CategoryPropEntryFb // for Fb class is not allowed to contain subClasses, keep it clean
     {
-        public CategoryPropEntryFb(string name)
-        {
-            Name = name;
-        }
+        public CategoryPropEntryFb(string name) { Name = name; }
         public string Name { get; set; }
     }
 
@@ -45,7 +43,7 @@ namespace TheUI
             {
                 if (uniqueIds.Add(id))
                 {
-                    Data.Add(new CategoryPropEntry() { Id = new ObservableString() { Value = id } });
+                    Data.Add(new CategoryPropEntry(id));
                 }
 
                 for (int i = 0; i < Data.Count; i++)

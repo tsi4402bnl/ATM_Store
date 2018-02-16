@@ -1,4 +1,4 @@
-#include "FbMessages.h"
+#include "FbMessage.h"
 
 #include <msclr\marshal_cppstd.h>
 
@@ -18,7 +18,7 @@ int FbMessage::ParseId(const std::string& propName)
 	isParsed = false;
 	std::string endStr("/" + propName);
 
-	if (DATA.empty() || PATH.empty()) return -1;
+	if (PATH.empty()) return -1;
 
 	int endPos = PATH.rfind(endStr);
 	if (endPos == PATH.size() - endStr.size())

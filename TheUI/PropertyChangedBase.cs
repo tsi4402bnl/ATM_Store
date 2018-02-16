@@ -18,33 +18,31 @@ namespace TheUI
         }
     }
 
-    public class ObservableString : PropertyChangedBase
+    public class ObservableString : ObservableType<string>
     {
-        string val;
-
-        public string Value
-        {
-            get { return val; }
-            set { val = value; OnPropertyChanged("Value"); }
-        }
+        public ObservableString() : base() { }
+        public ObservableString(string value) : base(value) { }
     }
 
-    public class ObservableInt : PropertyChangedBase
+    public class ObservableInt : ObservableType<int>
     {
-        int val;
-
-        public int Value
-        {
-            get { return val; }
-            set { val = value; OnPropertyChanged("Value"); }
-        }
+        public ObservableInt() : base() { }
+        public ObservableInt(int value) : base(value) { }
     }
 
-    public class ObservableDouble : PropertyChangedBase
+    public class ObservableDouble : ObservableType<double>
     {
-        double val;
+        public ObservableDouble() : base() { }
+        public ObservableDouble(double value) : base(value) { }
+    }
 
-        public double Value
+    public class ObservableType<T> : PropertyChangedBase
+    {
+        public ObservableType() { }
+        public ObservableType(T value) { Value = value; }
+
+        T val;
+        public T Value
         {
             get { return val; }
             set { val = value; OnPropertyChanged("Value"); }

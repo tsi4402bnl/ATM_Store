@@ -125,7 +125,8 @@
   <ItemGroup>
     <ClCompile Include="FbCategoryMessage.cpp" />
     <ClCompile Include="FbItemMessage.cpp" />
-    <ClCompile Include="FbMessages.cpp" />
+    <ClCompile Include="FbMessage.cpp" />
+    <ClCompile Include="FbSupplierMessage.cpp" />
     <ClCompile Include="Log.cpp" />
     <ClCompile Include="main.cpp">
       <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</CompileAsManaged>
@@ -144,7 +145,8 @@
   <ItemGroup>
     <ClInclude Include="FbCategoryMessage.h" />
     <ClInclude Include="FbItemMessage.h" />
-    <ClInclude Include="FbMessages.h" />
+    <ClInclude Include="FbMessage.h" />
+    <ClInclude Include="FbSupplierMessage.h" />
     <ClInclude Include="Log.h" />
     <ClInclude Include="MainWindow.h" />
     <ClInclude Include="UiInit.h" />
