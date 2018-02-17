@@ -113,6 +113,12 @@ namespace TheUI
         public void     RemoveItemProperties(string id) {     itemDatabase.RemoveProperties(id); }
         public void RemoveCategoryProperties(string id) { categoryDatabase.RemoveProperties(id); }
         public void RemoveSupplierProperties(string id) { supplierDatabase.RemoveProperties(id); }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {            
+            Reports reports = new Reports();
+            reports.GenerateAllProductsReport(itemDatabase);            
+        }
     }
 
 
