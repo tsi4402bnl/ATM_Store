@@ -27,7 +27,7 @@ namespace TheUI
 
             InitializeComponent();
 
-            new FbMessageParser(this);
+            new FbMessageProcessor(this);
 
             logDatabase = new LogDataBase(Dispatcher);
             DataContext = logDatabase.LogEntries;
@@ -101,9 +101,9 @@ namespace TheUI
         public FbEventData FetchNextFbMessage() { return fbClient == null ? new FbEventData() : fbClient.FetchNextFbMessage(); }
 
         // Add
-        public void AddProperties(string id,     ItemPropEntryFb item) {     itemDatabase.AddProperties(id, item); }
-        public void AddProperties(string id, CategoryPropEntryFb item) { categoryDatabase.AddProperties(id, item); }
-        public void AddProperties(string id, SupplierPropEntryFb item) { supplierDatabase.AddProperties(id, item); }
+        public void AddProperties(string id,    IItemPropEntryFb item)  {     itemDatabase.AddProperties(id, item); }
+        public void AddProperties(string id, ICategoryPropEntryFb item) { categoryDatabase.AddProperties(id, item); }
+        public void AddProperties(string id, ISupplierPropEntryFb item) { supplierDatabase.AddProperties(id, item); }
 
         // Remove
         public void     RemoveItemProperties(string id) {     itemDatabase.RemoveProperties(id); }

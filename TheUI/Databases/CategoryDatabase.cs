@@ -3,41 +3,46 @@
 namespace TheUI
 {
 
-    public class CategoryPropEntry : PropEntry<CategoryPropEntryFb>
+    public class CategoryPropEntry : PropEntry<ICategoryPropEntryFb>
     {
         public CategoryPropEntry() : this("") { }
         public CategoryPropEntry(string id) : base(id)
         {
             Init(new CategoryPropEntryFb(name: "other"));
         }
-        public CategoryPropEntry(string id, CategoryPropEntryFb entry) : base(id)
+        public CategoryPropEntry(string id, ICategoryPropEntryFb entry) : base(id)
         {
             Init(entry);
         }
-        public CategoryPropEntryFb GetPropEntryFb()
+        public ICategoryPropEntryFb GetPropEntryFb()
         {
             return new CategoryPropEntryFb(Name.Value);
         }
 
         public ObservableString Name { get; set; }
 
-        protected override void Init(CategoryPropEntryFb entry)
+        protected override void Init(ICategoryPropEntryFb entry)
         {
             Name = new ObservableString(entry.Name);
         }
     }
 
-    public class CategoryPropEntryFb // for Fb class is not allowed to contain subClasses, keep it clean
+    public interface ICategoryPropEntryFb
+    {
+        string Name { get; set; }
+    }
+
+    public class CategoryPropEntryFb : ICategoryPropEntryFb // for Fb class is not allowed to contain subClasses, keep it clean
     {
         public CategoryPropEntryFb(string name) { Name = name; }
         public string Name { get; set; }
     }
 
-    public class CategoryDatabase : Database<CategoryPropEntry, CategoryPropEntryFb>
+    public class CategoryDatabase : Database<CategoryPropEntry, ICategoryPropEntryFb>
     {
         public CategoryDatabase(Dispatcher d) : base(d) { }
 
-        public override void AddProperties(string id, CategoryPropEntryFb entry)
+        public override void AddProperties(string id, ICategoryPropEntryFb entry)
         {
             dispatcher.Invoke(delegate
             {

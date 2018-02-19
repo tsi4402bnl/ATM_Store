@@ -2,7 +2,8 @@
 {
     public abstract class FbMessage
     {
-        public abstract int Respond();
+        public string Id { get; set; }
+        public bool IsParsed { get; set; }
 
         protected abstract int Parse();
 
@@ -50,9 +51,6 @@
 
             return IsParsed ? 0 : -1;
         }
-
-        protected bool IsParsed { get; set; }
-        protected string Id { get; set; }
 
         protected Fb_Operations OPERATION { get; }
         protected string PATH { get; }

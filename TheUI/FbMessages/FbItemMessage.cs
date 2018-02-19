@@ -2,59 +2,56 @@
 
 namespace TheUI
 {
-    class FbItemMessage : FbMessage
+    class FbItemMessage : FbMessage, IItemPropEntryFb
     {
         public FbItemMessage(FbEventData msg) : base(msg)
         {
-            Price = -1.0;
-            QtyPerBox = -1;
-        }
-
-        public override int Respond()
-        {
-            int ret = -1;
-
-            if (!isParsed && Parse() != 0)
-            {
-                ParseFailedMessage();
-            }
-            else if (OperationType() == TheUI::Fb_Operations::fb_add || OperationType() == TheUI::Fb_Operations::fb_edit)
-            {
-                System::String ^ idCli = msclr::interop::marshal_as < System::String ^> (id);
-                System::String ^ nameCli = msclr::interop::marshal_as < System::String ^> (name);
-                System::String ^ catCli = msclr::interop::marshal_as < System::String ^> (categoryId);
-                System::String ^ descrCli = msclr::interop::marshal_as < System::String ^> (description);
-                System::String ^ unitsCli = msclr::interop::marshal_as < System::String ^> (units);
-                System::String ^ supplierIdCli = msclr::interop::marshal_as < System::String ^> (supplierId);
-                TheUI::ItemPropEntryFb item(nameCli, catCli, descrCli, price, qtyPerBox, unitsCli, supplierIdCli);
-                ManagedCode::ManagedGlobals::w->AddProperties(idCli, % item);
-                ret = 0;
-            }
-            else if (OperationType() == TheUI::Fb_Operations::fb_delete)
-            {
-                System::String ^ idCli = msclr::interop::marshal_as < System::String ^> (id);
-                ManagedCode::ManagedGlobals::w->RemoveItemProperties(idCli);
-                ret = 0;
-            }
-            else UnsupportedOperationMessage();
-
-            return ret;
+            Name        = "";
+            CategoryId  = "";
+            Description = "";
+            Units       = "";
+            SupplierId  = "";
+            Price       = -1.0;
+            QtyPerBox   = -1;
+            Parse();
         }
 
         public const string TABLE_NAME = "items";
 
         protected override int Parse()
         {
-            return 0;
+            if (OPERATION == Fb_Operations.fb_add || OPERATION == Fb_Operations.fb_edit)
+            {
+                if (!IsParsed && ParseId(NAME)        == 0) { Name        = DATA; }
+                if (!IsParsed && ParseId(CATEGORY_ID) == 0) { CategoryId  = DATA; }
+                if (!IsParsed && ParseId(DESCRIPTION) == 0) { Description = DATA; }
+                if (!IsParsed && ParseId(PRICE)       == 0)
+                {
+                    double price = -1.0;
+                    if (Double.TryParse(DATA.Substring(1), out price)) Price = price;
+                }
+                if (!IsParsed && ParseId(QTY_PER_BOX) == 0)
+                {
+                    int qty = -1;
+                    if (Int32.TryParse(DATA.Substring(1), out qty)) QtyPerBox = qty;
+                }
+                if (!IsParsed && ParseId(UNITS)       == 0) { Units = DATA; }
+                if (!IsParsed && ParseId(SUPPLIER_ID) == 0) { SupplierId = DATA; }
+            }
+            else if (OPERATION == Fb_Operations.fb_delete)
+            {
+                ParseId();
+            }
+            return IsParsed ? 0 : -1;
         }
 
-        private string Name        { get; set; }
-        private string CategoryId  { get; set; }
-        private string Description { get; set; }
-        private double Price       { get; set; }
-        private int    QtyPerBox   { get; set; }
-        private string Units       { get; set; }
-        private string SupplierId  { get; set; }
+        public string Name        { get; set; }
+        public string CategoryId  { get; set; }
+        public string Description { get; set; }
+        public double Price       { get; set; }
+        public int    QtyPerBox   { get; set; }
+        public string Units       { get; set; }
+        public string SupplierId  { get; set; }
 
         private const string NAME        = "Name";
         private const string CATEGORY_ID = "CategoryId";
@@ -64,7 +61,4 @@ namespace TheUI
         private const string UNITS       = "Units";
         private const string SUPPLIER_ID = "SupplierId";
     }
-
-
-
 }

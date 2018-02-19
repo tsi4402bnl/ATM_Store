@@ -97,9 +97,11 @@
     </Compile>
     <Compile Include="Databases\CategoryDatabase.cs" />
     <Compile Include="Databases\Database.cs" />
+    <Compile Include="FbMessages\FbCategoryMessage.cs" />
     <Compile Include="FbMessages\FbItemMessage.cs" />
     <Compile Include="FbMessages\FbMessage.cs" />
-    <Compile Include="FbMessages\FbMessageParser.cs" />
+    <Compile Include="FbMessages\FbMessageProcessor.cs" />
+    <Compile Include="FbMessages\FbSupplierMessage.cs" />
     <Compile Include="FireBase.cs" />
     <Compile Include="Databases\ItemDatabase.cs" />
     <Compile Include="Log.cs" />
