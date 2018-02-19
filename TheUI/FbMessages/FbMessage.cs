@@ -4,6 +4,8 @@
     {
         public abstract int Respond();
 
+        protected abstract int Parse();
+
         protected FbMessage(FbEventData msg)
         {
             IsParsed = false;
@@ -24,7 +26,7 @@
             {
                 int idPos = PATH.LastIndexOf("/", endPos - 1) + 1;
                 if (idPos != -1 && idPos < endPos)
-		        {
+                {
                     Id = PATH.Substring(idPos, endPos - idPos);
                     IsParsed = true;
                 }
@@ -41,21 +43,12 @@
 
             int idPos = PATH.LastIndexOf("/") + 1;
             if (idPos != -1)
-	        {
+            {
                 Id = PATH.Substring(idPos);
                 IsParsed = true;
             }
 
             return IsParsed ? 0 : -1;
-        }
-
-        void ParseFailedMessage()
-        {
-            //LOG("Failed To parse message! table: " + TABLE_NAME + ", Path: " + PATH + ", Data: " + DATA);
-        }
-        void UnsupportedOperationMessage()
-        {
-            //LOG("Unsupported FB operation! table: " + TABLE_NAME + ", operation: " + std::to_string(static_cast<int>(OPERATION)));
         }
 
         protected bool IsParsed { get; set; }
