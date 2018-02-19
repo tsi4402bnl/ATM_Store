@@ -3,7 +3,7 @@ using System.Windows.Threading;
 
 namespace TheUI
 {
-    public class ItemPropEntry : PropEntry<ItemPropEntryFb>
+    public class ItemPropEntry : PropEntry<IItemPropEntryFb>
     {
         public ItemPropEntry() : this("") { }
         public ItemPropEntry(string id) : base(id)
@@ -11,7 +11,7 @@ namespace TheUI
             Init(new ItemPropEntryFb(name: "", categoryId: "", description: "", price: 1.0,
                 qtyPerBox: 1, units: "pcs", supplierId: ""));
         }
-        public ItemPropEntry(string id, ItemPropEntryFb entry) : base(id)
+        public ItemPropEntry(string id, IItemPropEntryFb entry) : base(id)
         {
             Init(entry);
         }
@@ -44,7 +44,7 @@ namespace TheUI
         public ObservableString  Units       { get; set; }
         public SupplierPropEntry Supplier    { get { return _supplier; } set { _supplier = value; OnPropertyChanged("Supplier"); } }
 
-        protected override void Init(ItemPropEntryFb entry)
+        protected override void Init(IItemPropEntryFb entry)
         {
             Name        = new ObservableString(entry.Name);
             Category    = new CategoryPropEntry(entry.CategoryId);
@@ -61,7 +61,18 @@ namespace TheUI
         private SupplierPropEntry _supplier;
     }
 
-    public class ItemPropEntryFb // for Fb class is not allowed to contain subClasses, keep it clean
+    public interface IItemPropEntryFb
+    {
+        string CategoryId  { get; set; }
+        string Description { get; set; }
+        string Name        { get; set; }
+        double Price       { get; set; }
+        int QtyPerBox      { get; set; }
+        string SupplierId  { get; set; }
+        string Units       { get; set; }
+    }
+
+    public class ItemPropEntryFb : IItemPropEntryFb // for Fb class is not allowed to contain subClasses, keep it clean
     {
         public ItemPropEntryFb(string name, string categoryId, string description, double price, 
             int qtyPerBox, string units, string supplierId)
@@ -76,7 +87,7 @@ namespace TheUI
         public string SupplierId  { get; set; }
     }
 
-    public class ItemDatabase : Database<ItemPropEntry, ItemPropEntryFb>
+    public class ItemDatabase : Database<ItemPropEntry, IItemPropEntryFb>
     {
         public ItemDatabase(Dispatcher d, CategoryDatabase categoryDb, SupplierDatabase supplierDb) : base(d)
         {
@@ -84,7 +95,7 @@ namespace TheUI
             this.supplierDb = supplierDb;
         }
 
-        public override void AddProperties(string id, ItemPropEntryFb entry)
+        public override void AddProperties(string id, IItemPropEntryFb entry)
         {
             dispatcher.Invoke(delegate
             {
