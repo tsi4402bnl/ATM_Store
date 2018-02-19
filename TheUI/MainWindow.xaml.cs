@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Threading;
 
 namespace TheUI
 {
@@ -10,7 +11,7 @@ namespace TheUI
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     /// 
-    public partial class MainWindow : Page
+    public partial class MainWindow : Window
     {
         // public fields / properties
         public FireBase fbClient;
@@ -21,17 +22,12 @@ namespace TheUI
         private CategoryDatabase categoryDatabase;
         private SupplierDatabase supplierDatabase;
 
-        public MainWindow(int w, int h)
+        public MainWindow()
         {
-            if (null == Application.Current)
-            {
-                new Application();
-                Application.Current.ShutdownMode = ShutdownMode.OnExplicitShutdown;
-            }
 
             InitializeComponent();
-            Width = w; // app size is defined in main.cpp
-            Height = h;
+
+            new FbMessageParser(this);
 
             logDatabase = new LogDataBase(Dispatcher);
             DataContext = logDatabase.LogEntries;
@@ -44,7 +40,7 @@ namespace TheUI
             lbSuppliers.ItemsSource = supplierDatabase.DataView;
 
         }
-        private void Page_Loaded(object sender, RoutedEventArgs e) { fbClient = new FireBase(Dispatcher); }
+        private void Window_Loaded(object sender, RoutedEventArgs e) { fbClient = new FireBase(Dispatcher); }
 
         // Log functions
         private void Clear_Log(object sender, RoutedEventArgs e) { logDatabase.Clear_Log(); }
