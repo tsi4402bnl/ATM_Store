@@ -35,8 +35,9 @@ namespace TheUI
                     int qty = -1;
                     if (Int32.TryParse(DATA.Substring(1), out qty)) QtyPerBox = qty;
                 }
-                if (!IsParsed && ParseId(UNITS)       == 0) { Units = DATA; }
+                if (!IsParsed && ParseId(UNITS)       == 0) { Units      = DATA; }
                 if (!IsParsed && ParseId(SUPPLIER_ID) == 0) { SupplierId = DATA; }
+                if (!IsParsed && ParseId(IMAGE)       == 0) { Image      = DATA; }
             }
             else if (OPERATION == Fb_Operations.fb_delete)
             {
@@ -52,6 +53,7 @@ namespace TheUI
         public int    QtyPerBox   { get; set; }
         public string Units       { get; set; }
         public string SupplierId  { get; set; }
+        public string Image       { get; set; }
 
         private const string NAME        = "Name";
         private const string CATEGORY_ID = "CategoryId";
@@ -60,5 +62,6 @@ namespace TheUI
         private const string QTY_PER_BOX = "QtyPerBox";
         private const string UNITS       = "Units";
         private const string SUPPLIER_ID = "SupplierId";
+        private const string IMAGE       = "Image";
     }
 }

@@ -1,4 +1,7 @@
 ﻿using System;
+using System.IO;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 
 namespace TheUI
@@ -61,6 +64,29 @@ namespace TheUI
         private SupplierPropEntry _supplier;
     }
 
+    public class FbImage
+    {
+        public FbImage(string fbData)
+        {
+            FbData = fbData;
+
+            //byte[] data;
+            //foreach (var item in FbData)
+            //{
+            //    data.
+            //}
+            //String.Concat(Array.ConvertAll(bytes, x => x.ToString("X2")));
+
+            //BitmapImage img = new BitmapImage();
+            //img.BeginInit();
+            //img.StreamSource = new MemoryStream(fbData);
+            //img.EndInit();
+            //imgPhoto.Source = img;
+        }
+        public ImageSource Image { get; set; }
+        public string FbData    { get; set; }
+    }
+
     public interface IItemPropEntryFb
     {
         string CategoryId  { get; set; }
@@ -70,6 +96,7 @@ namespace TheUI
         int QtyPerBox      { get; set; }
         string SupplierId  { get; set; }
         string Units       { get; set; }
+        string Image       { get; set; }
     }
 
     public class ItemPropEntryFb : IItemPropEntryFb // for Fb class is not allowed to contain subClasses, keep it clean
@@ -85,6 +112,7 @@ namespace TheUI
         public int    QtyPerBox   { get; set; }
         public string Units       { get; set; }
         public string SupplierId  { get; set; }
+        public string Image       { get; set; }
     }
 
     public class ItemDatabase : Database<ItemPropEntry, IItemPropEntryFb>

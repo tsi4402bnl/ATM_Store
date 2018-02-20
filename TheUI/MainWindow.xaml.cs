@@ -72,20 +72,22 @@ namespace TheUI
                     using (var drawingContext = drawingVisual.RenderOpen()) drawingContext.DrawDrawing(group);
                     var resizedImage = new RenderTargetBitmap( width, height, 96, 96, PixelFormats.Default);
                     resizedImage.Render(drawingVisual);
-                    
+
+                    imgPhoto.Source = resizedImage;
+
                     byte[] data;
-                    JpegBitmapEncoder encoder = new JpegBitmapEncoder();
+                    PngBitmapEncoder encoder = new PngBitmapEncoder();
                     encoder.Frames.Add(BitmapFrame.Create(resizedImage));
                     using (MemoryStream ms = new MemoryStream())
                     {
                         encoder.Save(ms);
                         data = ms.ToArray();
                     }
-                    BitmapImage img = new BitmapImage();
-                    img.BeginInit();
-                    img.StreamSource = new MemoryStream(data);
-                    img.EndInit();
-                    imgPhoto.Source = img;
+                    //BitmapImage img = new BitmapImage();
+                    //img.BeginInit();
+                    //img.StreamSource = new MemoryStream(data);
+                    //img.EndInit();
+                    //imgPhoto.Source = img;
 
                 }
                 catch (System.IO.FileNotFoundException)
