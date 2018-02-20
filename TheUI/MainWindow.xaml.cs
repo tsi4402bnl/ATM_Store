@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 
 namespace TheUI
@@ -38,8 +40,37 @@ namespace TheUI
             itemDatabase = new ItemDatabase(Dispatcher, categoryDatabase, supplierDatabase);
             lbItems.ItemsSource = itemDatabase.Data;
             lbSuppliers.ItemsSource = supplierDatabase.DataView;
+            //TODO fix logo
+            BitmapImage image = new BitmapImage(new Uri("/img/logo.png", UriKind.Relative));
+            logo.Source = image;
+            //TODO add namedays
+            
+            namedays.Text = getNamedayNames();
 
         }
+
+        public string getNamedayNames()
+        {
+            string names = "";
+            var reader = new StreamReader("vardadienas.csv");
+            List<string> listB = new List<string>();
+            while (!reader.EndOfStream)
+            {
+                string line = reader.ReadLine();
+                var values = line.Split(';');
+                DateTime calendarDay = Convert.ToDateTime(values[0]);
+                DateTime now = DateTime.Today;
+
+                //check if date is today
+                if (calendarDay.Day == now.Day && calendarDay.Month == now.Month)
+                {
+                    names = values[1];
+                    break;
+                }                
+            } 
+            return names;
+        }
+
         private void Window_Loaded(object sender, RoutedEventArgs e) { fbClient = new FireBase(Dispatcher); }
 
         // Log functions

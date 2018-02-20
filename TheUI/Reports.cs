@@ -98,8 +98,9 @@ namespace TheUI
         private void fillHeaderFooter()
         {
             //add logo
-            XImage image = XImage.FromFile("appleServciceLogo.png");
-            gfx.DrawImage(image, 380, -20, 251, 201);
+            //TODO fix logo
+            //XImage image = XImage.FromFile("TheUI.Properties.Resources.appleServciceLogo");
+            //gfx.DrawImage(image, 380, -20, 251, 201);
 
             //company information
             gfx.DrawString(CompanyInfo.companyName, font12Bold, XBrushes.Black, new XRect(col1, rowPosition, page.Width, page.Height), XStringFormats.TopLeft);

@@ -54,9 +54,12 @@
         <DockPanel DockPanel.Dock="Top">
             <WrapPanel Height="50" VerticalAlignment="Center">
                 <Label>Header</Label>
+                <Image x:Name="logo" Height="53" Width="60"/>
+                <TextBox x:Name="namedays" Height="47" TextWrapping="Wrap" Text="TextBox" Width="120" IsEnabled="False" Background="{x:Null}"/>
             </WrapPanel>
         </DockPanel>
-        <DockPanel DockPanel.Dock="Bottom" VerticalAlignment="Bottom" Height="70"><!--set Visibility="Collapsed" to disable LOG-->
+        <DockPanel DockPanel.Dock="Bottom" VerticalAlignment="Bottom" Height="70">
+            <!--set Visibility="Collapsed" to disable LOG-->
             <Button Width="50" Height="20" Content="Clear" Click="Clear_Log" DockPanel.Dock="Bottom" HorizontalAlignment="Right"/>
             <ItemsControl ItemsSource="{Binding}" Style="{StaticResource LogViewerStyle}" >
                 <ItemsControl.Template>
