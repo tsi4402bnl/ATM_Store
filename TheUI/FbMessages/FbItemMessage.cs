@@ -13,6 +13,7 @@ namespace TheUI
             SupplierId  = "";
             Price       = -1.0;
             QtyPerBox   = -1;
+            Image       = "";
             Parse();
         }
 

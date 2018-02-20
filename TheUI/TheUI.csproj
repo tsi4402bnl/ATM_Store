@@ -107,6 +107,9 @@
     <Compile Include="Log.cs" />
     <Compile Include="PropertyChangedBase.cs" />
     <Compile Include="Databases\SupplierDatabase.cs" />
+    <Compile Include="PupupWindows\ItemImageWindow.xaml.cs">
+      <DependentUpon>ItemImageWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PupupWindows\ItemWindow.xaml.cs">
       <DependentUpon>ItemWindow.xaml</DependentUpon>
     </Compile>
@@ -121,6 +124,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="PupupWindows\ItemImageWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="PupupWindows\ItemWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

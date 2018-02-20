@@ -73,7 +73,7 @@ namespace TheUI
                     var resizedImage = new RenderTargetBitmap( width, height, 96, 96, PixelFormats.Default);
                     resizedImage.Render(drawingVisual);
 
-                    imgPhoto.Source = resizedImage;
+                    //imgPhoto.Source = resizedImage;
 
                     byte[] data;
                     PngBitmapEncoder encoder = new PngBitmapEncoder();
@@ -83,6 +83,13 @@ namespace TheUI
                         encoder.Save(ms);
                         data = ms.ToArray();
                     }
+                    string fbData = String.Concat(Array.ConvertAll(data, x => x.ToString("X2")));
+
+                    //string fbData = BitConverter.ToString(data);
+                    //fbData = fbData.Replace("-", "");
+
+                    //itemDatabase.AddProperties("-L5G9Kyg7AVB66wCFbRi", new ItemPropEntryFb("", "", "", -1.0, -1, "", "", "/" + fbData));
+                    //imgPhoto.Source = itemDatabase.Data[0].Image.Image;
                     //BitmapImage img = new BitmapImage();
                     //img.BeginInit();
                     //img.StreamSource = new MemoryStream(data);
@@ -115,7 +122,7 @@ namespace TheUI
         }
         private void CreateItemPopupWindow(ItemPropEntry item)
         {
-            new ItemWindow(item, this, categoryDatabase, supplierDatabase).ShowDialog();
+            new ItemWindow(item, this, categoryDatabase, supplierDatabase, itemDatabase).ShowDialog();
         }
 
 

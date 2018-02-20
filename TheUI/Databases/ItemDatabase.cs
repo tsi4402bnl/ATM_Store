@@ -12,7 +12,7 @@ namespace TheUI
         public ItemPropEntry(string id) : base(id)
         {
             Init(new ItemPropEntryFb(name: "", categoryId: "", description: "", price: 1.0,
-                qtyPerBox: 1, units: "pcs", supplierId: ""));
+                qtyPerBox: 1, units: "pcs", supplierId: "", image: ""));
         }
         public ItemPropEntry(string id, IItemPropEntryFb entry) : base(id)
         {
@@ -28,7 +28,7 @@ namespace TheUI
         public ItemPropEntryFb GetPropEntryFb()
         {
             return new ItemPropEntryFb(Name.Value, Category.Id.Value, Description.Value, 
-                Price.Value, QtyPerBox.Value, Units.Value, Supplier.Id.Value);
+                Price.Value, QtyPerBox.Value, Units.Value, Supplier.Id.Value, Image.FbData);
         }
 
         public ObservableString  Name        { get; set; }
@@ -46,6 +46,7 @@ namespace TheUI
         }
         public ObservableString  Units       { get; set; }
         public SupplierPropEntry Supplier    { get { return _supplier; } set { _supplier = value; OnPropertyChanged("Supplier"); } }
+        public FbImage           Image       { get { return _image;    } set { _image    = value; OnPropertyChanged("Image"   ); } }
 
         protected override void Init(IItemPropEntryFb entry)
         {
@@ -56,12 +57,14 @@ namespace TheUI
             QtyPerBox   = new ObservableInt(entry.QtyPerBox);
             Units       = new ObservableString(entry.Units);
             Supplier    = new SupplierPropEntry(entry.SupplierId);
+            Image       = new FbImage(entry.Image);
         }
 
         private ObservableDouble _price;
         private ObservableInt _qtyPerBox;
         private CategoryPropEntry _category;
         private SupplierPropEntry _supplier;
+        private FbImage _image;
     }
 
     public class FbImage
@@ -70,18 +73,26 @@ namespace TheUI
         {
             FbData = fbData;
 
-            //byte[] data;
-            //foreach (var item in FbData)
-            //{
-            //    data.
-            //}
-            //String.Concat(Array.ConvertAll(bytes, x => x.ToString("X2")));
+            int numberChars = fbData.Length;
+            if (numberChars > 0 && numberChars % 2 == 0)
+            {
+                byte[] data = new byte[numberChars / 2];
+                for (int i = 0; i < numberChars; i += 2)
+                    data[i / 2] = Convert.ToByte(fbData.Substring(i, 2), 16);
 
-            //BitmapImage img = new BitmapImage();
-            //img.BeginInit();
-            //img.StreamSource = new MemoryStream(fbData);
-            //img.EndInit();
-            //imgPhoto.Source = img;
+                BitmapImage img = new BitmapImage();
+                img.BeginInit();
+                img.StreamSource = new MemoryStream(data);
+                img.EndInit();
+
+                Image = img;
+            }
+            else
+            {
+                Image = new BitmapImage();
+            }
+
+            //String.Concat(Array.ConvertAll(bytes, x => x.ToString("X2")));
         }
         public ImageSource Image { get; set; }
         public string FbData    { get; set; }
@@ -102,9 +113,9 @@ namespace TheUI
     public class ItemPropEntryFb : IItemPropEntryFb // for Fb class is not allowed to contain subClasses, keep it clean
     {
         public ItemPropEntryFb(string name, string categoryId, string description, double price, 
-            int qtyPerBox, string units, string supplierId)
+            int qtyPerBox, string units, string supplierId, string image)
         { Name = name; CategoryId = categoryId; Description = description; Price = price;
-            QtyPerBox = qtyPerBox; Units = units; SupplierId = supplierId; }
+            QtyPerBox = qtyPerBox; Units = units; SupplierId = supplierId; Image = image; }
         public string Name        { get; set; }
         public string CategoryId  { get; set; }
         public string Description { get; set; }
@@ -150,6 +161,8 @@ namespace TheUI
                     {
                         Data[i].Supplier = supplierDb.GetEntryById(entry.SupplierId.Substring(1));
                     }
+                    if (entry.Image.Length != 0)
+                            Data[i].Image = new FbImage(entry.Image.Substring(1));
                 }
             }
             });
