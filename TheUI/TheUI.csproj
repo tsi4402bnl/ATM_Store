@@ -102,6 +102,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="CompanyInfo.cs" />
     <Compile Include="Databases\CategoryDatabase.cs" />
     <Compile Include="Databases\Database.cs" />
     <Compile Include="FbMessages\FbCategoryMessage.cs" />
