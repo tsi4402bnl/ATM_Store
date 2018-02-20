@@ -1,13 +1,13 @@
-﻿<Page x:Class="TheUI.MainWindow"
+﻿<Window x:Class="TheUI.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="clr-namespace:TheUI"
         Background="White"
         Width="800"
-        Height="600" Loaded="Page_Loaded"
+        Height="600" Loaded="Window_Loaded"
       >
 
-    <Page.Resources>
+    <Window.Resources>
         <Style TargetType="ItemsControl" x:Key="LogViewerStyle">
             <Setter Property="Template">
                 <Setter.Value>
@@ -48,7 +48,7 @@
             </Grid>
         </DataTemplate>
 
-    </Page.Resources>
+    </Window.Resources>
 
     <DockPanel Name="mainPanel">
         <DockPanel DockPanel.Dock="Top">
@@ -188,4 +188,4 @@
             </TabControl>
         </DockPanel>
     </DockPanel>
-</Page>
+</Window>

@@ -3,14 +3,14 @@ using System.Windows.Threading;
 
 namespace TheUI
 {
-    public class SupplierPropEntry : PropEntry<SupplierPropEntryFb>
+    public class SupplierPropEntry : PropEntry<ISupplierPropEntryFb>
     {
         public SupplierPropEntry() : this("") { }
         public SupplierPropEntry(string id) : base(id)
         {
             Init(new SupplierPropEntryFb(name: "other", email:""));
         }
-        public SupplierPropEntry(string id, SupplierPropEntryFb entry) : base(id)
+        public SupplierPropEntry(string id, ISupplierPropEntryFb entry) : base(id)
         {
             Init(entry);
         }
@@ -18,7 +18,7 @@ namespace TheUI
         {
             Init(entry.GetPropEntryFb());
         }
-        public SupplierPropEntryFb GetPropEntryFb()
+        public ISupplierPropEntryFb GetPropEntryFb()
         {
             return new SupplierPropEntryFb(Name.Value, Email.Value);
         }
@@ -26,28 +26,34 @@ namespace TheUI
         public ObservableString Name  { get; set; }
         public ObservableString Email { get; set; }
 
-        protected override void Init(SupplierPropEntryFb entry)
+        protected override void Init(ISupplierPropEntryFb entry)
         {
             Name  = new ObservableString(entry.Name);
             Email = new ObservableString(entry.Email);
         }
     }
 
-    public class SupplierPropEntryFb // for Fb class is not allowed to contain subClasses, keep it clean
+    public interface ISupplierPropEntryFb
+    {
+        string Email { get; set; }
+        string Name { get; set; }
+    }
+
+    public class SupplierPropEntryFb : ISupplierPropEntryFb // for Fb class is not allowed to contain subClasses, keep it clean
     {
         public SupplierPropEntryFb(string name, string email) { Name = name; Email = email; }
         public string Name  { get; set; }
         public string Email { get; set; }
     }
 
-    public class SupplierDatabase : Database<SupplierPropEntry, SupplierPropEntryFb>
+    public class SupplierDatabase : Database<SupplierPropEntry, ISupplierPropEntryFb>
     {
         public SupplierDatabase(Dispatcher d) : base(d)
         {
             DataView.Filter = new Predicate<object>(FilterData);
         }
 
-        public override void AddProperties(string id, SupplierPropEntryFb entry)
+        public override void AddProperties(string id, ISupplierPropEntryFb entry)
         {
             dispatcher.Invoke(delegate
             {
