@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="Item" Height="270" Width="420" Loaded="Window_Loaded">
+        Title="wintouch" Height="270" Width="420" Loaded="Window_Loaded">
     
     <Grid  Name="gItem" Margin="10">
         <Grid.ColumnDefinitions>

@@ -54,9 +54,6 @@
         <DockPanel DockPanel.Dock="Top">
             <WrapPanel Height="50" VerticalAlignment="Center">
                 <Label>Header</Label>
-                <Button Content="Button" Width="75" Click="Button_Click"/>
-                <Image Width="50" Name="imgPhoto" Height="50"
-         Grid.Column="1" />
             </WrapPanel>
         </DockPanel>
         <DockPanel DockPanel.Dock="Bottom" VerticalAlignment="Bottom" Height="70"><!--set Visibility="Collapsed" to disable LOG-->

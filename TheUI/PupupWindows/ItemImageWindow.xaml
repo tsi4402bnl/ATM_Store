@@ -4,23 +4,29 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="Select Picture" Height="500" Width="430">
+        Title="wintouch" Height="500" Width="430">
 
     <Window.Resources>
         <DataTemplate x:Key="ItemTemplate">
-            <WrapPanel>
+            <Grid>
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">none</TextBlock>
                 <Image Width="100" Height="100" Margin="10" Stretch="Fill" Source="{Binding Image}"/>
-            </WrapPanel>
+            </Grid>
         </DataTemplate>
     </Window.Resources>
 
-    <Grid>
+    <DockPanel>
+        <WrapPanel DockPanel.Dock="Top"><Button Name="BtnAddNew" HorizontalAlignment="Left" Click="BtnAddNew_Click">Add New</Button></WrapPanel>
+        <WrapPanel DockPanel.Dock="Bottom" HorizontalAlignment="Center">
+            <Button Width="50" Margin="10" Click="BtnOk_Click">Ok</Button>
+            <Button Width="50" Margin="10" Click="BtnClose_Click">Cancel</Button>
+        </WrapPanel>
         <ListView Name ="ImageListView" ItemTemplate="{StaticResource ItemTemplate}" ItemsSource="{Binding Data}">
             <ListView.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <UniformGrid Columns="3" />
+                    <UniformGrid Columns="3" VerticalAlignment="Top"/>
                 </ItemsPanelTemplate>
             </ListView.ItemsPanel>
         </ListView>
-    </Grid>
+    </DockPanel>
 </Window>
