@@ -1,4 +1,9 @@
-﻿using System.Windows;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Threading;
 
 namespace TheUI
 {
@@ -104,7 +109,6 @@ namespace TheUI
         public void     RemoveItemProperties(string id) {     itemDatabase.RemoveProperties(id); }
         public void RemoveCategoryProperties(string id) { categoryDatabase.RemoveProperties(id); }
         public void RemoveSupplierProperties(string id) { supplierDatabase.RemoveProperties(id); }
-
     }
 
 
