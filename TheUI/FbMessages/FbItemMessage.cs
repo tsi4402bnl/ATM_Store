@@ -19,7 +19,7 @@ namespace TheUI
 
         public const string TABLE_NAME = "items";
 
-        protected override int Parse()
+        protected override sealed int Parse()
         {
             if (OPERATION == Fb_Operations.fb_add || OPERATION == Fb_Operations.fb_edit)
             {

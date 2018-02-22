@@ -9,7 +9,7 @@ namespace TheUI
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        protected virtual void OnPropertyChanged(string propertyName)
+        protected void OnPropertyChanged(string propertyName)
         {
             Application.Current.Dispatcher.BeginInvoke((Action)(() =>
             {

@@ -11,7 +11,7 @@
 
         public const string TABLE_NAME = "suppliers";
 
-        protected override int Parse()
+        protected override sealed int Parse()
         {
             if (OPERATION == Fb_Operations.fb_add || OPERATION == Fb_Operations.fb_edit)
             {

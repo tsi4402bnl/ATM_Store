@@ -11,7 +11,7 @@ namespace TheUI
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     /// 
-    public partial class MainWindow : Window
+    public sealed partial class MainWindow : Window, IDisposable
     {
         // public fields / properties
         public FireBase fbClient;
@@ -46,6 +46,10 @@ namespace TheUI
         private void Clear_Log(object sender, RoutedEventArgs e) { logDatabase.Clear_Log(); }
         public void Log(string msg) { logDatabase.Log(msg); }
 
+        public void Dispose()
+        {
+            fbClient.Dispose();
+        }
 
         /********************************************************* Item Tab Events ********************************************************/
         private void BtnNewItem_Click(object sender, RoutedEventArgs e)
