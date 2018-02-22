@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Windows;
@@ -21,9 +22,10 @@ namespace TheUI
             {
                 new FbImage("")
             };
+            HashSet<string> uniqueImages = new HashSet<string>();
             foreach (var entry in itemDatabase.Data)
             {
-                if (entry.Image.FbData.Length > 0) Data.Add(entry.Image);
+                if (entry.Image.FbData.Length > 0 && uniqueImages.Add(entry.Image.FbData)) Data.Add(entry.Image);
             }
             this.item = item;
             
