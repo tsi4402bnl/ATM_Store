@@ -98,6 +98,7 @@
     </Compile>
     <Compile Include="Databases\CategoryDatabase.cs" />
     <Compile Include="Databases\Database.cs" />
+    <Compile Include="Databases\TransactionDatabase.cs" />
     <Compile Include="FbMessages\FbCategoryMessage.cs" />
     <Compile Include="FbMessages\FbItemMessage.cs" />
     <Compile Include="FbMessages\FbMessage.cs" />
