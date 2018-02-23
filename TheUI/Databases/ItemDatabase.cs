@@ -98,14 +98,14 @@ namespace TheUI
 
     public interface IItemPropEntryFb
     {
-        string CategoryId  { get; set; }
-        string Description { get; set; }
-        string Name        { get; set; }
-        double Price       { get; set; }
-        int    Qty         { get; set; }
-        string SupplierId  { get; set; }
-        string Units       { get; set; }
-        string Image       { get; set; }
+        string CategoryId  { get; }
+        string Description { get; }
+        string Name        { get; }
+        double Price       { get; }
+        int    Qty         { get; }
+        string SupplierId  { get; }
+        string Units       { get; }
+        string Image       { get; }
     }
 
     public class ItemPropEntryFb : IItemPropEntryFb // for Fb class is not allowed to contain subClasses, keep it clean
@@ -114,14 +114,14 @@ namespace TheUI
             int qty, string units, string supplierId, string image)
         { Name = name; CategoryId = categoryId; Description = description; Price = price;
             Qty = qty; Units = units; SupplierId = supplierId; Image = image; }
-        public string Name        { get; set; }
-        public string CategoryId  { get; set; }
-        public string Description { get; set; }
-        public double Price       { get; set; }
-        public int    Qty         { get; set; }
-        public string Units       { get; set; }
-        public string SupplierId  { get; set; }
-        public string Image       { get; set; }
+        public string Name        { get; }
+        public string CategoryId  { get; }
+        public string Description { get; }
+        public double Price       { get; }
+        public int    Qty         { get; }
+        public string Units       { get; }
+        public string SupplierId  { get; }
+        public string Image       { get; }
     }
 
     public class ItemDatabase : Database<ItemPropEntry, IItemPropEntryFb>

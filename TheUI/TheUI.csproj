@@ -104,6 +104,7 @@
     <Compile Include="FbMessages\FbMessage.cs" />
     <Compile Include="FbMessages\FbMessageProcessor.cs" />
     <Compile Include="FbMessages\FbSupplierMessage.cs" />
+    <Compile Include="FbMessages\FbTransactionMessage.cs" />
     <Compile Include="FireBase.cs" />
     <Compile Include="Databases\ItemDatabase.cs" />
     <Compile Include="Log.cs" />

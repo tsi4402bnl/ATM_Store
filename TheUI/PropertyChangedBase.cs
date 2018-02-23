@@ -36,6 +36,12 @@ namespace TheUI
         public ObservableDouble(double value) : base(value) { }
     }
 
+    public class ObservableDateTime : ObservableType<DateTime>
+    {
+        public ObservableDateTime() : base() { }
+        public ObservableDateTime(DateTime value) : base(value) { }
+    }
+
     public class ObservableType<T> : PropertyChangedBase
     {
         public ObservableType() { }

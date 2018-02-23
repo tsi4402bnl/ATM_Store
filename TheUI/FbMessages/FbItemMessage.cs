@@ -4,6 +4,7 @@ namespace TheUI
 {
     class FbItemMessage : FbMessage, IItemPropEntryFb
     {
+        public FbItemMessage() : base(new FbEventData()) { }
         public FbItemMessage(FbEventData msg) : base(msg)
         {
             Name        = "";
@@ -17,7 +18,7 @@ namespace TheUI
             Parse();
         }
 
-        public const string TABLE_NAME = "items";
+        public override string TABLE_NAME { get { return "items"; } }
 
         protected override sealed int Parse()
         {

@@ -2,6 +2,7 @@
 {
     class FbSupplierMessage : FbMessage, ISupplierPropEntryFb
     {
+        public FbSupplierMessage() : base(new FbEventData()) { }
         public FbSupplierMessage(FbEventData msg) : base(msg)
         {
             Name = "";
@@ -9,7 +10,7 @@
             Parse();
         }
 
-        public const string TABLE_NAME = "suppliers";
+        public override string TABLE_NAME { get { return "suppliers"; } }
 
         protected override sealed int Parse()
         {

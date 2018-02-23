@@ -29,13 +29,13 @@ namespace TheUI
 
     public interface ICategoryPropEntryFb
     {
-        string Name { get; set; }
+        string Name { get; }
     }
 
     public class CategoryPropEntryFb : ICategoryPropEntryFb // for Fb class is not allowed to contain subClasses, keep it clean
     {
         public CategoryPropEntryFb(string name) { Name = name; }
-        public string Name { get; set; }
+        public string Name { get; }
     }
 
     public class CategoryDatabase : Database<CategoryPropEntry, ICategoryPropEntryFb>

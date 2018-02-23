@@ -4,6 +4,7 @@
     {
         public string Id { get; set; }
         public bool IsParsed { get; set; }
+        public abstract string TABLE_NAME { get; }
 
         protected abstract int Parse();
 
