@@ -12,7 +12,7 @@ namespace TheUI
         public ItemPropEntry(string id) : base(id)
         {
             Init(new ItemPropEntryFb(name: "", categoryId: "", description: "", price: 1.0,
-                qtyPerBox: 1, units: "pcs", supplierId: "", image: ""));
+                qty: 1, units: "pcs", supplierId: "", image: ""));
         }
         public ItemPropEntry(string id, IItemPropEntryFb entry) : base(id)
         {
@@ -28,7 +28,7 @@ namespace TheUI
         public ItemPropEntryFb GetPropEntryFb()
         {
             return new ItemPropEntryFb(Name.Value, Category.Id.Value, Description.Value, 
-                Price.Value, QtyPerBox.Value, Units.Value, Supplier.Id.Value, Image.FbData);
+                Price.Value, Qty.Value, Units.Value, Supplier.Id.Value, Image.FbData);
         }
 
         public ObservableString  Name        { get; set; }
@@ -39,10 +39,10 @@ namespace TheUI
             get { if (_price.Value < 0.01) _price.Value = 0.01; return _price; }
             set { _price = value; if (_price.Value < 0.01) _price.Value = 0.01; }
         }
-        public ObservableInt     QtyPerBox
+        public ObservableInt     Qty
         {
-            get { if (_qtyPerBox.Value < 1) _qtyPerBox.Value = 1; return _qtyPerBox; }
-            set { _qtyPerBox = value; if (_qtyPerBox.Value < 1) _qtyPerBox.Value = 1; }
+            get { if (_qty.Value < 1) _qty.Value = 1; return _qty; }
+            set { _qty = value; if (_qty.Value < 1) _qty.Value = 1; }
         }
         public ObservableString  Units       { get; set; }
         public SupplierPropEntry Supplier    { get { return _supplier; } set { _supplier = value; OnPropertyChanged("Supplier"); } }
@@ -54,14 +54,14 @@ namespace TheUI
             Category    = new CategoryPropEntry(entry.CategoryId);
             Description = new ObservableString(entry.Description);
             Price       = new ObservableDouble(entry.Price);
-            QtyPerBox   = new ObservableInt(entry.QtyPerBox);
+            Qty         = new ObservableInt(entry.Qty);
             Units       = new ObservableString(entry.Units);
             Supplier    = new SupplierPropEntry(entry.SupplierId);
             Image       = new FbImage(entry.Image);
         }
 
         private ObservableDouble _price;
-        private ObservableInt _qtyPerBox;
+        private ObservableInt _qty;
         private CategoryPropEntry _category;
         private SupplierPropEntry _supplier;
         private FbImage _image;
@@ -91,8 +91,6 @@ namespace TheUI
             {
                 Image = new BitmapImage();
             }
-
-            //String.Concat(Array.ConvertAll(bytes, x => x.ToString("X2")));
         }
         public ImageSource Image { get; set; }
         public string FbData    { get; set; }
@@ -100,30 +98,30 @@ namespace TheUI
 
     public interface IItemPropEntryFb
     {
-        string CategoryId  { get; set; }
-        string Description { get; set; }
-        string Name        { get; set; }
-        double Price       { get; set; }
-        int QtyPerBox      { get; set; }
-        string SupplierId  { get; set; }
-        string Units       { get; set; }
-        string Image       { get; set; }
+        string CategoryId  { get; }
+        string Description { get; }
+        string Name        { get; }
+        double Price       { get; }
+        int    Qty         { get; }
+        string SupplierId  { get; }
+        string Units       { get; }
+        string Image       { get; }
     }
 
     public class ItemPropEntryFb : IItemPropEntryFb // for Fb class is not allowed to contain subClasses, keep it clean
     {
         public ItemPropEntryFb(string name, string categoryId, string description, double price, 
-            int qtyPerBox, string units, string supplierId, string image)
+            int qty, string units, string supplierId, string image)
         { Name = name; CategoryId = categoryId; Description = description; Price = price;
-            QtyPerBox = qtyPerBox; Units = units; SupplierId = supplierId; Image = image; }
-        public string Name        { get; set; }
-        public string CategoryId  { get; set; }
-        public string Description { get; set; }
-        public double Price       { get; set; }
-        public int    QtyPerBox   { get; set; }
-        public string Units       { get; set; }
-        public string SupplierId  { get; set; }
-        public string Image       { get; set; }
+            Qty = qty; Units = units; SupplierId = supplierId; Image = image; }
+        public string Name        { get; }
+        public string CategoryId  { get; }
+        public string Description { get; }
+        public double Price       { get; }
+        public int    Qty         { get; }
+        public string Units       { get; }
+        public string SupplierId  { get; }
+        public string Image       { get; }
     }
 
     public class ItemDatabase : Database<ItemPropEntry, IItemPropEntryFb>
@@ -155,7 +153,7 @@ namespace TheUI
                     if (entry.Description.Length != 0)
                         Data[i].Description.Value = entry.Description.Substring(1);
                     if (entry.Price >= 0) Data[i].Price.Value = entry.Price;
-                    if (entry.QtyPerBox >= 0) Data[i].QtyPerBox.Value = entry.QtyPerBox;
+                    if (entry.Qty >= 0) Data[i].Qty.Value = entry.Qty;
                     if (entry.Units.Length != 0) Data[i].Units.Value = entry.Units.Substring(1);
                     if (entry.SupplierId.Length != 0)
                     {

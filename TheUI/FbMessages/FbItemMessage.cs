@@ -4,6 +4,7 @@ namespace TheUI
 {
     class FbItemMessage : FbMessage, IItemPropEntryFb
     {
+        public FbItemMessage() : base(new FbEventData()) { }
         public FbItemMessage(FbEventData msg) : base(msg)
         {
             Name        = "";
@@ -12,14 +13,14 @@ namespace TheUI
             Units       = "";
             SupplierId  = "";
             Price       = -1.0;
-            QtyPerBox   = -1;
+            Qty         = -1;
             Image       = "";
             Parse();
         }
 
-        public const string TABLE_NAME = "items";
+        public override string TABLE_NAME { get { return "items"; } }
 
-        protected override int Parse()
+        protected override sealed int Parse()
         {
             if (OPERATION == Fb_Operations.fb_add || OPERATION == Fb_Operations.fb_edit)
             {
@@ -31,10 +32,10 @@ namespace TheUI
                     double price = -1.0;
                     if (Double.TryParse(DATA.Substring(1), out price)) Price = price;
                 }
-                if (!IsParsed && ParseId(QTY_PER_BOX) == 0)
+                if (!IsParsed && ParseId(QTY) == 0)
                 {
                     int qty = -1;
-                    if (Int32.TryParse(DATA.Substring(1), out qty)) QtyPerBox = qty;
+                    if (Int32.TryParse(DATA.Substring(1), out qty)) Qty = qty;
                 }
                 if (!IsParsed && ParseId(UNITS)       == 0) { Units      = DATA; }
                 if (!IsParsed && ParseId(SUPPLIER_ID) == 0) { SupplierId = DATA; }
@@ -51,7 +52,7 @@ namespace TheUI
         public string CategoryId  { get; set; }
         public string Description { get; set; }
         public double Price       { get; set; }
-        public int    QtyPerBox   { get; set; }
+        public int    Qty         { get; set; }
         public string Units       { get; set; }
         public string SupplierId  { get; set; }
         public string Image       { get; set; }
@@ -60,7 +61,7 @@ namespace TheUI
         private const string CATEGORY_ID = "CategoryId";
         private const string DESCRIPTION = "Description";
         private const string PRICE       = "Price";
-        private const string QTY_PER_BOX = "QtyPerBox";
+        private const string QTY         = "Qty";
         private const string UNITS       = "Units";
         private const string SUPPLIER_ID = "SupplierId";
         private const string IMAGE       = "Image";

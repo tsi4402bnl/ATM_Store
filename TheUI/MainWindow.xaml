@@ -128,8 +128,8 @@
                                             <TextBlock Text="{Binding Description.Value}" Grid.Row="2" Grid.Column="1"/>
                                             <TextBlock Text="Price: " FontWeight="Bold" Grid.Row="3" />
                                             <TextBlock Text="{Binding Price.Value, StringFormat=' {0:C}'}" Grid.Row="3" Grid.Column="1"/>
-                                            <TextBlock Text="Qty/box: " FontWeight="Bold" Grid.Row="4" />
-                                            <TextBlock Text="{Binding QtyPerBox.Value}" Grid.Row="4" Grid.Column="1"/>
+                                            <TextBlock Text="Qty: " FontWeight="Bold" Grid.Row="4" />
+                                            <TextBlock Text="{Binding Qty.Value}" Grid.Row="4" Grid.Column="1"/>
                                             <TextBlock Text="Units: " FontWeight="Bold" Grid.Row="5" />
                                             <TextBlock Text="{Binding Units.Value}" Grid.Row="5" Grid.Column="1"/>
                                             <TextBlock Text="Supplier: " FontWeight="Bold" Grid.Row="6" />

@@ -2,15 +2,16 @@
 {
     class FbCategoryMessage : FbMessage, ICategoryPropEntryFb
     {
+        public FbCategoryMessage() : base(new FbEventData()) { }
         public FbCategoryMessage(FbEventData msg) : base(msg)
         {
             Name = "";
             Parse();
         }
 
-        public const string TABLE_NAME = "categories";
+        public override string TABLE_NAME { get { return "categories"; } }
 
-        protected override int Parse()
+        protected override sealed int Parse()
         {
             if (OPERATION == Fb_Operations.fb_add || OPERATION == Fb_Operations.fb_edit)
             {

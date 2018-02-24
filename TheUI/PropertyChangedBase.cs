@@ -9,7 +9,7 @@ namespace TheUI
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        protected virtual void OnPropertyChanged(string propertyName)
+        protected void OnPropertyChanged(string propertyName)
         {
             Application.Current.Dispatcher.BeginInvoke((Action)(() =>
             {
@@ -34,6 +34,12 @@ namespace TheUI
     {
         public ObservableDouble() : base() { }
         public ObservableDouble(double value) : base(value) { }
+    }
+
+    public class ObservableDateTime : ObservableType<DateTime>
+    {
+        public ObservableDateTime() : base() { }
+        public ObservableDateTime(DateTime value) : base(value) { }
     }
 
     public class ObservableType<T> : PropertyChangedBase

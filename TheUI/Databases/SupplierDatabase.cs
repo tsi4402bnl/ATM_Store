@@ -35,15 +35,15 @@ namespace TheUI
 
     public interface ISupplierPropEntryFb
     {
-        string Email { get; set; }
-        string Name { get; set; }
+        string Email { get; }
+        string Name  { get; }
     }
 
     public class SupplierPropEntryFb : ISupplierPropEntryFb // for Fb class is not allowed to contain subClasses, keep it clean
     {
         public SupplierPropEntryFb(string name, string email) { Name = name; Email = email; }
-        public string Name  { get; set; }
-        public string Email { get; set; }
+        public string Name  { get; }
+        public string Email { get; }
     }
 
     public class SupplierDatabase : Database<SupplierPropEntry, ISupplierPropEntryFb>
