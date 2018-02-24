@@ -182,7 +182,7 @@
                         </ListBox>
                     </DockPanel>
                 </TabItem>
-                <TabItem Header="TabItem3">
+                <TabItem Header="TabItem3" Height="24" VerticalAlignment="Bottom">
                     <Grid Background="#FCFAFC" >
                         <Button Content="All products" HorizontalAlignment="Left" Margin="26,29,0,0" VerticalAlignment="Top" Width="182" Click="Button_Click"/>
 
