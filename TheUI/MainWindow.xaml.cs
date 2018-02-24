@@ -11,7 +11,7 @@ namespace TheUI
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     /// 
-    public partial class MainWindow : Window
+    public sealed partial class MainWindow : Window, IDisposable
     {
         // public fields / properties
         public FireBase fbClient;
@@ -21,6 +21,7 @@ namespace TheUI
         private ItemDatabase itemDatabase;
         private CategoryDatabase categoryDatabase;
         private SupplierDatabase supplierDatabase;
+        private TransactionDatabase transactionDatabase;
 
         public MainWindow()
         {
@@ -34,8 +35,9 @@ namespace TheUI
 
             categoryDatabase = new CategoryDatabase(Dispatcher);
             supplierDatabase = new SupplierDatabase(Dispatcher);
-
             itemDatabase = new ItemDatabase(Dispatcher, categoryDatabase, supplierDatabase);
+            transactionDatabase = new TransactionDatabase(Dispatcher, itemDatabase);
+
             lbItems.ItemsSource = itemDatabase.Data;
             lbSuppliers.ItemsSource = supplierDatabase.DataView;
 
@@ -46,6 +48,10 @@ namespace TheUI
         private void Clear_Log(object sender, RoutedEventArgs e) { logDatabase.Clear_Log(); }
         public void Log(string msg) { logDatabase.Log(msg); }
 
+        public void Dispose()
+        {
+            fbClient.Dispose();
+        }
 
         /********************************************************* Item Tab Events ********************************************************/
         private void BtnNewItem_Click(object sender, RoutedEventArgs e)
@@ -101,14 +107,16 @@ namespace TheUI
         public FbEventData FetchNextFbMessage() { return fbClient == null ? new FbEventData() : fbClient.FetchNextFbMessage(); }
 
         // Add
-        public void AddProperties(string id,     IItemPropEntryFb item) {     itemDatabase.AddProperties(id, item); }
-        public void AddProperties(string id, ICategoryPropEntryFb item) { categoryDatabase.AddProperties(id, item); }
-        public void AddProperties(string id, ISupplierPropEntryFb item) { supplierDatabase.AddProperties(id, item); }
+        public void AddProperties(string id,        IItemPropEntryFb item) {        itemDatabase.AddProperties(id, item); }
+        public void AddProperties(string id,    ICategoryPropEntryFb item) {    categoryDatabase.AddProperties(id, item); }
+        public void AddProperties(string id,    ISupplierPropEntryFb item) {    supplierDatabase.AddProperties(id, item); }
+        public void AddProperties(string id, ITransactionPropEntryFb item) { transactionDatabase.AddProperties(id, item); }
 
         // Remove
-        public void     RemoveItemProperties(string id) {     itemDatabase.RemoveProperties(id); }
-        public void RemoveCategoryProperties(string id) { categoryDatabase.RemoveProperties(id); }
-        public void RemoveSupplierProperties(string id) { supplierDatabase.RemoveProperties(id); }
+        public void RemoveProperties(string id,        IItemPropEntryFb item) {        itemDatabase.RemoveProperties(id); }
+        public void RemoveProperties(string id,    ICategoryPropEntryFb item) {    categoryDatabase.RemoveProperties(id); }
+        public void RemoveProperties(string id,    ISupplierPropEntryFb item) {    supplierDatabase.RemoveProperties(id); }
+        public void RemoveProperties(string id, ITransactionPropEntryFb item) { transactionDatabase.RemoveProperties(id); }
     }
 
 

@@ -32,8 +32,8 @@
         <TextBox Text="{Binding Description.Value, Mode=TwoWay}" Grid.Row="2" Grid.Column="2"/>
         <TextBlock Text="Price: " FontWeight="Bold" Grid.Row="3" Grid.Column="1" />
         <TextBox Text="{Binding Price.Value, StringFormat=' {0:C}', Mode=TwoWay}" Grid.Row="3" Grid.Column="2"/>
-        <TextBlock Text="Qty/box: " FontWeight="Bold" Grid.Row="4" Grid.Column="1" />
-        <TextBox Text="{Binding QtyPerBox.Value, Mode=TwoWay}" Grid.Row="4" Grid.Column="2"/>
+        <TextBlock Text="Qty: " FontWeight="Bold" Grid.Row="4" Grid.Column="1" />
+        <TextBox Text="{Binding Qty.Value, Mode=TwoWay}" Grid.Row="4" Grid.Column="2"/>
         <TextBlock Text="Units: " FontWeight="Bold" Grid.Row="5" Grid.Column="1" />
         <TextBox Text="{Binding Units.Value, Mode=TwoWay}" Grid.Row="5" Grid.Column="2"/>
         <TextBlock Text="Supplier: " FontWeight="Bold" Grid.Row="6" Grid.Column="1" />

@@ -2,6 +2,7 @@
 using FireSharp.Config;
 using FireSharp.EventStreaming;
 using FireSharp.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Windows.Threading;
 
@@ -21,7 +22,7 @@ namespace TheUI
         public string path;
     }
 
-    public class FireBase
+    public sealed class FireBase : IDisposable
     {
         public FireBase(Dispatcher d)
         {
@@ -103,6 +104,11 @@ namespace TheUI
                     fbReceivedMessages.Enqueue(new FbEventData() { operation = Fb_Operations.fb_delete, data = "", path = args.Path });
                 }, DispatcherPriority.Normal);
             };
+        }
+
+        public void Dispose()
+        {
+            ((IDisposable)fbClient).Dispose();
         }
 
         private FirebaseClient fbClient;
