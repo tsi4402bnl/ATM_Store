@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading;
+﻿using System.Threading;
 
 namespace TheUI
 {
@@ -53,7 +52,4 @@ namespace TheUI
             mw.Log("Failed to parse message. Path: " + fbMessage.path + ", data: " + fbMessage.data);
         }
     }
-
-
-
 }

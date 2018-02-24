@@ -93,7 +93,7 @@ namespace TheUI
         }
         private void CreateItemPopupWindow(ItemPropEntry item)
         {
-            new ItemWindow(item, this, categoryDatabase, supplierDatabase).ShowDialog();
+            new ItemWindow(item, this, categoryDatabase, supplierDatabase, itemDatabase).ShowDialog();
         }
 
 
@@ -126,13 +126,13 @@ namespace TheUI
         }
 
 
-        /************************************************** Fetch/Fill DB, called from C++ ************************************************/
+        /*********************************************************** Fetch/Fill DB ********************************************************/
         // Fetch
         public bool IsFbMessagePending() { return fbClient == null ? false : fbClient.IsFbMessagePending(); }
         public FbEventData FetchNextFbMessage() { return fbClient == null ? new FbEventData() : fbClient.FetchNextFbMessage(); }
 
         // Add
-        public void AddProperties(string id,    IItemPropEntryFb item)  {     itemDatabase.AddProperties(id, item); }
+        public void AddProperties(string id,     IItemPropEntryFb item) {     itemDatabase.AddProperties(id, item); }
         public void AddProperties(string id, ICategoryPropEntryFb item) { categoryDatabase.AddProperties(id, item); }
         public void AddProperties(string id, ISupplierPropEntryFb item) { supplierDatabase.AddProperties(id, item); }
 

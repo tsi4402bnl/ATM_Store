@@ -4,7 +4,7 @@ namespace TheUI
 {
     public partial class ItemWindow : Window
     {
-        public ItemWindow(ItemPropEntry i, MainWindow mainWindow, CategoryDatabase categoryDatabase, SupplierDatabase supplierDatabase)
+        public ItemWindow(ItemPropEntry i, MainWindow mainWindow, CategoryDatabase categoryDatabase, SupplierDatabase supplierDatabase, ItemDatabase itemDatabase)
         {
             item = new ItemPropEntry(i);
             InitializeComponent();
@@ -13,6 +13,7 @@ namespace TheUI
 
             cmbxCategory.ItemsSource = categoryDatabase.Data;
             cmbxSupplier.ItemsSource = supplierDatabase.Data;
+            this.itemDatabase = itemDatabase;
 
             // position this window in the middle of main window
             Point positionFromScreen = mainWindow.PointToScreen(new Point(0, 0));
@@ -45,6 +46,7 @@ namespace TheUI
 
         private ItemPropEntry item { get; set; }
         private FireBase fbClient;
+        private ItemDatabase itemDatabase;
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
@@ -53,6 +55,11 @@ namespace TheUI
                 cmbxCategory.SelectedValue = item.Category.Id.Value;
                 cmbxSupplier.SelectedValue = item.Supplier.Id.Value;
             }
+        }
+
+        private void BtnBrowseImage_Click(object sender, RoutedEventArgs e)
+        {
+            new ItemImageWindow(item, this, itemDatabase).ShowDialog();
         }
     }
 }
