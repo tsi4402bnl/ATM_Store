@@ -41,12 +41,13 @@ namespace TheUI
         }
         public ObservableInt     Qty
         {
-            get { if (_qty.Value < 1) _qty.Value = 1; return _qty; }
-            set { _qty = value; if (_qty.Value < 1) _qty.Value = 1; }
+            get { if (_qty.Value < 0) _qty.Value = 0; return _qty; }
+            set { _qty = value; if (_qty.Value < 0) _qty.Value = 0; }
         }
         public ObservableString  Units       { get; set; }
         public SupplierPropEntry Supplier    { get { return _supplier; } set { _supplier = value; OnPropertyChanged("Supplier"); } }
         public FbImage           Image       { get { return _image;    } set { _image    = value; OnPropertyChanged("Image"   ); } }
+        public ObservableBool    ShowInShop  { get; set; }
 
         protected override void Init(IItemPropEntryFb entry)
         {
@@ -58,6 +59,7 @@ namespace TheUI
             Units       = new ObservableString(entry.Units);
             Supplier    = new SupplierPropEntry(entry.SupplierId);
             Image       = new FbImage(entry.Image);
+            ShowInShop  = new ObservableBool(true);
         }
 
         private ObservableDouble _price;
@@ -130,6 +132,9 @@ namespace TheUI
         {
             this.categoryDb = categoryDb;
             this.supplierDb = supplierDb;
+            DataView.Filter = new Predicate<object>(FilterData);
+            searchName = "";
+            searchSupplier = "";
         }
 
         public override void AddProperties(string id, IItemPropEntryFb entry)
@@ -145,7 +150,11 @@ namespace TheUI
             {
                 if (Data[i].Id.Value == id)
                 {
-                    if (entry.Name.Length != 0) Data[i].Name.Value = entry.Name.Substring(1);
+                    if (entry.Name.Length != 0)
+                    {
+                        Data[i].Name.Value = entry.Name.Substring(1);
+                        if (searchName.Length > 0) DataView.Refresh();
+                    }
                     if (entry.CategoryId.Length != 0)
                     {
                         Data[i].Category = categoryDb.GetEntryById(entry.CategoryId.Substring(1));
@@ -153,11 +162,16 @@ namespace TheUI
                     if (entry.Description.Length != 0)
                         Data[i].Description.Value = entry.Description.Substring(1);
                     if (entry.Price >= 0) Data[i].Price.Value = entry.Price;
-                    if (entry.Qty >= 0) Data[i].Qty.Value = entry.Qty;
+                    if (entry.Qty >= 0)
+                    {
+                        Data[i].Qty.Value = entry.Qty;
+                        Data[i].ShowInShop.Value = entry.Qty > 0;
+                    }
                     if (entry.Units.Length != 0) Data[i].Units.Value = entry.Units.Substring(1);
                     if (entry.SupplierId.Length != 0)
                     {
                         Data[i].Supplier = supplierDb.GetEntryById(entry.SupplierId.Substring(1));
+                        if (searchSupplier.Length > 0) DataView.Refresh();
                     }
                     if (entry.Image.Length != 0)
                             Data[i].Image = new FbImage(entry.Image.Substring(1));
@@ -175,7 +189,27 @@ namespace TheUI
             return false;
         }
 
+        public bool FilterData(object obj)
+        {
+            if (obj == null) return false;
+
+            ItemPropEntry item = (ItemPropEntry)obj;
+            if (searchName.Length > 0 && !item.Name.Value.ToLower().Contains(searchName.ToLower())) return false;
+            if (searchSupplier.Length > 0 && !item.Supplier.Id.Value.Contains(searchSupplier)) return false;
+
+            return true;
+        }
+
+        public void SetSearchCriteria(string name, string supplierId)
+        {
+            searchName = name;
+            searchSupplier = supplierId == "all" ? "" : supplierId; // to 
+            DataView.Refresh();
+        }
+
         private CategoryDatabase categoryDb;
         private SupplierDatabase supplierDb;
+        private string searchName;
+        private string searchSupplier;
     }
 }

@@ -80,11 +80,30 @@
                         VerticalContentAlignment="Top"
                         HorizontalAlignment="Stretch"
                         >
-                <TabItem Header="Items">
+                <TabItem Header="Shop">
                     <DockPanel Margin="10">
-                        <WrapPanel DockPanel.Dock="Top">
-                            <Button Width="50" Click="BtnNewItem_Click">New</Button>
-                            <Button Width="50" Click="BtnEditItem_Click" Name="BtnEditItem">Edit
+                        <DockPanel DockPanel.Dock="Top">
+                            <Button Width="50" Click="BtnSell_Click">Sell
+                                <Button.Style>
+                                    <Style>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding ="{Binding ElementName=lbItems, Path=SelectedIndex}" Value="-1">
+                                                <Setter Property="Button.IsEnabled" Value="false"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Button.Style>
+                            </Button>
+                            <WrapPanel DockPanel.Dock="Right" HorizontalAlignment="Right">
+                                <TextBlock Width="70" TextAlignment="Right" Padding="0 0 5 0" VerticalAlignment="Center">Name: </TextBlock>
+                                <TextBox Name="TbxSearchName" Width="150" VerticalAlignment="Center" Height="20" TextChanged="TbxSearchName_TextChanged"></TextBox>
+                                <TextBlock Width="70" TextAlignment="Right" Padding="0 0 5 0" VerticalAlignment="Center">Supplier:</TextBlock>
+                                <ComboBox Name="CbxSearchSupplier" DisplayMemberPath="Name.Value" SelectedValuePath="Id.Value" 
+                                          Width="150"  VerticalAlignment="Center" SelectionChanged="CbxSearchSupplier_SelectionChanged"/>
+                                <TextBlock Width="20"></TextBlock>
+                                <Button Width="70" Click="BtnClearFilter_Click">Clear Filter</Button>
+                            </WrapPanel>
+                            <!--<Button Width="50" Click="BtnEditItem_Click" Name="BtnEditItem">Edit
                                 <Button.Style>
                                     <Style>
                                         <Style.Triggers>
@@ -96,9 +115,18 @@
                                 </Button.Style>
                             </Button>
                             <Button Width="50" Click="BtnDeleteItem_Click" 
-                                    IsEnabled="{Binding IsEnabled, ElementName=BtnEditItem}">Delete</Button>
-                        </WrapPanel>
-                        <ListBox Name="lbItems" PreviewMouseDoubleClick="BtnEditItem_Click">
+                                    IsEnabled="{Binding IsEnabled, ElementName=BtnEditItem}">Delete</Button>-->
+                        </DockPanel>
+                        <ListBox Name="lbItems" PreviewMouseDoubleClick="BtnSell_Click">
+                            <ListBox.ItemContainerStyle>
+                                <Style TargetType="{x:Type ListBoxItem}">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding ShowInShop.Value}" Value="False">
+                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </ListBox.ItemContainerStyle>
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
                                     <DockPanel Background="GhostWhite">
@@ -157,6 +185,15 @@
                                     IsEnabled="{Binding IsEnabled, ElementName=BtnEditSupplier}">Delete</Button>
                         </WrapPanel>
                         <ListBox Name="lbSuppliers" PreviewMouseDoubleClick="BtnEditSupplier_Click">
+                            <ListBox.ItemContainerStyle>
+                                <Style TargetType="{x:Type ListBoxItem}">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Id.Value}" Value="all">
+                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </ListBox.ItemContainerStyle>
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
                                     <DockPanel Background="GhostWhite">
