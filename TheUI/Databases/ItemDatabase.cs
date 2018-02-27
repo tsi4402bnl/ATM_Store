@@ -180,7 +180,7 @@ namespace TheUI
             });
         }
 
-        internal bool Contain(SupplierPropEntry selectedItem)
+        public bool Contain(SupplierPropEntry selectedItem)
         {
             foreach (var item in Data)
             {

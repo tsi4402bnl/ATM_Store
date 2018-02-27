@@ -38,20 +38,25 @@ namespace TheUI
             itemDatabase = new ItemDatabase(Dispatcher, categoryDatabase, supplierDatabase);
             transactionDatabase = new TransactionDatabase(Dispatcher, itemDatabase);
 
-            lbItems.ItemsSource = itemDatabase.DataView;
-            CbxSearchSupplier.ItemsSource = supplierDatabase.Data;
-            //CbxSearchSupplier.
-            lbSuppliers.ItemsSource = supplierDatabase.DataView;
+            UcShop.lbItems.ItemsSource = itemDatabase.DataView;
+            UcShop.CbxSearchSupplier.ItemsSource = supplierDatabase.Data;
+            UcOrder.lbItems.ItemsSource = itemDatabase.DataView;
+            UcOrder.CbxSearchSupplier.ItemsSource = supplierDatabase.Data;
+            UcSuppliers.lbSuppliers.ItemsSource = supplierDatabase.DataView;
 
+            RegisterUiControlEvents();
         }
+
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             fbClient = new FireBase(Dispatcher);
-            CbxSearchSupplier.SelectedIndex = 0;
+            UcShop.CbxSearchSupplier.SelectedIndex = 0;
+            UcOrder.CbxSearchSupplier.SelectedIndex = 0;
+            Log("window loaded");
         }
 
         // Log functions
-        private void Clear_Log(object sender, RoutedEventArgs e) { logDatabase.Clear_Log(); }
+        private void BtnClearLog_Log(object sender, RoutedEventArgs e) { logDatabase.Clear_Log(); }
         public void Log(string msg) { logDatabase.Log(msg); }
 
         public void Dispose()
@@ -59,77 +64,97 @@ namespace TheUI
             fbClient.Dispose();
         }
 
-        /********************************************************* Item Tab Events ********************************************************/
-        private void BtnSell_Click(object sender, RoutedEventArgs e)
+        private void RegisterUiControlEvents()
         {
+            UcShop.BtnSell.Click += BtnSell_Click;
+            UcShop.lbItems.PreviewMouseDoubleClick += BtnSell_Click;
+            UcShop.BtnClearFilter.Click += BtnClearFilter_Click;
+            UcShop.CbxSearchSupplier.SelectionChanged += CbxSearchSupplier_SelectionChanged;
+            UcShop.TbxSearchName.TextChanged += TbxSearchName_TextChanged;
 
+            UcOrder.BtnBuy.Click += BtnBuy_Click;
+            UcOrder.BtnNewItem.Click += BtnNewItem_Click;
+            UcOrder.BtnEditItem.Click += BtnEditItem_Click;
+            UcOrder.lbItems.PreviewMouseDoubleClick += BtnBuy_Click;
+            UcOrder.BtnDeleteItem.Click += BtnDeleteItem_Click;
+            UcOrder.TbxSearchName.TextChanged += TbxSearchName_TextChanged;
+            UcOrder.BtnClearFilter.Click += BtnClearFilter_Click;
+            UcOrder.CbxSearchSupplier.SelectionChanged += CbxSearchSupplier_SelectionChanged;
+            UcOrder.TbxSearchName.TextChanged += TbxSearchName_TextChanged;
+
+            UcSuppliers.BtnNewSupplier.Click += BtnNewSupplier_Click;
+            UcSuppliers.BtnEditSupplier.Click += BtnEditSupplier_Click;
+            UcSuppliers.lbSuppliers.PreviewMouseDoubleClick += BtnEditSupplier_Click;
+            UcSuppliers.BtnDeleteSupplier.Click += BtnDeleteSupplier_Click;
+
+            UcLog.BtnClearLog.Click += BtnClearLog_Log;
+        }
+
+        /******************************************************* Filter items Events ******************************************************/
+        private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (ShopTab.IsSelected) UcShop.SetSearchCriteria(itemDatabase);
+            else if (OrderTab.IsSelected) UcOrder.SetSearchCriteria(itemDatabase);
         }
         private void BtnClearFilter_Click(object sender, RoutedEventArgs e)
         {
-            CbxSearchSupplier.SelectedIndex = 0;
-            TbxSearchName.Clear();
-            //itemDatabase.SetSearchCriteria("", "");
+            if (ShopTab.IsSelected) UcShop.ClearFilter();
+            else if (OrderTab.IsSelected) UcOrder.ClearFilter();
         }
         private void CbxSearchSupplier_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            SetSearchCriteria();
+            if (ShopTab.IsSelected) UcShop.SetSearchCriteria(itemDatabase);
+            else if (OrderTab.IsSelected) UcOrder.SetSearchCriteria(itemDatabase);
         }
         private void TbxSearchName_TextChanged(object sender, TextChangedEventArgs e)
         {
-            SetSearchCriteria();
+            if (ShopTab.IsSelected) UcShop.SetSearchCriteria(itemDatabase);
+            else if (OrderTab.IsSelected) UcOrder.SetSearchCriteria(itemDatabase);
         }
-        private void SetSearchCriteria()
+
+
+        /********************************************************* Shop Tab Events ********************************************************/
+        private void BtnSell_Click(object sender, RoutedEventArgs e)
         {
-            string searchName = TbxSearchName.Text;
-            string searchSupplierId = "";
-            if (CbxSearchSupplier.SelectedIndex != -1 && CbxSearchSupplier.SelectedValue != null)
-                searchSupplierId = CbxSearchSupplier.SelectedValue.ToString();
-            itemDatabase.SetSearchCriteria(searchName, searchSupplierId);
+            UcShop.Sell(this, fbClient);
         }
-        //private void BtnNewItem_Click(object sender, RoutedEventArgs e)
-        //{
-        //    CreateItemPopupWindow(new ItemPropEntry());
-        //}    
-        //private void BtnEditItem_Click(object sender, RoutedEventArgs e)
-        //{
-        //    if (lbItems.SelectedItem != null) CreateItemPopupWindow((ItemPropEntry)lbItems.SelectedItem);
-        //}
-        //private void BtnDeleteItem_Click(object sender, RoutedEventArgs e)
-        //{
-        //    if (lbItems.SelectedItem != null) fbClient.DeleteFromFb("items", ((ItemPropEntry)lbItems.SelectedItem).Id.Value);
-        //}
-        //private void CreateItemPopupWindow(ItemPropEntry item)
-        //{
-        //    new ItemWindow(item, this, categoryDatabase, supplierDatabase, itemDatabase).ShowDialog();
-        //}
+
+
+        /********************************************************* Order Tab Events *******************************************************/
+        private void BtnBuy_Click(object sender, RoutedEventArgs e)
+        {
+            UcOrder.Buy(this, fbClient);
+        }
+        private void BtnNewItem_Click(object sender, RoutedEventArgs e)
+        {
+            UcOrder.NewItem(this, categoryDatabase, supplierDatabase, itemDatabase);
+        }
+        private void BtnEditItem_Click(object sender, RoutedEventArgs e)
+        {
+            UcOrder.EditItem(this, categoryDatabase, supplierDatabase, itemDatabase);
+        }
+        private void BtnDeleteItem_Click(object sender, RoutedEventArgs e)
+        {
+            UcOrder.DeleteItem(this, fbClient, transactionDatabase);
+        }
+        private void CreateItemPopupWindow(ItemPropEntry item)
+        {
+            new ItemWindow(item, this, categoryDatabase, supplierDatabase, itemDatabase).ShowDialog();
+        }
 
 
         /******************************************************* Supplier Tab Events ******************************************************/
         private void BtnNewSupplier_Click(object sender, RoutedEventArgs e)
         {
-            CreateSupplierPopupWindow(new SupplierPropEntry());
+            UcSuppliers.CreateSupplier(this);
         }
         private void BtnEditSupplier_Click(object sender, RoutedEventArgs e)
         {
-            if (lbSuppliers.SelectedItem != null) CreateSupplierPopupWindow((SupplierPropEntry)lbSuppliers.SelectedItem);
+            UcSuppliers.EditSupplier(this);
         }
         private void BtnDeleteSupplier_Click(object sender, RoutedEventArgs e)
         {
-            if (lbSuppliers.SelectedItem != null)
-            {
-                if (!itemDatabase.Contain((SupplierPropEntry)lbSuppliers.SelectedItem))
-                {
-                    fbClient.DeleteFromFb("suppliers", ((SupplierPropEntry)lbSuppliers.SelectedItem).Id.Value);
-                }
-                else
-                {
-                    MessageBox.Show("Supplier in use!");
-                }
-            }
-        }
-        private void CreateSupplierPopupWindow(SupplierPropEntry supplier)
-        {
-            new SupplierWindow(supplier, this).ShowDialog();
+            UcSuppliers.DeleteSupplier(this, itemDatabase, fbClient);
         }
 
 

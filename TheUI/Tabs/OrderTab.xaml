@@ -1,0 +1,87 @@
+﻿<UserControl x:Class="TheUI.OrderTab"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TheUI"
+             mc:Ignorable="d" 
+             d:DesignHeight="443" d:DesignWidth="723">
+    <DockPanel Margin="10">
+        <DockPanel DockPanel.Dock="Top">
+            <Button Name="BtnBuy" Width="50">Buy
+                <Button.Style>
+                    <Style>
+                        <Style.Triggers>
+                            <DataTrigger Binding ="{Binding ElementName=lbItems, Path=SelectedIndex}" Value="-1">
+                                <Setter Property="Button.IsEnabled" Value="false"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+            <TextBlock Width="20"></TextBlock>
+            <Button Name="BtnNewItem" Width="50">
+                <TextBlock Height="Auto" TextWrapping="WrapWithOverflow" TextAlignment="Center">New Item</TextBlock>
+            </Button>
+            <Button Name="BtnEditItem" Width="50">
+                <TextBlock Height="Auto" TextWrapping="WrapWithOverflow" TextAlignment="Center">Edit Item</TextBlock>
+            </Button>
+            <Button Name="BtnDeleteItem" Width="50">
+                <TextBlock Height="Auto" TextWrapping="WrapWithOverflow" TextAlignment="Center">Delete Item</TextBlock>
+            </Button>
+            <WrapPanel DockPanel.Dock="Right" HorizontalAlignment="Right">
+                <StackPanel>
+                    <WrapPanel>
+                        <TextBlock Width="70" TextAlignment="Right" Padding="0 0 5 0" VerticalAlignment="Center">Name:</TextBlock>
+                        <TextBox Name="TbxSearchName" Width="150" VerticalAlignment="Center" Height="20"></TextBox>
+                    </WrapPanel>
+                    <WrapPanel>
+                    <TextBlock Width="70" TextAlignment="Right" Padding="0 0 5 0" VerticalAlignment="Center">Supplier:</TextBlock>
+                    <ComboBox Name="CbxSearchSupplier" DisplayMemberPath="Name.Value" SelectedValuePath="Id.Value" 
+                                              Width="150"  VerticalAlignment="Center"/>
+                    <TextBlock Width="20"></TextBlock>
+                    </WrapPanel>
+                </StackPanel>
+                <Button Name="BtnClearFilter" Width="70">Clear Filter</Button>
+            </WrapPanel>
+        </DockPanel>
+        <ListBox Name="lbItems">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <DockPanel Background="GhostWhite">
+                        <Image DockPanel.Dock="Left" Source="{Binding Image.Image}" Height="100" Width="100" Margin="10" />
+                        <Grid Margin="0,10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+
+                            <TextBlock Text="{Binding Name.Value}" Grid.Row="0" Grid.ColumnSpan="2" FontSize="20"/>
+                            <TextBlock Text="Category: " FontWeight="Bold" Grid.Row="1" />
+                            <TextBlock Text="{Binding Category.Name.Value}" Grid.Row="1" Grid.Column="1"/>
+                            <TextBlock Text="Description: " FontWeight="Bold" Grid.Row="2" />
+                            <TextBlock Text="{Binding Description.Value}" Grid.Row="2" Grid.Column="1"/>
+                            <TextBlock Text="Price: " FontWeight="Bold" Grid.Row="3" />
+                            <TextBlock Text="{Binding Price.Value, StringFormat=' {0:C}'}" Grid.Row="3" Grid.Column="1"/>
+                            <TextBlock Text="Qty: " FontWeight="Bold" Grid.Row="4" />
+                            <TextBlock Text="{Binding Qty.Value}" Grid.Row="4" Grid.Column="1"/>
+                            <TextBlock Text="Units: " FontWeight="Bold" Grid.Row="5" />
+                            <TextBlock Text="{Binding Units.Value}" Grid.Row="5" Grid.Column="1"/>
+                            <TextBlock Text="Supplier: " FontWeight="Bold" Grid.Row="6" />
+                            <TextBlock Text="{Binding Supplier.Name.Value}" Grid.Row="6" Grid.Column="1"/>
+                        </Grid>
+                    </DockPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+    </DockPanel>
+</UserControl>
