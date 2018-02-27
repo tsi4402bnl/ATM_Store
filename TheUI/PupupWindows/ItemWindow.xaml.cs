@@ -2,9 +2,9 @@
 
 namespace TheUI
 {
-    public partial class ItemWindow : Window
+    public partial class ItemWindow : CenterWindow
     {
-        public ItemWindow(ItemPropEntry i, MainWindow mainWindow, CategoryDatabase categoryDatabase, SupplierDatabase supplierDatabase, ItemDatabase itemDatabase)
+        public ItemWindow(ItemPropEntry i, MainWindow mainWindow, CategoryDatabase categoryDatabase, SupplierDatabase supplierDatabase, ItemDatabase itemDatabase) : base(mainWindow)
         {
             item = new ItemPropEntry(i);
             InitializeComponent();
@@ -14,14 +14,6 @@ namespace TheUI
             cmbxCategory.ItemsSource = categoryDatabase.Data;
             cmbxSupplier.ItemsSource = supplierDatabase.Data;
             this.itemDatabase = itemDatabase;
-
-            // position this window in the middle of main window
-            Point positionFromScreen = mainWindow.PointToScreen(new Point(0, 0));
-            PresentationSource source = PresentationSource.FromVisual(mainWindow);
-            Point targetPoints = source.CompositionTarget.TransformFromDevice.Transform(positionFromScreen);
-            Top = targetPoints.Y + (mainWindow.ActualHeight - Height) / 2;
-            Left = targetPoints.X + (mainWindow.ActualWidth - Width) / 2;
-            ShowInTaskbar = false;
         }
 
         private void BtnSave_Click(object sender, RoutedEventArgs e)

@@ -42,6 +42,12 @@ namespace TheUI
         public ObservableDateTime(DateTime value) : base(value) { }
     }
 
+    public class ObservableBool : ObservableType<bool>
+    {
+        public ObservableBool() : base() { }
+        public ObservableBool(bool value) : base(value) { }
+    }
+
     public class ObservableType<T> : PropertyChangedBase
     {
         public ObservableType() { }

@@ -11,11 +11,11 @@ namespace TheUI
     /// <summary>
     /// Interaction logic for ItemImageWindow.xaml
     /// </summary>
-    public partial class ItemImageWindow : Window
+    public partial class ItemImageWindow : CenterWindow
     {
         public ObservableCollection<FbImage> Data { get; set; }
 
-        public ItemImageWindow(ItemPropEntry item, Window mainWindow, ItemDatabase itemDatabase)
+        public ItemImageWindow(ItemPropEntry item, Window mainWindow, ItemDatabase itemDatabase) : base(mainWindow)
         {
             InitializeComponent();
             Data = new ObservableCollection<FbImage>
@@ -30,14 +30,6 @@ namespace TheUI
             this.item = item;
             
             ImageListView.ItemsSource = Data;
-
-            // position this window in the middle of main window
-            Point positionFromScreen = mainWindow.PointToScreen(new Point(0, 0));
-            PresentationSource source = PresentationSource.FromVisual(mainWindow);
-            Point targetPoints = source.CompositionTarget.TransformFromDevice.Transform(positionFromScreen);
-            Top = targetPoints.Y + (mainWindow.ActualHeight - Height) / 2;
-            Left = targetPoints.X + (mainWindow.ActualWidth - Width) / 2;
-            ShowInTaskbar = false;
         }
 
         private void BtnAddNew_Click(object sender, RoutedEventArgs e)

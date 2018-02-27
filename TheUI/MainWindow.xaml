@@ -7,49 +7,6 @@
         Height="600" Loaded="Window_Loaded"
       >
 
-    <Window.Resources>
-        <Style TargetType="ItemsControl" x:Key="LogViewerStyle">
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate>
-                        <ScrollViewer CanContentScroll="True">
-                            <ItemsPresenter/>
-                        </ScrollViewer>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-
-            <Setter Property="ItemsPanel">
-                <Setter.Value>
-                    <ItemsPanelTemplate>
-                        <VirtualizingStackPanel IsItemsHost="True"/>
-                    </ItemsPanelTemplate>
-                </Setter.Value>
-            </Setter>
-            <Setter Property="Background" Value="White"/>
-        </Style>
-
-        <DataTemplate DataType="{x:Type local:LogEntry}">
-            <Grid IsSharedSizeScope="True">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition SharedSizeGroup="Index" Width="Auto"/>
-                    <ColumnDefinition SharedSizeGroup="Date" Width="Auto"/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-
-                <TextBlock Text="{Binding DateTime}" Grid.Column="1"
-                       Margin="5,0,5,0" Background="White"/>
-
-                <TextBlock Text="" Grid.Column="2"
-                       Margin="0,0,2,0" Background="White"/>
-
-                <TextBlock Text="{Binding Message}" Grid.Column="3"
-                       TextWrapping="Wrap" Background="White"/>
-            </Grid>
-        </DataTemplate>
-
-    </Window.Resources>
-
     <DockPanel Name="mainPanel">
         <DockPanel DockPanel.Dock="Top">
             <WrapPanel Height="50" VerticalAlignment="Center">
@@ -57,127 +14,19 @@
             </WrapPanel>
         </DockPanel>
         <DockPanel DockPanel.Dock="Bottom" VerticalAlignment="Bottom" Height="70"><!--set Visibility="Collapsed" to disable LOG-->
-            <Button Width="50" Height="20" Content="Clear" Click="Clear_Log" DockPanel.Dock="Bottom" HorizontalAlignment="Right"/>
-            <ItemsControl ItemsSource="{Binding}" Style="{StaticResource LogViewerStyle}" >
-                <ItemsControl.Template>
-                    <ControlTemplate>
-                        <ScrollViewer CanContentScroll="True" local:AutoScrollHelper.AutoScroll="True">
-                            <ItemsPresenter/>
-                        </ScrollViewer>
-                    </ControlTemplate>
-                </ItemsControl.Template>
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <VirtualizingStackPanel IsItemsHost="True"/>
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-            </ItemsControl>
+            <local:LogControl x:Name="UcLog"></local:LogControl>
         </DockPanel>
         <DockPanel>
-            <TabControl 
-                        TabStripPlacement="Left"
-                        HorizontalContentAlignment="Left"
-                        VerticalContentAlignment="Top"
-                        HorizontalAlignment="Stretch"
-                        >
-                <TabItem Header="Items">
-                    <DockPanel Margin="10">
-                        <WrapPanel DockPanel.Dock="Top">
-                            <Button Width="50" Click="BtnNewItem_Click">New</Button>
-                            <Button Width="50" Click="BtnEditItem_Click" Name="BtnEditItem">Edit
-                                <Button.Style>
-                                    <Style>
-                                        <Style.Triggers>
-                                            <DataTrigger Binding ="{Binding ElementName=lbItems, Path=SelectedIndex}" Value="-1">
-                                                <Setter Property="Button.IsEnabled" Value="false"/>
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </Button.Style>
-                            </Button>
-                            <Button Width="50" Click="BtnDeleteItem_Click" 
-                                    IsEnabled="{Binding IsEnabled, ElementName=BtnEditItem}">Delete</Button>
-                        </WrapPanel>
-                        <ListBox Name="lbItems" PreviewMouseDoubleClick="BtnEditItem_Click">
-                            <ListBox.ItemTemplate>
-                                <DataTemplate>
-                                    <DockPanel Background="GhostWhite">
-                                        <Image DockPanel.Dock="Left" Source="{Binding Image.Image}" Height="100" Width="100" Margin="10" />
-                                        <Grid Margin="0,10">
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="Auto"/>
-                                                <ColumnDefinition Width="*"/>
-                                            </Grid.ColumnDefinitions>
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="Auto" />
-                                                <RowDefinition Height="Auto" />
-                                                <RowDefinition Height="Auto" />
-                                                <RowDefinition Height="Auto" />
-                                                <RowDefinition Height="Auto" />
-                                                <RowDefinition Height="Auto" />
-                                                <RowDefinition Height="Auto" />
-                                            </Grid.RowDefinitions>
-
-                                            <TextBlock Text="{Binding Name.Value}" Grid.Row="0" Grid.ColumnSpan="2" FontSize="20"/>
-                                            <TextBlock Text="Category: " FontWeight="Bold" Grid.Row="1" />
-                                            <TextBlock Text="{Binding Category.Name.Value}" Grid.Row="1" Grid.Column="1"/>
-                                            <TextBlock Text="Description: " FontWeight="Bold" Grid.Row="2" />
-                                            <TextBlock Text="{Binding Description.Value}" Grid.Row="2" Grid.Column="1"/>
-                                            <TextBlock Text="Price: " FontWeight="Bold" Grid.Row="3" />
-                                            <TextBlock Text="{Binding Price.Value, StringFormat=' {0:C}'}" Grid.Row="3" Grid.Column="1"/>
-                                            <TextBlock Text="Qty: " FontWeight="Bold" Grid.Row="4" />
-                                            <TextBlock Text="{Binding Qty.Value}" Grid.Row="4" Grid.Column="1"/>
-                                            <TextBlock Text="Units: " FontWeight="Bold" Grid.Row="5" />
-                                            <TextBlock Text="{Binding Units.Value}" Grid.Row="5" Grid.Column="1"/>
-                                            <TextBlock Text="Supplier: " FontWeight="Bold" Grid.Row="6" />
-                                            <TextBlock Text="{Binding Supplier.Name.Value}" Grid.Row="6" Grid.Column="1"/>
-                                        </Grid>
-                                    </DockPanel>
-                                </DataTemplate>
-                            </ListBox.ItemTemplate>
-                        </ListBox>
-                    </DockPanel>
+            <TabControl TabStripPlacement="Left" HorizontalContentAlignment="Left" VerticalContentAlignment="Top"
+                        HorizontalAlignment="Stretch" SelectionChanged="TabControl_SelectionChanged">
+                <TabItem Header="Shop" x:Name="ShopTab">
+                    <local:ShopTab x:Name="UcShop"></local:ShopTab>
+                </TabItem>
+                <TabItem Header="Order" x:Name="OrderTab">
+                    <local:OrderTab x:Name="UcOrder"></local:OrderTab>
                 </TabItem>
                 <TabItem Header="Suppliers">
-                    <DockPanel Margin="10">
-                        <WrapPanel DockPanel.Dock="Top">
-                            <Button Width="50" Click="BtnNewSupplier_Click">New</Button>
-                            <Button Width="50" Click="BtnEditSupplier_Click" Name="BtnEditSupplier">Edit
-                                <Button.Style>
-                                    <Style>
-                                        <Style.Triggers>
-                                            <DataTrigger Binding ="{Binding ElementName=lbSuppliers, Path=SelectedIndex}" Value="-1">
-                                                <Setter Property="Button.IsEnabled" Value="false"/>
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </Button.Style>
-                            </Button>
-                            <Button Width="50" Click="BtnDeleteSupplier_Click" 
-                                    IsEnabled="{Binding IsEnabled, ElementName=BtnEditSupplier}">Delete</Button>
-                        </WrapPanel>
-                        <ListBox Name="lbSuppliers" PreviewMouseDoubleClick="BtnEditSupplier_Click">
-                            <ListBox.ItemTemplate>
-                                <DataTemplate>
-                                    <DockPanel Background="GhostWhite">
-                                        <Grid Margin="0,10">
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="Auto"/>
-                                                <ColumnDefinition Width="*"/>
-                                            </Grid.ColumnDefinitions>
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="Auto" />
-                                                <RowDefinition Height="Auto" />
-                                            </Grid.RowDefinitions>
-                                            <TextBlock Text="{Binding Name.Value}" Grid.Row="0" Grid.ColumnSpan="2" FontSize="20"/>
-                                            <TextBlock Text="e-mail: " FontWeight="Bold" Grid.Row="1" />
-                                            <TextBlock Text="{Binding Email.Value}" Grid.Row="1" Grid.Column="1"/>
-                                        </Grid>
-                                    </DockPanel>
-                                </DataTemplate>
-                            </ListBox.ItemTemplate>
-                        </ListBox>
-                    </DockPanel>
+                    <local:SuppliersTab x:Name="UcSuppliers"></local:SuppliersTab>
                 </TabItem>
                 <TabItem Header="TabItem3">
                     <Grid Background="#FCFAFC" >

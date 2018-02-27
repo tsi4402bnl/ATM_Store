@@ -117,6 +117,15 @@ namespace TheUI
             });
         }
 
+        public bool Contain(ItemPropEntry selectedItem)
+        {
+            foreach (var item in Data)
+            {
+                if (item.Item.Equals(selectedItem)) return true;
+            }
+            return false;
+        }
+
         private ItemDatabase itemDb;
     }
 }
