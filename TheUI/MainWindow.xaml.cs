@@ -18,7 +18,6 @@ namespace TheUI
 
         // private fields / properties
         private LogDataBase logDatabase;
-        private CategoryDatabase categoryDatabase;
 
         public MainWindow()
         {
@@ -29,8 +28,6 @@ namespace TheUI
 
             logDatabase = new LogDataBase(Dispatcher);
             DataContext = logDatabase.LogEntries;
-
-            categoryDatabase = new CategoryDatabase(Dispatcher);
 
             RegisterUiControlEvents();
         }
@@ -58,12 +55,6 @@ namespace TheUI
         // Fetch
         public bool IsFbMessagePending() { return fbClient == null ? false : fbClient.IsFbMessagePending(); }
         public FbEventData FetchNextFbMessage() { return fbClient == null ? new FbEventData() : fbClient.FetchNextFbMessage(); }
-
-        // Add
-        public void AddProperties(string id,    ICategoryPropEntryFb item) {    categoryDatabase.AddProperties(id, item); }
-
-        // Remove
-        public void RemoveProperties(string id,    ICategoryPropEntryFb item) {    categoryDatabase.RemoveProperties(id); }
 
         
     }

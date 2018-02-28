@@ -21,9 +21,6 @@ namespace TheUI
                 while (mw.IsFbMessagePending())
                 {
                     FbEventData fbMessage = mw.FetchNextFbMessage();
-                    if (fbMessage.path.Length == 0) continue;
-
-                    if (TryParse<   FbCategoryMessage>(fbMessage)) continue;
                 }
                 Thread.Sleep(100);
             }
@@ -38,8 +35,8 @@ namespace TheUI
                 {
                     T msg = (T)Activator.CreateInstance(typeof(T), fbMessage);
                     if (!msg.IsParsed) LogParseFailedMsg(fbMessage);
-                    else if (fbMessage.operation == Fb_Operations.fb_delete) mw.RemoveProperties(msg.Id, (dynamic)msg);
-                    else mw.AddProperties(msg.Id, (dynamic)msg);
+                    //else if (fbMessage.operation == Fb_Operations.fb_delete) mw.RemoveProperties(msg.Id, (dynamic)msg);
+                    //else mw.AddProperties(msg.Id, (dynamic)msg);
                     return true;
                 }
                 catch (Exception e)
