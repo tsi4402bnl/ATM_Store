@@ -8,48 +8,20 @@
              d:DesignHeight="443" d:DesignWidth="723">
     <DockPanel Margin="10">
         <DockPanel DockPanel.Dock="Top">
-            <Button Name="BtnBuy" Width="50">Buy
-                <Button.Style>
-                    <Style>
-                        <Style.Triggers>
-                            <DataTrigger Binding ="{Binding ElementName=lbItems, Path=SelectedIndex}" Value="-1">
-                                <Setter Property="Button.IsEnabled" Value="false"/>
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </Button.Style>
-            </Button>
-            <TextBlock Width="20"></TextBlock>
             <Button Name="BtnNewItem" Width="50">
                 <TextBlock Height="Auto" TextWrapping="WrapWithOverflow" TextAlignment="Center">New Item</TextBlock>
             </Button>
             <Button Name="BtnEditItem" Width="50">
                 <TextBlock Height="Auto" TextWrapping="WrapWithOverflow" TextAlignment="Center">Edit Item</TextBlock>
             </Button>
-            <Button Name="BtnDeleteItem" Width="50">
+            <Button Name="BtnDeleteItem" Width="50" HorizontalAlignment="Left">
                 <TextBlock Height="Auto" TextWrapping="WrapWithOverflow" TextAlignment="Center">Delete Item</TextBlock>
             </Button>
-            <WrapPanel DockPanel.Dock="Right" HorizontalAlignment="Right">
-                <StackPanel>
-                    <WrapPanel>
-                        <TextBlock Width="70" TextAlignment="Right" Padding="0 0 5 0" VerticalAlignment="Center">Name:</TextBlock>
-                        <TextBox Name="TbxSearchName" Width="150" VerticalAlignment="Center" Height="20"></TextBox>
-                    </WrapPanel>
-                    <WrapPanel>
-                    <TextBlock Width="70" TextAlignment="Right" Padding="0 0 5 0" VerticalAlignment="Center">Supplier:</TextBlock>
-                    <ComboBox Name="CbxSearchSupplier" DisplayMemberPath="Name.Value" SelectedValuePath="Id.Value" 
-                                              Width="150"  VerticalAlignment="Center"/>
-                    <TextBlock Width="20"></TextBlock>
-                    </WrapPanel>
-                </StackPanel>
-                <Button Name="BtnClearFilter" Width="70">Clear Filter</Button>
-            </WrapPanel>
         </DockPanel>
         <ListBox Name="lbItems">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <DockPanel Background="GhostWhite">
-                        <Image DockPanel.Dock="Left" Source="{Binding Image.Image}" Height="100" Width="100" Margin="10" />
                         <Grid Margin="0,10">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto"/>

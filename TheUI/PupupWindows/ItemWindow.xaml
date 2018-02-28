@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:src="clr-namespace:TheUI"
         mc:Ignorable="d"
-        Title="wintouch" Height="270" Width="420" Loaded="Window_Loaded">
+        Title="wintouch" Height="250" Width="420" Loaded="Window_Loaded">
     
     <Grid  Name="gItem" Margin="10">
         <Grid.ColumnDefinitions>
@@ -22,10 +22,8 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <TextBox Text="{Binding Name.Value, Mode=TwoWay}" Grid.Row="0" Grid.ColumnSpan="3" FontSize="20"/>
-        <Image Source="{Binding Image.Image}" Height="100" Width="100" Grid.Row="1" Margin="10" Grid.RowSpan ="7"/>
         <TextBlock Text="Category: " FontWeight="Bold" Grid.Row="1" Grid.Column="1" />
         <ComboBox Name="cmbxCategory" Grid.Row="1" Grid.Column="2" DisplayMemberPath="Name.Value"
                   SelectedValuePath="Id.Value" />
@@ -40,8 +38,6 @@
         <TextBlock Text="Supplier: " FontWeight="Bold" Grid.Row="6" Grid.Column="1" />
         <ComboBox Name="cmbxSupplier" Grid.Row="6" Grid.Column="2" DisplayMemberPath="Name.Value"
                   SelectedValuePath="Id.Value" />
-        <TextBlock Text="Image: " FontWeight="Bold" Grid.Row="7" Grid.Column="1" />
-        <Button Name="BtnBrowseImage" Grid.Row="7" Grid.Column="2" Click="BtnBrowseImage_Click">Browse..</Button>
         <WrapPanel Grid.ColumnSpan="3" Grid.Row="8" HorizontalAlignment="Center">
             <Button Width="50" Margin="10" Click="BtnSave_Click">Save</Button>
             <Button Width="50" Margin="10" Click="BtnClose_Click">Cancel</Button>

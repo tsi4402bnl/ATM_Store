@@ -25,36 +25,6 @@ namespace TheUI
             InitializeComponent();
         }
 
-        public void ClearFilter()
-        {
-            CbxSearchSupplier.SelectedIndex = 0;
-            TbxSearchName.Clear();
-        }
-
-        public void SetSearchCriteria(ItemDatabase db)
-        {
-            string searchName = TbxSearchName.Text;
-            string searchSupplierId = "";
-            if (CbxSearchSupplier.SelectedIndex != -1 && CbxSearchSupplier.SelectedValue != null)
-                searchSupplierId = CbxSearchSupplier.SelectedValue.ToString();
-            db.SetSearchCriteria(searchName, searchSupplierId);
-        }
-
-        public void Buy(Window parent, FireBase fbClient)
-        {
-            if (lbItems.SelectedItem != null)
-            {
-                ItemPropEntry entry = (ItemPropEntry)lbItems.SelectedItem;
-                QuantityWindow qtyW = new QuantityWindow(parent);
-                qtyW.ShowDialog();
-                if (qtyW.IsApproved && qtyW.Qty > 0)
-                {
-                    ItemPropEntryFb x = entry.GetPropEntryFb();
-                    fbClient.ModifyInFb("items", entry.Id.Value, new ItemPropEntryFb(x.Name, x.CategoryId, x.Description, x.Price, x.Qty + qtyW.Qty, x.Units, x.SupplierId, x.Image));
-                }
-            }
-        }
-
         public void NewItem(MainWindow mw, CategoryDatabase cDb, SupplierDatabase sDb, ItemDatabase iDb)
         {
             CreateItemPopupWindow(new ItemPropEntry(), mw, cDb, sDb, iDb);
@@ -66,26 +36,15 @@ namespace TheUI
                 CreateItemPopupWindow((ItemPropEntry)lbItems.SelectedItem, mw, cDb, sDb, iDb);
         }
 
-        public void DeleteItem(Window parent, FireBase fb, TransactionDatabase db)
+        public void DeleteItem(Window parent, FireBase fb)
         {
             if (lbItems.SelectedItem != null)
             {
                 ItemPropEntry item = (ItemPropEntry)lbItems.SelectedItem;
-                if (db.Contain((ItemPropEntry)lbItems.SelectedItem))
-                {
-                    new MessageWindow(parent, "Item in use!").ShowDialog();
-                }
-                else if (item.Qty.Value <= 0)
-                {
-                    YesNoWindow yesNo = new YesNoWindow(parent, "Delete?", "");
-                    yesNo.ShowDialog();
-                    if (yesNo.IsApproved)
-                        fb.DeleteFromFb("items", item.Id.Value);
-                }
-                else
-                {
-                    new MessageWindow(parent, "Sell all items before deleting!").ShowDialog();
-                }
+                YesNoWindow yesNo = new YesNoWindow(parent, "Delete?", "");
+                yesNo.ShowDialog();
+                if (yesNo.IsApproved)
+                    fb.DeleteFromFb("items", item.Id.Value);
             }
         }
 

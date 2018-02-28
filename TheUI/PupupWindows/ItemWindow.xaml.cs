@@ -48,10 +48,5 @@ namespace TheUI
                 cmbxSupplier.SelectedValue = item.Supplier.Id.Value;
             }
         }
-
-        private void BtnBrowseImage_Click(object sender, RoutedEventArgs e)
-        {
-            new ItemImageWindow(item, this, itemDatabase).ShowDialog();
-        }
     }
 }

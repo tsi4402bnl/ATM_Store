@@ -14,7 +14,6 @@ namespace TheUI
             SupplierId  = "";
             Price       = -1.0;
             Qty         = -1;
-            Image       = "";
             Parse();
         }
 
@@ -39,7 +38,6 @@ namespace TheUI
                 }
                 if (!IsParsed && ParseId(UNITS)       == 0) { Units      = DATA; }
                 if (!IsParsed && ParseId(SUPPLIER_ID) == 0) { SupplierId = DATA; }
-                if (!IsParsed && ParseId(IMAGE)       == 0) { Image      = DATA; }
             }
             else if (OPERATION == Fb_Operations.fb_delete)
             {
@@ -55,7 +53,6 @@ namespace TheUI
         public int    Qty         { get; set; }
         public string Units       { get; set; }
         public string SupplierId  { get; set; }
-        public string Image       { get; set; }
 
         private const string NAME        = "Name";
         private const string CATEGORY_ID = "CategoryId";
@@ -64,6 +61,5 @@ namespace TheUI
         private const string QTY         = "Qty";
         private const string UNITS       = "Units";
         private const string SUPPLIER_ID = "SupplierId";
-        private const string IMAGE       = "Image";
     }
 }

@@ -48,11 +48,7 @@ namespace TheUI
 
     public class SupplierDatabase : Database<SupplierPropEntry, ISupplierPropEntryFb>
     {
-        public SupplierDatabase(Dispatcher d) : base(d)
-        {
-            Data.Add(new SupplierPropEntry("all", new SupplierPropEntryFb("(all)", ""))); // used when filtering items
-            DataView.Filter = new Predicate<object>(FilterData);
-        }
+        public SupplierDatabase(Dispatcher d) : base(d) { }
 
         public override void AddProperties(string id, ISupplierPropEntryFb entry)
         {
@@ -72,13 +68,6 @@ namespace TheUI
                     }
                 }
             });
-        }
-
-        public bool FilterData(object item)
-        {
-            if (item != null && ((SupplierPropEntry)item).Id.Value.Length > 0)
-                return true;
-            return false;
         }
     }
 

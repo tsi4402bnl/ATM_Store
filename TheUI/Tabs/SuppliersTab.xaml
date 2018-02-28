@@ -24,15 +24,6 @@
                                     IsEnabled="{Binding IsEnabled, ElementName=BtnEditSupplier}">Delete</Button>
         </WrapPanel>
         <ListBox Name="lbSuppliers">
-            <ListBox.ItemContainerStyle>
-                <Style TargetType="{x:Type ListBoxItem}">
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding Id.Value}" Value="all">
-                            <Setter Property="Visibility" Value="Collapsed"/>
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </ListBox.ItemContainerStyle>
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <DockPanel Background="GhostWhite">

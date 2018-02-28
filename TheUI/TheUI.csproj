@@ -98,13 +98,11 @@
     </Compile>
     <Compile Include="Databases\CategoryDatabase.cs" />
     <Compile Include="Databases\Database.cs" />
-    <Compile Include="Databases\TransactionDatabase.cs" />
     <Compile Include="FbMessages\FbCategoryMessage.cs" />
     <Compile Include="FbMessages\FbItemMessage.cs" />
     <Compile Include="FbMessages\FbMessage.cs" />
     <Compile Include="FbMessages\FbMessageProcessor.cs" />
     <Compile Include="FbMessages\FbSupplierMessage.cs" />
-    <Compile Include="FbMessages\FbTransactionMessage.cs" />
     <Compile Include="FireBase.cs" />
     <Compile Include="Databases\ItemDatabase.cs" />
     <Compile Include="Log.cs" />
@@ -114,14 +112,8 @@
     <Compile Include="PropertyChangedBase.cs" />
     <Compile Include="Databases\SupplierDatabase.cs" />
     <Compile Include="PupupWindows\CenterWindow.cs" />
-    <Compile Include="PupupWindows\ItemImageWindow.xaml.cs">
-      <DependentUpon>ItemImageWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="PupupWindows\ItemWindow.xaml.cs">
       <DependentUpon>ItemWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="PupupWindows\QuantityWindow.xaml.cs">
-      <DependentUpon>QuantityWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="PupupWindows\SupplierWindow.xaml.cs">
       <DependentUpon>SupplierWindow.xaml</DependentUpon>
@@ -134,9 +126,6 @@
     </Compile>
     <Compile Include="Tabs\OrderTab.xaml.cs">
       <DependentUpon>OrderTab.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Tabs\ShopTab.xaml.cs">
-      <DependentUpon>ShopTab.xaml</DependentUpon>
     </Compile>
     <Compile Include="Tabs\SuppliersTab.xaml.cs">
       <DependentUpon>SuppliersTab.xaml</DependentUpon>
@@ -153,15 +142,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="PupupWindows\ItemImageWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="PupupWindows\ItemWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="PupupWindows\QuantityWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -178,10 +159,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Tabs\OrderTab.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Tabs\ShopTab.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

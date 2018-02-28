@@ -18,10 +18,7 @@
         </DockPanel>
         <DockPanel>
             <TabControl TabStripPlacement="Left" HorizontalContentAlignment="Left" VerticalContentAlignment="Top"
-                        HorizontalAlignment="Stretch" SelectionChanged="TabControl_SelectionChanged">
-                <TabItem Header="Shop" x:Name="ShopTab">
-                    <local:ShopTab x:Name="UcShop"></local:ShopTab>
-                </TabItem>
+                        HorizontalAlignment="Stretch">
                 <TabItem Header="Order" x:Name="OrderTab">
                     <local:OrderTab x:Name="UcOrder"></local:OrderTab>
                 </TabItem>

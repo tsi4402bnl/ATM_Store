@@ -26,7 +26,6 @@ namespace TheUI
                     if (TryParse<       FbItemMessage>(fbMessage)) continue;
                     if (TryParse<   FbCategoryMessage>(fbMessage)) continue;
                     if (TryParse<   FbSupplierMessage>(fbMessage)) continue;
-                    if (TryParse<FbTransactionMessage>(fbMessage)) continue;
                 }
                 Thread.Sleep(100);
             }
