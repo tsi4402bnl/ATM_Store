@@ -4,7 +4,7 @@
         xmlns:local="clr-namespace:TheUI"
         Background="White"
         Width="800"
-        Height="600" Loaded="Window_Loaded"
+        Height="600"
       >
 
     <DockPanel Name="mainPanel">
