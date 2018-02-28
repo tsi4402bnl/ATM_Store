@@ -19,12 +19,6 @@
         <DockPanel>
             <TabControl TabStripPlacement="Left" HorizontalContentAlignment="Left" VerticalContentAlignment="Top"
                         HorizontalAlignment="Stretch">
-                <TabItem Header="Order" x:Name="OrderTab">
-                    <local:OrderTab x:Name="UcOrder"></local:OrderTab>
-                </TabItem>
-                <TabItem Header="Suppliers">
-                    <local:SuppliersTab x:Name="UcSuppliers"></local:SuppliersTab>
-                </TabItem>
                 <TabItem Header="TabItem3">
                     <Grid Background="#FCFAFC" >
                         

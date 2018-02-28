@@ -23,9 +23,7 @@ namespace TheUI
                     FbEventData fbMessage = mw.FetchNextFbMessage();
                     if (fbMessage.path.Length == 0) continue;
 
-                    if (TryParse<       FbItemMessage>(fbMessage)) continue;
                     if (TryParse<   FbCategoryMessage>(fbMessage)) continue;
-                    if (TryParse<   FbSupplierMessage>(fbMessage)) continue;
                 }
                 Thread.Sleep(100);
             }
