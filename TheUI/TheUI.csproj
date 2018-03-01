@@ -142,6 +142,7 @@
     <Compile Include="PupupWindows\YesNoWindow.xaml.cs">
       <DependentUpon>YesNoWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Reports.cs" />
     <Compile Include="Tabs\LogControl.xaml.cs">
       <DependentUpon>LogControl.xaml</DependentUpon>
     </Compile>

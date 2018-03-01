@@ -69,7 +69,7 @@ namespace TheUI
                 gfx.DrawString(item.Name.Value, font12, XBrushes.Black, new XRect(col1, rowPosition, page.Width, page.Height), XStringFormats.TopLeft);
                 gfx.DrawString(format2digitNumber(item.Price.Value.ToString()), font12, XBrushes.Black, new XRect(col2, rowPosition, page.Width, page.Height), XStringFormats.TopLeft);
                 gfx.DrawString(item.Category.Name.Value, font12, XBrushes.Black, new XRect(col3, rowPosition, page.Width, page.Height), XStringFormats.TopLeft);
-                gfx.DrawString(format2digitNumber(item.QtyPerBox.Value.ToString()), font12, XBrushes.Black, new XRect(col4, rowPosition, page.Width, page.Height), XStringFormats.TopLeft);
+                gfx.DrawString(format2digitNumber(item.Qty.Value.ToString()), font12, XBrushes.Black, new XRect(col4, rowPosition, page.Width, page.Height), XStringFormats.TopLeft);
                 gfx.DrawString(item.Supplier.Name.Value, font12, XBrushes.Black, new XRect(col5, rowPosition, page.Width, page.Height), XStringFormats.TopLeft);
 
                 rowPosition += 20;
