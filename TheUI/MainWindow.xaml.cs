@@ -40,15 +40,6 @@ namespace TheUI
             itemDatabase = new ItemDatabase(Dispatcher, categoryDatabase, supplierDatabase);
             transactionDatabase = new TransactionDatabase(Dispatcher, itemDatabase);
 
-            lbItems.ItemsSource = itemDatabase.Data;
-            lbSuppliers.ItemsSource = supplierDatabase.DataView;
-            //TODO fix logo
-            BitmapImage image = new BitmapImage(new Uri("/img/logo.png", UriKind.Relative));
-            logo.Source = image;
-            //TODO add namedays
-            
-            namedays.Text = getNamedayNames();
-
             UcShop.lbItems.ItemsSource = itemDatabase.DataView;
             UcShop.CbxSearchSupplier.ItemsSource = supplierDatabase.Data;
             UcOrder.lbItems.ItemsSource = itemDatabase.DataView;
