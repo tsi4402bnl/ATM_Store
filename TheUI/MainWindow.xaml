@@ -10,28 +10,14 @@
     <DockPanel Name="mainPanel">
         <DockPanel DockPanel.Dock="Top">
             <WrapPanel Height="50" VerticalAlignment="Center">
-                <Label>Header</Label>
+                <Label x:Name="header"></Label>
+                <Label x:Name="nameD"></Label>
                 <Image x:Name="logo" Height="53" Width="60"/>
-                <TextBox x:Name="namedays" Height="47" TextWrapping="Wrap" Text="TextBox" Width="120" IsEnabled="False" Background="{x:Null}"/>
             </WrapPanel>
         </DockPanel>
         <DockPanel DockPanel.Dock="Bottom" VerticalAlignment="Bottom" Height="70">
             <!--set Visibility="Collapsed" to disable LOG-->
-            <Button Width="50" Height="20" Content="Clear" Click="Clear_Log" DockPanel.Dock="Bottom" HorizontalAlignment="Right"/>
-            <ItemsControl ItemsSource="{Binding}" Style="{StaticResource LogViewerStyle}" >
-                <ItemsControl.Template>
-                    <ControlTemplate>
-                        <ScrollViewer CanContentScroll="True" local:AutoScrollHelper.AutoScroll="True">
-                            <ItemsPresenter/>
-                        </ScrollViewer>
-                    </ControlTemplate>
-                </ItemsControl.Template>
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <VirtualizingStackPanel IsItemsHost="True"/>
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-            </ItemsControl>
+            <local:LogControl x:Name="UcLog"></local:LogControl>
         </DockPanel>
         <DockPanel>
             <TabControl TabStripPlacement="Left" HorizontalContentAlignment="Left" VerticalContentAlignment="Top"
@@ -45,10 +31,10 @@
                 <TabItem Header="Suppliers">
                     <local:SuppliersTab x:Name="UcSuppliers"></local:SuppliersTab>
                 </TabItem>
-                <TabItem Header="TabItem3" Height="24" VerticalAlignment="Bottom">
+                <TabItem Header="Reports">
                     <Grid Background="#FCFAFC" >
                         <Button Content="All products" HorizontalAlignment="Left" Margin="26,29,0,0" VerticalAlignment="Top" Width="182" Click="Button_Click"/>
-
+                    
                     </Grid>
                 </TabItem>
             </TabControl>

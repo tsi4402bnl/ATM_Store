@@ -116,6 +116,7 @@
     <Compile Include="FireBase.cs" />
     <Compile Include="Databases\ItemDatabase.cs" />
     <Compile Include="Log.cs" />
+    <Compile Include="NameDays.cs" />
     <Compile Include="PupupWindows\MessageWindow.xaml.cs">
       <DependentUpon>MessageWindow.xaml</DependentUpon>
     </Compile>

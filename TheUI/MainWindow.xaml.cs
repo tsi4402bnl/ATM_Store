@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.IO;
+
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
@@ -47,6 +47,12 @@ namespace TheUI
             UcSuppliers.lbSuppliers.ItemsSource = supplierDatabase.DataView;
 
             RegisterUiControlEvents();
+            header.Content = DateTime.Today.ToString("dd.MM.yyyy");
+            header.FontWeight = FontWeights.Bold;
+            header.Margin = new Thickness(20, 10, 0, 0);
+            nameD.Content = NameDays.getNamedayNames();
+            nameD.Margin = new Thickness(5, 10, 0, 0);
+
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -56,31 +62,7 @@ namespace TheUI
             UcOrder.CbxSearchSupplier.SelectedIndex = 0;
             Log("window loaded");
         }
-
-        public string getNamedayNames()
-        {
-            string names = "";
-            var reader = new StreamReader("vardadienas.csv");
-            List<string> listB = new List<string>();
-            while (!reader.EndOfStream)
-            {
-                string line = reader.ReadLine();
-                var values = line.Split(';');
-                DateTime calendarDay = Convert.ToDateTime(values[0]);
-                DateTime now = DateTime.Today;
-
-                //check if date is today
-                if (calendarDay.Day == now.Day && calendarDay.Month == now.Month)
-                {
-                    names = values[1];
-                    break;
-                }                
-            } 
-            return names;
-        }
-
         
-
         // Log functions
         private void BtnClearLog_Log(object sender, RoutedEventArgs e) { logDatabase.Clear_Log(); }
         public void Log(string msg) { logDatabase.Log(msg); }
