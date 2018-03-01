@@ -88,7 +88,7 @@ namespace TheUI
             return names;
         }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e) { fbClient = new FireBase(Dispatcher); }
+        
 
         // Log functions
         private void BtnClearLog_Log(object sender, RoutedEventArgs e) { logDatabase.Clear_Log(); }
