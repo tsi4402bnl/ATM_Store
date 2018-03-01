@@ -37,19 +37,17 @@ namespace TheUI
         {
             init();
             fillHeaderFooter();
-            fillLines(itemDatabase);  
+            fillItemLines(itemDatabase);  
 
             const string filename = "ProductReport.pdf";
 
             document.Save(filename);
 
-            // ...and start a viewer.
-
             Process.Start(filename);
             
         }
 
-        private void fillLines(ItemDatabase itemDatabase)
+        private void fillItemLines(ItemDatabase itemDatabase)
         {
             gfx.DrawString("All Products", font12Bold, XBrushes.Black, new XRect(0, rowPosition, page.Width, page.Height), XStringFormats.TopCenter);
             rowPosition += 40;
@@ -62,7 +60,10 @@ namespace TheUI
             rowPosition += 20;
             gfx.DrawLine(XPens.DarkBlue, 10, rowPosition, 585, rowPosition);
             rowPosition += 7;
-            
+
+            double totalPrice = 0;
+            double totalQty = 0;
+
 
             foreach (ItemPropEntry item in itemDatabase.Data)
             {
@@ -71,9 +72,15 @@ namespace TheUI
                 gfx.DrawString(item.Category.Name.Value, font12, XBrushes.Black, new XRect(col3, rowPosition, page.Width, page.Height), XStringFormats.TopLeft);
                 gfx.DrawString(format2digitNumber(item.Qty.Value.ToString()), font12, XBrushes.Black, new XRect(col4, rowPosition, page.Width, page.Height), XStringFormats.TopLeft);
                 gfx.DrawString(item.Supplier.Name.Value, font12, XBrushes.Black, new XRect(col5, rowPosition, page.Width, page.Height), XStringFormats.TopLeft);
-
+                totalPrice += item.Price.Value;
+                totalQty += item.Qty.Value;
                 rowPosition += 20;
             }
+            gfx.DrawLine(XPens.DarkBlue, 10, rowPosition, 585, rowPosition);
+            rowPosition += 5;
+
+            gfx.DrawString(format2digitNumber(totalPrice.ToString()), font12, XBrushes.Black, new XRect(col2, rowPosition, page.Width, page.Height), XStringFormats.TopLeft);
+            gfx.DrawString(format2digitNumber(totalQty.ToString()), font12, XBrushes.Black, new XRect(col4, rowPosition, page.Width, page.Height), XStringFormats.TopLeft);
         }
 
         private string format2digitNumber(string numberTxt)
@@ -97,10 +104,9 @@ namespace TheUI
 
         private void fillHeaderFooter()
         {
-            //add logo
-            //TODO fix logo
-            //XImage image = XImage.FromFile("TheUI.Properties.Resources.appleServciceLogo");
-            //gfx.DrawImage(image, 380, -20, 251, 201);
+            //TODO path to Image folder?
+            XImage image = XImage.FromFile("C:/Users/ratketom/source/repos/ATM_Store/TheUI/Images/logo.png");
+            gfx.DrawImage(image, 380, -20, 251, 201);
 
             //company information
             gfx.DrawString(CompanyInfo.companyName, font12Bold, XBrushes.Black, new XRect(col1, rowPosition, page.Width, page.Height), XStringFormats.TopLeft);
@@ -110,6 +116,55 @@ namespace TheUI
             gfx.DrawString(CompanyInfo.companyPhone, font12, XBrushes.Black, new XRect(col1, rowPosition, page.Width, page.Height), XStringFormats.TopLeft);
             rowPosition += 100;
 
+        }
+
+        public void printTransactions(TransactionDatabase transactionDatabase)
+        {
+            init();
+            fillHeaderFooter();
+            fillTransLines(transactionDatabase);
+
+            const string filename = "Transactions.pdf";
+
+            document.Save(filename);
+
+            Process.Start(filename);
+        }
+
+        private void fillTransLines(TransactionDatabase transactionDatabase)
+        {
+            
+            gfx.DrawString("All Transactions", font12Bold, XBrushes.Black, new XRect(0, rowPosition, page.Width, page.Height), XStringFormats.TopCenter);
+            rowPosition += 40;
+
+            gfx.DrawString("Date", font12Bold, XBrushes.Black, new XRect(col1, rowPosition, page.Width, page.Height), XStringFormats.TopLeft);
+            gfx.DrawString("Item Name", font12Bold, XBrushes.Black, new XRect(col2, rowPosition, page.Width, page.Height), XStringFormats.TopLeft);
+            gfx.DrawString("Quantity", font12Bold, XBrushes.Black, new XRect(col4, rowPosition, page.Width, page.Height), XStringFormats.TopLeft);
+            gfx.DrawString("Price total", font12Bold, XBrushes.Black, new XRect(col5, rowPosition, page.Width, page.Height), XStringFormats.TopLeft);
+            rowPosition += 20;
+            gfx.DrawLine(XPens.DarkBlue, 10, rowPosition, 585, rowPosition);
+            rowPosition += 7;
+
+            double totalPrice = 0;
+            double totalQty = 0;
+
+
+            foreach (TransactionPropEntry trans in transactionDatabase.Data)
+            {
+                gfx.DrawString(trans.TransactionTime.Value.ToString("dd.MM.yyyy hh:mm"), font12, XBrushes.Black, new XRect(col1, rowPosition, page.Width, page.Height), XStringFormats.TopLeft);
+                gfx.DrawString(trans.ItemName.Value.ToString(), font12, XBrushes.Black, new XRect(col2, rowPosition, page.Width, page.Height), XStringFormats.TopLeft);
+                gfx.DrawString(format2digitNumber(trans.Qty.Value.ToString()), font12, XBrushes.Black, new XRect(col4, rowPosition, page.Width, page.Height), XStringFormats.TopLeft);
+                gfx.DrawString(format2digitNumber(String.Format("{0}", trans.Qty.Value * trans.SingleItemPrice.Value)), font12, XBrushes.Black, new XRect(col5, rowPosition, page.Width, page.Height), XStringFormats.TopLeft);
+                totalPrice += trans.Qty.Value * trans.SingleItemPrice.Value;
+                totalQty += trans.Qty.Value;
+                rowPosition += 20;
+            }
+            gfx.DrawLine(XPens.DarkBlue, 10, rowPosition, 585, rowPosition);
+            rowPosition += 5;
+
+            gfx.DrawString(format2digitNumber(totalPrice.ToString()), font12, XBrushes.Black, new XRect(col5, rowPosition, page.Width, page.Height), XStringFormats.TopLeft);
+            gfx.DrawString(format2digitNumber(totalQty.ToString()), font12, XBrushes.Black, new XRect(col4, rowPosition, page.Width, page.Height), XStringFormats.TopLeft);
+            
         }
     }
 }

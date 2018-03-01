@@ -50,8 +50,10 @@ namespace TheUI
             header.Content = DateTime.Today.ToString("dd.MM.yyyy");
             header.FontWeight = FontWeights.Bold;
             header.Margin = new Thickness(20, 10, 0, 0);
-            nameD.Content = NameDays.getNamedayNames();
+            nameD.Content = "Vārdadienas svin: " + NameDays.getNamedayNames();
             nameD.Margin = new Thickness(5, 10, 0, 0);
+            nameD.FontWeight = FontWeights.Bold;
+
 
         }
 
@@ -183,10 +185,17 @@ namespace TheUI
         public void RemoveProperties(string id, ISupplierPropEntryFb item) { supplierDatabase.RemoveProperties(id); }
         public void RemoveProperties(string id, ITransactionPropEntryFb item) { transactionDatabase.RemoveProperties(id); }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {            
+        private void transactionsPrint_Click(object sender, RoutedEventArgs e)
+        {
             Reports reports = new Reports();
-            reports.GenerateAllProductsReport(itemDatabase);            
+            reports.printTransactions(transactionDatabase);
+        }
+
+        private void allProducts_Click(object sender, RoutedEventArgs e)
+        {          
+
+            Reports reports = new Reports();
+            reports.GenerateAllProductsReport(itemDatabase);
         }
     }
 

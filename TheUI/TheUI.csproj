@@ -222,6 +222,27 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\orders.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\report.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\sell.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\suppliers.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\orders.png" />
+    <Resource Include="Images\report.png" />
+    <Resource Include="Images\sell.png" />
+    <Resource Include="Images\suppliers.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\logo.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

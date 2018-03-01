@@ -41,7 +41,7 @@
             </ListBox.ItemContainerStyle>
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <DockPanel Background="GhostWhite">
+                    <DockPanel Background="GhostWhite" Width="590">
                         <Image DockPanel.Dock="Left" Source="{Binding Image.Image}" Height="100" Width="100" Margin="10" />
                         <Grid Margin="0,10">
                             <Grid.ColumnDefinitions>
