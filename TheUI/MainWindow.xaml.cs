@@ -144,9 +144,10 @@ namespace TheUI
         public void AddProperties(string id, ITransactionPropEntryFb item) { transactionDatabase.AddProperties(id, item); }
 
         // Remove
-        public void     RemoveItemProperties(string id) {     itemDatabase.RemoveProperties(id); }
-        public void RemoveCategoryProperties(string id) { categoryDatabase.RemoveProperties(id); }
-        public void RemoveSupplierProperties(string id) { supplierDatabase.RemoveProperties(id); }
+        public void RemoveProperties(string id, IItemPropEntryFb item) { itemDatabase.RemoveProperties(id); }
+        public void RemoveProperties(string id, ICategoryPropEntryFb item) { categoryDatabase.RemoveProperties(id); }
+        public void RemoveProperties(string id, ISupplierPropEntryFb item) { supplierDatabase.RemoveProperties(id); }
+        public void RemoveProperties(string id, ITransactionPropEntryFb item) { transactionDatabase.RemoveProperties(id); }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {            
