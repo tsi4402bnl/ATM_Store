@@ -50,6 +50,7 @@ namespace TheUI
     {
         public SupplierDatabase(Dispatcher d) : base(d)
         {
+            Data.Add(new SupplierPropEntry("all", new SupplierPropEntryFb("(all)", ""))); // used when filtering items
             DataView.Filter = new Predicate<object>(FilterData);
         }
 

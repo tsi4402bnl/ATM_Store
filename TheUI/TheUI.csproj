@@ -116,6 +116,9 @@
     <Compile Include="FireBase.cs" />
     <Compile Include="Databases\ItemDatabase.cs" />
     <Compile Include="Log.cs" />
+    <Compile Include="PupupWindows\MessageWindow.xaml.cs">
+      <DependentUpon>MessageWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -123,16 +126,34 @@
     </Compile>
     <Compile Include="PropertyChangedBase.cs" />
     <Compile Include="Databases\SupplierDatabase.cs" />
+    <Compile Include="PupupWindows\CenterWindow.cs" />
     <Compile Include="PupupWindows\ItemImageWindow.xaml.cs">
       <DependentUpon>ItemImageWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="PupupWindows\ItemWindow.xaml.cs">
       <DependentUpon>ItemWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="PupupWindows\QuantityWindow.xaml.cs">
+      <DependentUpon>QuantityWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PupupWindows\SupplierWindow.xaml.cs">
       <DependentUpon>SupplierWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Reports.cs" />
+    <Compile Include="PupupWindows\YesNoWindow.xaml.cs">
+      <DependentUpon>YesNoWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Tabs\LogControl.xaml.cs">
+      <DependentUpon>LogControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Tabs\OrderTab.xaml.cs">
+      <DependentUpon>OrderTab.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Tabs\ShopTab.xaml.cs">
+      <DependentUpon>ShopTab.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Tabs\SuppliersTab.xaml.cs">
+      <DependentUpon>SuppliersTab.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -141,6 +162,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="PupupWindows\MessageWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="PupupWindows\ItemImageWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -149,7 +174,31 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="PupupWindows\QuantityWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="PupupWindows\SupplierWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PupupWindows\YesNoWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Tabs\LogControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Tabs\OrderTab.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Tabs\ShopTab.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Tabs\SuppliersTab.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
