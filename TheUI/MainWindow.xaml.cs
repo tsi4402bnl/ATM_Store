@@ -54,7 +54,7 @@ namespace TheUI
             nameD.Margin = new Thickness(5, 10, 0, 0);
             nameD.FontWeight = FontWeights.Bold;
 
-
+            
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -197,6 +197,7 @@ namespace TheUI
             Reports reports = new Reports();
             reports.GenerateAllProductsReport(itemDatabase);
         }
+
     }
 
 

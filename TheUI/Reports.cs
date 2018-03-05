@@ -104,8 +104,7 @@ namespace TheUI
 
         private void fillHeaderFooter()
         {
-            //TODO path to Image folder?
-            XImage image = XImage.FromFile("C:/Users/ratketom/source/repos/ATM_Store/TheUI/Images/logo.png");
+            XImage image = XImage.FromFile("Images/logo.png");
             gfx.DrawImage(image, 380, -20, 251, 201);
 
             //company information

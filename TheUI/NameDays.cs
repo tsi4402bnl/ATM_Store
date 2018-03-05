@@ -12,7 +12,7 @@ namespace TheUI
         public static string getNamedayNames()
         {
             string names = "";
-            var reader = new StreamReader("vardadienas.csv");
+            var reader = new StreamReader("Files/vardadienas.csv");
             List<string> listB = new List<string>();
             while (!reader.EndOfStream)
             {
