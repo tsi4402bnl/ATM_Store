@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:src="clr-namespace:TheUI"
         mc:Ignorable="d"
-        Title="wintouch" Height="270" Width="420" Loaded="Window_Loaded">
+        Title="Item" Height="270" Width="420" Loaded="Window_Loaded">
     
     <Grid  Name="gItem" Margin="10">
         <Grid.ColumnDefinitions>

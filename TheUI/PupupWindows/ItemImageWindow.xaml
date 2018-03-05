@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:src="clr-namespace:TheUI"
         mc:Ignorable="d"
-        Title="wintouch" Height="500" Width="430">
+        Title="Select Image" Height="500" Width="430">
 
     <Window.Resources>
         <DataTemplate x:Key="ItemTemplate">

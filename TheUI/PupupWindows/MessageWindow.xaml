@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:src="clr-namespace:TheUI"
         mc:Ignorable="d"
-        Height="200" Width="300">
+        Height="200" Width="300" Title="Info">
     <DockPanel>
         <WrapPanel DockPanel.Dock="Bottom" Margin="20" HorizontalAlignment="Center">
             <Button Width="50" Click="BtnOk_Click">OK</Button>

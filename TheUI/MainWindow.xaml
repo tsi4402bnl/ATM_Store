@@ -5,24 +5,23 @@
         Background="White"
         Width="800"
         Height="600" Loaded="Window_Loaded"
+        Title="ATM_Store"
       >
 
     <DockPanel Name="mainPanel">
         <DockPanel DockPanel.Dock="Top">
             <WrapPanel Height="50" VerticalAlignment="Center"
                        Background="#e6f2ff">
-                <Label x:Name="header"></Label>
-                <Label x:Name="nameD"></Label>
-                <Image x:Name="logo" Height="53" Width="60"/>
+                <Label x:Name="header" FontWeight="Bold" Margin="20 10 0 0"></Label>
+                <Label x:Name="nameD" FontWeight="Bold" Margin="5 10 0 0"></Label>
             </WrapPanel>
         </DockPanel>
-        <DockPanel DockPanel.Dock="Bottom" VerticalAlignment="Bottom" Height="70">
-            <!--set Visibility="Collapsed" to disable LOG-->
+        <DockPanel DockPanel.Dock="Bottom" VerticalAlignment="Bottom" Height="70" Visibility="Collapsed">
             <local:LogControl x:Name="UcLog"></local:LogControl>
         </DockPanel>
         <DockPanel>
             <TabControl TabStripPlacement="Left" HorizontalContentAlignment="Left" VerticalContentAlignment="Top"
-                        HorizontalAlignment="Stretch" SelectionChanged="TabControl_SelectionChanged">
+                        HorizontalAlignment="Stretch" SelectionChanged="UpdateSearchCriteria">
                 <TabControl.ItemContainerStyle>
                     <Style TargetType="TabItem">
                         <Setter Property="Padding" Value="10"></Setter>
