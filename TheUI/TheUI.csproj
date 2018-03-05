@@ -209,8 +209,6 @@
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
-    <None Include="bin\Debug\vardadienas.csv" />
-    <None Include="bin\Debug\vardadienas.xls" />
     <None Include="Files\vardadienas.csv">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -225,18 +223,6 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="bin\Debug\orders.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="bin\Debug\report.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="bin\Debug\sell.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="bin\Debug\suppliers.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\orders.png" />
