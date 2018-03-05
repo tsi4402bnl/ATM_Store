@@ -5,32 +5,76 @@
         Background="White"
         Width="800"
         Height="600" Loaded="Window_Loaded"
+        Title="ATM_Store"
       >
 
     <DockPanel Name="mainPanel">
         <DockPanel DockPanel.Dock="Top">
-            <WrapPanel Height="50" VerticalAlignment="Center">
-                <Label>Header</Label>
+            <WrapPanel Height="50" VerticalAlignment="Center"
+                       Background="#e6f2ff">
+                <Label x:Name="header" FontWeight="Bold" Margin="20 10 0 0"></Label>
+                <Label x:Name="nameD" FontWeight="Bold" Margin="5 10 0 0"></Label>
             </WrapPanel>
         </DockPanel>
-        <DockPanel DockPanel.Dock="Bottom" VerticalAlignment="Bottom" Height="70"><!--set Visibility="Collapsed" to disable LOG-->
+        <DockPanel DockPanel.Dock="Bottom" VerticalAlignment="Bottom" Height="70" Visibility="Collapsed">
             <local:LogControl x:Name="UcLog"></local:LogControl>
         </DockPanel>
         <DockPanel>
             <TabControl TabStripPlacement="Left" HorizontalContentAlignment="Left" VerticalContentAlignment="Top"
-                        HorizontalAlignment="Stretch" SelectionChanged="TabControl_SelectionChanged">
+                        HorizontalAlignment="Stretch" SelectionChanged="UpdateSearchCriteria">
+                <TabControl.ItemContainerStyle>
+                    <Style TargetType="TabItem">
+                        <Setter Property="Padding" Value="10"></Setter>
+                        <Setter Property="FontWeight" Value="Bold" ></Setter>
+                                            
+                    </Style>
+                </TabControl.ItemContainerStyle>
                 <TabItem Header="Shop" x:Name="ShopTab">
+                    <TabItem.HeaderTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="Images/sell.png" Width="40" Height="40" Stretch="Fill" />
+                                <TextBlock Text="Shop" Margin="15,12,0,0" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </TabItem.HeaderTemplate>
                     <local:ShopTab x:Name="UcShop"></local:ShopTab>
                 </TabItem>
                 <TabItem Header="Order" x:Name="OrderTab">
+                    <TabItem.HeaderTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="Images/orders.png" Width="40" Height="40" Stretch="Fill" />
+                                <TextBlock Text="Order" Margin="15,12,0,0" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </TabItem.HeaderTemplate>
                     <local:OrderTab x:Name="UcOrder"></local:OrderTab>
                 </TabItem>
                 <TabItem Header="Suppliers">
+                    <TabItem.HeaderTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="Images/suppliers.png" Width="40" Height="40" Stretch="Fill" />
+                                <TextBlock Text="Suppliers" Margin="15,12,0,0" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </TabItem.HeaderTemplate>
                     <local:SuppliersTab x:Name="UcSuppliers"></local:SuppliersTab>
                 </TabItem>
-                <TabItem Header="TabItem3">
+                <TabItem Header="Reports">
+                    <TabItem.HeaderTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="Images/report.png" Width="40" Height="40" Stretch="Fill" />
+                                <TextBlock Text="Reports" Margin="15,12,0,0" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </TabItem.HeaderTemplate>
                     <Grid Background="#FCFAFC" >
-                        
+                        <Button x:Name="allProducts" Content="All products" HorizontalAlignment="Left" Padding="5" Margin="26,29,0,0" VerticalAlignment="Top" Width="284" Background="#FFF5F6FF" Click="allProducts_Click"/>
+                        <Button x:Name="transactionsPrint" Content="Transactions" HorizontalAlignment="Left" Padding="5" Margin="26,62,0,0" VerticalAlignment="Top" Width="284" Background="#FFF5F6FF" Click="transactionsPrint_Click"/>
+                    
                     </Grid>
                 </TabItem>
             </TabControl>

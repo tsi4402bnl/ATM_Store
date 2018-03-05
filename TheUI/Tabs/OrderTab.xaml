@@ -23,10 +23,10 @@
             <Button Name="BtnNewItem" Width="50">
                 <TextBlock Height="Auto" TextWrapping="WrapWithOverflow" TextAlignment="Center">New Item</TextBlock>
             </Button>
-            <Button Name="BtnEditItem" Width="50">
+            <Button Name="BtnEditItem" Width="50" IsEnabled="{Binding IsEnabled, ElementName=BtnBuy}">
                 <TextBlock Height="Auto" TextWrapping="WrapWithOverflow" TextAlignment="Center">Edit Item</TextBlock>
             </Button>
-            <Button Name="BtnDeleteItem" Width="50">
+            <Button Name="BtnDeleteItem" Width="50" IsEnabled="{Binding IsEnabled, ElementName=BtnBuy}">
                 <TextBlock Height="Auto" TextWrapping="WrapWithOverflow" TextAlignment="Center">Delete Item</TextBlock>
             </Button>
             <WrapPanel DockPanel.Dock="Right" HorizontalAlignment="Right">
@@ -45,7 +45,7 @@
                 <Button Name="BtnClearFilter" Width="70">Clear Filter</Button>
             </WrapPanel>
         </DockPanel>
-        <ListBox Name="lbItems">
+        <ListBox Name="lbItems" HorizontalContentAlignment="Stretch">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <DockPanel Background="GhostWhite">

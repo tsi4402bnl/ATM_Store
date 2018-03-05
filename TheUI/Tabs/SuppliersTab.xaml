@@ -23,7 +23,7 @@
             <Button Width="50" Name="BtnDeleteSupplier" 
                                     IsEnabled="{Binding IsEnabled, ElementName=BtnEditSupplier}">Delete</Button>
         </WrapPanel>
-        <ListBox Name="lbSuppliers">
+        <ListBox Name="lbSuppliers" HorizontalContentAlignment="Stretch">
             <ListBox.ItemContainerStyle>
                 <Style TargetType="{x:Type ListBoxItem}">
                     <Style.Triggers>

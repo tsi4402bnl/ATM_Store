@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 
 namespace TheUI
@@ -45,6 +47,9 @@ namespace TheUI
             UcSuppliers.lbSuppliers.ItemsSource = supplierDatabase.DataView;
 
             RegisterUiControlEvents();
+
+            header.Content = DateTime.Today.ToString("dd.MM.yyyy");
+            nameD.Content = "Vārdadienas svin: " + NameDays.getNamedayNames();
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -52,9 +57,8 @@ namespace TheUI
             fbClient = new FireBase(Dispatcher);
             UcShop.CbxSearchSupplier.SelectedIndex = 0;
             UcOrder.CbxSearchSupplier.SelectedIndex = 0;
-            Log("window loaded");
         }
-
+        
         // Log functions
         private void BtnClearLog_Log(object sender, RoutedEventArgs e) { logDatabase.Clear_Log(); }
         public void Log(string msg) { logDatabase.Log(msg); }
@@ -69,18 +73,18 @@ namespace TheUI
             UcShop.BtnSell.Click += BtnSell_Click;
             UcShop.lbItems.PreviewMouseDoubleClick += BtnSell_Click;
             UcShop.BtnClearFilter.Click += BtnClearFilter_Click;
-            UcShop.CbxSearchSupplier.SelectionChanged += CbxSearchSupplier_SelectionChanged;
-            UcShop.TbxSearchName.TextChanged += TbxSearchName_TextChanged;
+            UcShop.CbxSearchSupplier.SelectionChanged += UpdateSearchCriteria;
+            UcShop.TbxSearchName.TextChanged += UpdateSearchCriteria;
 
             UcOrder.BtnBuy.Click += BtnBuy_Click;
             UcOrder.BtnNewItem.Click += BtnNewItem_Click;
             UcOrder.BtnEditItem.Click += BtnEditItem_Click;
             UcOrder.lbItems.PreviewMouseDoubleClick += BtnBuy_Click;
             UcOrder.BtnDeleteItem.Click += BtnDeleteItem_Click;
-            UcOrder.TbxSearchName.TextChanged += TbxSearchName_TextChanged;
+            UcOrder.TbxSearchName.TextChanged += UpdateSearchCriteria;
             UcOrder.BtnClearFilter.Click += BtnClearFilter_Click;
-            UcOrder.CbxSearchSupplier.SelectionChanged += CbxSearchSupplier_SelectionChanged;
-            UcOrder.TbxSearchName.TextChanged += TbxSearchName_TextChanged;
+            UcOrder.CbxSearchSupplier.SelectionChanged += UpdateSearchCriteria;
+            UcOrder.TbxSearchName.TextChanged += UpdateSearchCriteria;
 
             UcSuppliers.BtnNewSupplier.Click += BtnNewSupplier_Click;
             UcSuppliers.BtnEditSupplier.Click += BtnEditSupplier_Click;
@@ -91,7 +95,7 @@ namespace TheUI
         }
 
         /******************************************************* Filter items Events ******************************************************/
-        private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void UpdateSearchCriteria(object sender, EventArgs e)
         {
             if (ShopTab.IsSelected) UcShop.SetSearchCriteria(itemDatabase);
             else if (OrderTab.IsSelected) UcOrder.SetSearchCriteria(itemDatabase);
@@ -100,16 +104,6 @@ namespace TheUI
         {
             if (ShopTab.IsSelected) UcShop.ClearFilter();
             else if (OrderTab.IsSelected) UcOrder.ClearFilter();
-        }
-        private void CbxSearchSupplier_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (ShopTab.IsSelected) UcShop.SetSearchCriteria(itemDatabase);
-            else if (OrderTab.IsSelected) UcOrder.SetSearchCriteria(itemDatabase);
-        }
-        private void TbxSearchName_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (ShopTab.IsSelected) UcShop.SetSearchCriteria(itemDatabase);
-            else if (OrderTab.IsSelected) UcOrder.SetSearchCriteria(itemDatabase);
         }
 
 
@@ -175,7 +169,18 @@ namespace TheUI
         public void RemoveProperties(string id,    ISupplierPropEntryFb item) {    supplierDatabase.RemoveProperties(id); }
         public void RemoveProperties(string id, ITransactionPropEntryFb item) { transactionDatabase.RemoveProperties(id); }
 
-        
+        private void transactionsPrint_Click(object sender, RoutedEventArgs e)
+        {
+            Reports reports = new Reports();
+            reports.printTransactions(transactionDatabase);
+        }
+
+        private void allProducts_Click(object sender, RoutedEventArgs e)
+        {          
+            Reports reports = new Reports();
+            reports.GenerateAllProductsReport(itemDatabase);
+        }
+
     }
 
 
